@@ -1,0 +1,169 @@
+
+.card           { border-radius:.5rem; }
+.table img      { max-height:60px; width:auto; border-radius:.25rem; }
+.navbar-brand   { font-weight:600; }
+.badge          { font-size:.75em; }
+.alert          { border-radius:.5rem; }
+.modal-header   { background:#f1f3f5; }
+
+/* small responsive tweak */
+@media (max-width: 576px){
+.table{font-size:.8rem;}
+.btn-sm{padding:.15rem .3rem;font-size:.7rem;}
+}
+
+.video-bg {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  opacity: 0.9;
+}
+
+   .dashboard-header {
+      font-size: 2.7rem; font-weight: 800; color: #388e3c;
+      margin-bottom: 2rem; letter-spacing: 2px;
+      text-shadow: 0 2px 12px #b2dfdb, 0 1px 0 #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dashboard-header::after {
+      content: ''; display: block; width: 80px; height: 6px;
+      background: linear-gradient(90deg, #43a047 0%, #b2dfdb 100%);
+        margin-left: 1rem; border-radius: 3px;
+    }
+    
+    .table-bordered { border-radius: 0.7rem; overflow: hidden; background: #fff; }
+    .low-stock { color: #d84315; font-weight: bold; }
+    .recent-orders th, .recent-orders td { vertical-align: middle; }
+    .btn-success {
+      background: linear-gradient(90deg, #43a047 0%, #b2dfdb 100%);
+      border: none; font-weight: 700; letter-spacing: 1px;
+      color: #fff;
+      box-shadow: 0 2px 8px #388e3c44;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .btn-success:hover {
+      background: linear-gradient(90deg, #b2dfdb 0%, #43a047 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px #388e3c44;
+    }
+    .container { position: relative; z-index: 2; }
+    @media (max-width: 768px) {
+      .dashboard-header { font-size: 1.5rem; }
+      .card h5 { font-size: 1.3rem; }
+      .card .desc { font-size: 1rem; }
+    }
+    .img-colorful:hover {
+  transform: scale(1.05);
+}
+  .img-colorful:active {
+  transform: scale(0.95);
+}
+ .img-colorful {
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+      .img-colorful {
+        border: 3px solid #f8fcf9;
+        box-shadow: 0 0.5rem 1rem rgba(40,167,69,.25);
+        border-radius: 1rem;
+        transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        cursor: pointer;
+      }
+      .img-colorful:hover {
+        transform: scale(1.07);
+        box-shadow: 0 1.5rem 2.5rem rgba(40,167,69,.35);
+        border-color: #24f52e;
+        filter: brightness(1.08) saturate(1.2);
+      }
+      .img-colorful:active {
+        transform: scale(0.97);
+        box-shadow: 0 0.5rem 1rem rgba(40,167,69,.15);
+        border-color: #1ad8f9;
+        filter: brightness(0.95);
+      }
+
+      .search-btn {
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.search-btn i {
+    font-size: 1.1rem;
+}
+
+.search-btn:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.search-btn:active {
+    transform: scale(0.97);
+}
+
+/* ----- glass-morphic card ----- */
+.glass{
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,.07);
+}
+.glass .card-header{
+  background: transparent;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+/* ----- stock list ----- */
+.stock-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.stock-list li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .55rem .75rem;
+  background: rgba(255,193,7,.08);
+  border-radius: .6rem;
+}
+.stock-list .name{
+  font-size: .9rem;
+  color: #212529;
+}
+.stock-dot{
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #fff;
+  background: #ff4757;
+  box-shadow: 0 2px 6px rgba(255,71,87,.35);
+}
+
+/* ----- success icon ----- */
+.icon-wrap{
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-content: center;
+  color: #fff;
+  font-size: 1.4rem;
+}
+    
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+

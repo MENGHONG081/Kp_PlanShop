@@ -1,0 +1,7 @@
+# Ignore sensitive & generated files
+.env
+.env.*
+vendor/
+logs/
+.DS_Store
+Thumbs.db

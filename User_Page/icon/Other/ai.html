@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KP Plant_Shop - Your Green Paradise</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #4caf50;
+            --light-color: #e8f5e9;
+            --dark-color: #1b5e20;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: #333 !important;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .product-card .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-color);
+            border-color: var(--dark-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .promotion-card {
+            background-color: var(--light-color);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .story-image {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .partner-logo {
+            height: 60px;
+            margin: 10px;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0%);
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-flower1 me-2"></i>KP Plant_Shop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#story">Our Story</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#promotions">Promotions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#activities">Activities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="input-group me-3">
+                        <input type="text" class="form-control" placeholder="Search plants...">
+                        <button class="btn btn-outline-success" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    <a href="#" class="text-dark me-3">
+                        <i class="bi bi-cart3"></i>
+                    </a>
+                    <a href="#" class="text-dark">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Welcome to KP Plant_Shop</h1>
+            <p class="lead mb-4">Your one-stop shop for all things green and beautiful!</p>
+            <a href="#products" class="btn btn-primary btn-lg me-2">Shop Now</a>
+            <a href="#story" class="btn btn-outline-light btn-lg">Our Story</a>
+        </div>
+    </section>
+
+    <!-- Short Story Section -->
+    <section class="py-5" id="story">
+        <div class="container">
+            <h2 class="section-title">Short Story</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-3">Our Journey</h3>
+                    <p class="mb-4">KP Plant_Shop started as a small family business with a passion for plants and gardening. Over the years, we have grown into a beloved local shop, offering a wide variety of plants and gardening supplies to our community.</p>
+                    
+                    <h3 class="mb-3">Our Mission</h3>
+                    <p class="mb-4">Our mission is to provide high-quality plants and exceptional customer service. We believe that everyone should have access to beautiful greenery, and we strive to make gardening accessible and enjoyable for all.</p>
+                    
+                    <h3 class="mb-3">Community Involvement</h3>
+                    <p>We are proud to be an active member of our community. We regularly host gardening workshops, plant swaps, and other events to bring plant enthusiasts together and share our love for gardening.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Plant Shop Interior" class="img-fluid story-image">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Plant Selection" class="img-fluid story-image">
+                        </div>
+                        <div class="col-6">
+                            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Garden Workshop" class="img-fluid story-image">
+                        </div>
+                        <div class="col-6">
+                            <img src="https://images.unsplash.com/photo-1463320726281-696a485928c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Plant Care" class="img-fluid story-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Seller Section -->
+    <section class="py-5 bg-light" id="products">
+        <div class="container">
+            <h2 class="section-title">Best Seller</h2>
+            <p class="text-center mb-5">This Product Is Popular For Together.</p>
+            
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Fiddle Leaf Fig">
+                        <div class="card-body">
+                            <h5 class="card-title">Fiddle Leaf Fig</h5>
+                            <p class="card-text text-muted">Updated 2 days ago</p>
+                            <p class="h5 text-primary">$45.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Snake Plant">
+                        <div class="card-body">
+                            <h5 class="card-title">Snake Plant</h5>
+                            <p class="card-text text-muted">Updated 2 days ago</p>
+                            <p class="h5 text-primary">$30.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Monstera Deliciosa">
+                        <div class="card-body">
+                            <h5 class="card-title">Monstera Deliciosa</h5>
+                            <p class="card-text text-muted">Updated 2 days ago</p>
+                            <p class="h5 text-primary">$50.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Peace Lily">
+                        <div class="card-body">
+                            <h5 class="card-title">Peace Lily</h5>
+                            <p class="card-text text-muted">Updated 2 days ago</p>
+                            <p class="h5 text-primary">$25.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotion Section -->
+    <section class="py-5" id="promotions">
+        <div class="container">
+            <h2 class="section-title">Promotions</h2>
+            <p class="text-center mb-5">Buy Now! It's Promotion Product in our Shop.</p>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card promotion-card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Summer Sale - 20% Off All Succulents!</h4>
+                            <p class="card-text">Get your favorite succulents at a discounted price this summer. Limited time offer!</p>
+                            <div class="d-flex">
+                                <button class="btn btn-primary me-2">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                            <div class="mt-3">
+                                <img src="https://images.unsplash.com/photo-1518623380242-d9920e4a4e67?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Succulent Detail" class="img-thumbnail me-2" style="width: 80px; height: 80px; object-fit: cover;">
+                                <img src="https://images.unsplash.com/photo-1566249255447-89d79c9c8cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Succulent Detail" class="img-thumbnail me-2" style="width: 80px; height: 80px; object-fit: cover;">
+                                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Succulent Detail" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card promotion-card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Buy One Get One Free on Select Houseplants!</h4>
+                            <p class="card-text">For a limited time, buy one houseplant and get another one free. Perfect for expanding your indoor garden!</p>
+                            <div class="d-flex">
+                                <button class="btn btn-primary me-2">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                            <div class="mt-3">
+                                <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Houseplant Detail" class="img-thumbnail me-2" style="width: 80px; height: 80px; object-fit: cover;">
+                                <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Houseplant Detail" class="img-thumbnail me-2" style="width: 80px; height: 80px; object-fit: cover;">
+                                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Houseplant Detail" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Products Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Our Products</h2>
+            <p class="text-center mb-5">We Have Product Buy To Day Make Go Luck. Plant Heal Feeling Fresh !!</p>
+            
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Aloe Vera">
+                        <div class="card-body">
+                            <h5 class="card-title">Aloe Vera</h5>
+                            <p class="h5 text-primary">$15.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Spider Plant">
+                        <div class="card-body">
+                            <h5 class="card-title">Spider Plant</h5>
+                            <p class="h5 text-primary">$20.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Boston Fern">
+                        <div class="card-body">
+                            <h5 class="card-title">Boston Fern</h5>
+                            <p class="h5 text-primary">$35.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598880940086-4f4570ca1db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Rubber Plant">
+                        <div class="card-body">
+                            <h5 class="card-title">Rubber Plant</h5>
+                            <p class="h5 text-primary">$40.00</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Add to Cart</button>
+                                <button class="btn btn-outline-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section class="py-5" id="activities">
+        <div class="container">
+            <h2 class="section-title">More Activity</h2>
+            <p class="text-center mb-5">Join Our Community Events and Activities</p>
+            
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card activity-card h-100">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Gardening Workshop">
+                        <div class="card-body">
+                            <h5 class="card-title">Gardening Workshop</h5>
+                            <p class="card-text">Join us for a hands-on gardening workshop where you'll learn tips and tricks for growing healthy plants.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card activity-card h-100">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Plant Swap Event">
+                        <div class="card-body">
+                            <h5 class="card-title">Plant Swap Event</h5>
+                            <p class="card-text">Bring your extra plants and swap them with other plant enthusiasts in the community.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card activity-card h-100">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Seasonal Plant Sale">
+                        <div class="card-body">
+                            <h5 class="card-title">Seasonal Plant Sale</h5>
+                            <p class="card-text">Don't miss our seasonal plant sale with discounts on a wide variety of plants.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card activity-card h-100">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Kids Gardening Day">
+                        <div class="card-body">
+                            <h5 class="card-title">Kids' Gardening Day</h5>
+                            <p class="card-text">A fun-filled day for kids to learn about plants and gardening through interactive activities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Customer Feedback</h2>
+            <p class="text-center mb-5">We value your feedback! Please let us know about your experience at KP Plant_Shop.</p>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100">
+                        <div class="testimonial-text">
+                            "I absolutely love KP Plant_Shop! The plants are always healthy and the staff is so knowledgeable. My home has never looked better!"
+                        </div>
+                        <div class="testimonial-author">- Sarah Johnson</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100">
+                        <div class="testimonial-text">
+                            "The workshops at KP Plant_Shop have transformed my gardening skills. I've learned so much and my plants are thriving thanks to their expert advice."
+                        </div>
+                        <div class="testimonial-author">- Michael Chen</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100">
+                        <div class="testimonial-text">
+                            "Best plant shop in town! Great selection, fair prices, and the staff really cares about helping you find the perfect plants for your space."
+                        </div>
+                        <div class="testimonial-author">- Emily Rodriguez</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title">Our Partners</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <img src="https://via.placeholder.com/150x80/4caf50/ffffff?text=GreenLife" alt="Partner 1" class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80/4caf50/ffffff?text=NatureWorks" alt="Partner 2" class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80/4caf50/ffffff?text=PlantCare" alt="Partner 3" class="partner-logo">
+                    <img src="https://via.placeholder.com/150x80/4caf50/ffffff?text=GardenPro" alt="Partner 4" class="partner-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4 class="mb-3"><i class="bi bi-flower1 me-2"></i>KP Plant_Shop</h4>
+                    <p>Your one-stop shop for all things green and beautiful. We provide high-quality plants and gardening supplies to help you create your perfect green space.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-light text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#story" class="text-light text-decoration-none">Our Story</a></li>
+                        <li class="mb-2"><a href="#products" class="text-light text-decoration-none">Products</a></li>
+                        <li class="mb-2"><a href="#promotions" class="text-light text-decoration-none">Promotions</a></li>
+                        <li class="mb-2"><a href="#activities" class="text-light text-decoration-none">Activities</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <p class="mb-2"><i class="bi bi-geo-alt me-2"></i>123 Green Street, Plant City</p>
+                    <p class="mb-2"><i class="bi bi-telephone me-2"></i>(555) 123-4567</p>
+                    <p class="mb-2"><i class="bi bi-envelope me-2"></i>info@kpplantshop.com</p>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <h5 class="mb-3">Newsletter</h5>
+                    <p>Subscribe to our newsletter for the latest updates and promotions.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: #555;">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p>&copy; 2024 KP Plant_Shop. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li class="list-inline-item mx-2">|</li>
+                        <li class="list-inline-item"><a href="#" class="text-light text-decoration-none">Terms of Service</a></li>
+                        <li class="list-inline-item mx-2">|</li>
+                        <li class="list-inline-item"><a href="#" class="text-light text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
