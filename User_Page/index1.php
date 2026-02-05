@@ -98,6 +98,13 @@ try {
     $errorMessage = 'Error loading profile. Please try again.';
     error_log("Profile fetch error: " . $e->getMessage());
 }
+// silde page user
+if (isset($_GET['imgUrl']) && isset($_GET['title']) && isset($_GET['desc'])) {
+    $imgUrl = $_GET['imgUrl'];
+    $title  = $_GET['title'];
+    $desc   = $_GET['desc'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -256,6 +263,25 @@ try {
   position: sticky;
   top: 0;
   width: 100%;
+}
+
+/* Top nav / header theme */
+header, .navbar, .top-nav {
+  background: linear-gradient(90deg,#16a34a 0%, #059669 100%);
+  color: #fff;
+}
+header a, .navbar a { color: rgba(255,255,255,0.95); }
+header .btn, .navbar .btn { border-radius: 999px; }
+
+/* Footer theme */
+footer {
+  background: linear-gradient(90deg,#16a34a 0%, #059669 100%);
+  color: #fff;
+}
+
+/* Ensure login/signup anchors stand out */
+a[href*="login.php"], a[href*="signup.php"]{
+  background: #fff; color:#059669; padding: .4rem .8rem; border-radius: 999px; font-weight:600; text-decoration:none;
 }
 </style>
 </head>
@@ -1013,6 +1039,20 @@ try {
     chatWindow.style.display = "flex";
   }
 }
+
+document.addEventListener('click', function(e){
+  const a = e.target.closest('a');
+  if(a){
+    const href = (a.getAttribute('href') || '').toLowerCase();
+    if(href.includes('login.php') || href.includes('signup.php')) return;
+  }
+  const protectedEl = e.target.closest('.protected-action, button, a, .card, .product-card, [role="button"]');
+  if(protectedEl){
+    e.preventDefault();
+    alert('Please login first!');
+    window.location.href = 'login.php';
+  }
+});
 </script>
 </body>
 </html>

@@ -160,9 +160,52 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                     <button class="btn btn-logout" onclick="window.location.href='sitting_pageuser.php';">
                         <i class="fas fa-sign-out-alt me-1"></i>Sitting PageUser
                     </button>
+                    <!-- Trigger Button -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#carouselModal">
+                    Create Pop Up
+                    </button>
+
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+                <div class="modal fade" id="carouselModal" tabindex="-1" aria-labelledby="carouselModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <form id="carouselForm">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="carouselModalLabel">Add New Slide</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="imgUrl" class="form-label">Image URL</label>
+                            <input type="text" id="imgUrl" class="form-control" placeholder="Image URL" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="slideTitle" class="form-label">Title</label>
+                            <input type="text" id="slideTitle" class="form-control" placeholder="Title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="slideDesc" class="form-label">Description</label>
+                            <textarea id="slideDesc" class="form-control" placeholder="Description" required></textarea>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Save Slide</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Carousel -->
+                <div id="customCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+                <div class="carousel-inner" id="carouselInner"></div>
+                </div>
+
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -234,6 +277,47 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                 passwordCard.style.display = "none";  // hide card
             }
             });
+
+            document.getElementById("carouselForm").addEventListener("submit", e => {
+                e.preventDefault();
+                const slides = JSON.parse(localStorage.getItem("slides") || "[]");
+                slides.push({
+                    image: document.getElementById("imgUrl").value,
+                    title: document.getElementById("slideTitle").value,
+                    description: document.getElementById("slideDesc").value
+                });
+                localStorage.setItem("slides", JSON.stringify(slides));
+                alert("Slide saved!");
+
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById("carouselModal"));
+                modal.hide();
+
+                // Refresh carousel
+                loadSlides();
+                });
+
+                function loadSlides() {
+                const slides = JSON.parse(localStorage.getItem("slides") || "[]");
+                const carouselInner = document.getElementById("carouselInner");
+                carouselInner.innerHTML = "";
+                slides.forEach((slide, index) => {
+                    const item = document.createElement("div");
+                    item.className = "carousel-item" + (index === 0 ? " active" : "");
+                    item.innerHTML = `
+                    <img src="${slide.image}" class="d-block w-100" style="max-height:70vh; object-fit:cover;" alt="${slide.title}">
+                    <div class="carousel-caption d-flex flex-column justify-content-center h-100 text-white text-start ps-5 pb-5">
+                        <h2 class="display-4 fw-bold mb-3 text-shadow">${slide.title}</h2>
+                        <p class="fs-4 fw-light mb-4 opacity-90">${slide.description}</p>
+                    </div>
+                    `;
+                    carouselInner.appendChild(item);
+                });
+                }
+
+                // Load slides on page load
+                loadSlides();
+
     </script>
 </body>
 </html>

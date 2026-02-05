@@ -2,6 +2,7 @@
 session_start();
 require 'config.php';
 require_once __DIR__ . '/../vendor/autoload.php';
+
   // loads everything above
 
 use KHQR\BakongKHQR;
@@ -13,6 +14,30 @@ use chillerlan\QRCode\QROptions;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
 $dotenv->load();
+
+// Example order data
+
+/*$merchant_id = $_ENV['PAYWAY_MERCHANT_ID'];
+$return_url  = $_ENV['PAYWAY_RETURN_URL'];
+$cancel_url  = $_ENV['PAYWAY_CANCEL_URL'];
+$env         = $_ENV['PAYWAY_ENV'];
+$privateKey = str_replace('\n', "\n", $_ENV['PAYWAY_PRIVATE_KEY']);
+$publicKey  = str_replace('\n', "\n", $_ENV['PAYWAY_PUBLIC_KEY']);
+
+// Prepare data string
+$data = $merchant_id . $order_id . ($grand_total * 100) . "USD";
+
+// Sign with RSA private key
+$privateKeyResource = openssl_pkey_get_private($private_key);
+openssl_sign($data, $signature, $privateKeyResource, OPENSSL_ALGO_SHA256);
+openssl_free_key($privateKeyResource);
+$signatureBase64 = base64_encode($signature);
+
+// Decide endpoint
+$actionUrl = $env === 'sandbox'
+    ? 'https://sandbox.payway.com.kh/'
+    : 'https://checkout.payway.com.kh/';*/
+
 
 // Credentials from .env
 $token         = $_ENV['BAKONG_TOKEN']       ?? die('Missing BAKONG_TOKEN in .env');
@@ -55,6 +80,56 @@ $date= $order['created_at'];
 $tax = 0; // Adjust if needed
 $grand_total = round($order_total + $tax, 2);
 
+// PayWay / Card payment configuration
+$merchant_id = $_ENV['PAYWAY_MERCHANT_ID'] ?? null;
+$return_url  = $_ENV['PAYWAY_RETURN_URL']  ?? '';
+$cancel_url  = $_ENV['PAYWAY_CANCEL_URL']  ?? '';
+$payway_env  = $_ENV['PAYWAY_ENV']         ?? 'sandbox';
+$private_key_env = $_ENV['PAYWAY_PRIVATE_KEY'] ?? null;
+$private_key_path = $_ENV['PAYWAY_PRIVATE_KEY_PATH'] ?? null; // optional: path to PEM file on disk
+
+$actionUrl = $payway_env === 'sandbox'
+    ? 'https://sandbox.payway.com.kh/'
+    : 'https://checkout.payway.com.kh/';
+
+$signatureBase64 = '';
+$cardError = null;
+
+// If a key file path is provided, prefer loading that (safer than storing key in .env)
+if ($private_key_path && file_exists($private_key_path)) {
+    $fileContents = @file_get_contents($private_key_path);
+    if ($fileContents !== false) {
+        $private_key_env = $fileContents;
+    }
+}
+
+if ($merchant_id && $private_key_env) {
+    $amountCents = (int)round($grand_total * 100);
+    $dataToSign = $merchant_id . $order_id . $amountCents . "USD";
+    $privateKeyPem = str_replace('\\n', "\n", $private_key_env);
+
+    $pkey = @openssl_pkey_get_private($privateKeyPem);
+    if ($pkey !== false) {
+        $ok = openssl_sign($dataToSign, $signature, $pkey, OPENSSL_ALGO_SHA256);
+        openssl_free_key($pkey);
+        if ($ok) {
+            $signatureBase64 = base64_encode($signature);
+        } else {
+            $cardError = "Failed to generate payment signature.";
+        }
+    } else {
+        $opensslErr = '';
+        while ($err = openssl_error_string()) { $opensslErr .= $err . ' | '; }
+        $cardError = "Invalid PayWay private key configuration.";
+        if (!empty($opensslErr)) {
+            // Append a short OpenSSL hint (do not expose key contents)
+            $cardError .= " (OpenSSL: " . rtrim($opensslErr, ' | ') . ")";
+        }
+    }
+} else {
+    $cardError = "Card payment is not configured.";
+}
+
 // Bakong account details
 $name      = "YAUN MENGHONG";
 $city      = "Phnom Penh";
@@ -96,22 +171,33 @@ $qrImages = [
 ];
 
 // photo
+// initialize upload variables for template
+$uploaded_file = $uploaded_file ?? null;
+$upload_message = $upload_message ?? null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Handle image posted from camara.php or direct upload
+    $uploaded_file = null;
+    $upload_message = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
         $uploadDir = "uploads/";
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
-        $fileName = time() . "_" . basename($_FILES['image']['name']);
+        $fileName = time() . "_" . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['image']['name']));
         $targetPath = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
-            echo "Photo uploaded successfully!";
+            $upload_message = "Photo uploaded successfully!";
+            // store relative path for preview later in the page
+            $uploaded_file = $targetPath;
         } else {
-            echo "Failed to upload photo.";
+            $upload_message = "Failed to upload photo.";
         }
     } else {
-        echo "No photo selected.";
+        $upload_message = "No photo selected.";
     }
+
+    // Make $uploaded_file and $upload_message available to the template below
+    // (these variables will be used in the HTML to show the upload section/preview)
 }
 
 ?>
@@ -163,9 +249,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="layout-container flex grow flex-col">
         <header class="border-b border-border-light dark:border-border-dark">
             <div class="container mx-auto flex h-20 items-center justify-center px-4 md:px-6">
-                <a class="flex items-center gap-2 text-2xl font-bold text-primary" href="#">
-                    <span class="material-symbols-outlined text-3xl">potted_plant</span>
-                    Plant Shop
+                <a class="flex items-center gap-2 text-2xl font-bold text-primary" href="index1.php">
+                     <img src="icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" alt="KP Plant_Shop Logo" width="40" height="40" class="img-colorful me-2" />
+                    KP Plant_Shop
                 </a>
             </div>
         </header>
@@ -278,19 +364,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div id="qrcode1"></div> 
                                     
                                     <p class="mt-4 text-sm font-semibold text-orange-600">
-                                        Valid for: <span id="qr-time">10:00</span>
+                                        Valid for: <span id="qr-time">Not Limited</span>
                                     </p>
+                                    <p class="text-gray-700 leading-relaxed">
+                                After completing your payment, please choose one of the verification methods below. 
+                                Don’t forget to upload your payment screenshot so we can confirm it.  
+                                </p>
+
+                                <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+                                <li>
+                                    <span class="font-semibold text-green-600">Telegram Bot AI Verify:</span>  
+                                    Click the button to open our bot and send your payment screenshot for instant AI verification.
+                                </li>
+                                <li>
+                                    <span class="font-semibold text-purple-600">Telegram Admin:</span>  
+                                    Click the button to contact our admin directly on Telegram for manual verification.
+                                </li>
+                                <li>
+                                    <span class="font-semibold text-blue-600">Upload QR Verify:</span>  
+                                    Click the button to upload your payment screenshot directly through our website for confirmation.
+                                </li>
+                                </ul>
+
+                                <p class="mt-3 text-sm text-orange-600 font-semibold">
+                                Note: This QR code is static. Please use the image QR provided above.
+                                </p>
+                                <h3 class="mt-3 text-sm text-orange-600 font-semibold">Choose Verification Method:</h3>
                                 </div>
                                 <div id="expired-message" style="display:none;" class="text-red-500 font-bold">
-                                    QR Code has expired. Please refresh the page to try again.
+                                    <p>QR Code Expired. Please select the payment method again to generate a new QR code.</p>
+                                    
                                 </div>
                             <!-- Buttom Section -->
-                          <div class="flex flex-col md:flex-row gap-2 mt-5" id="qr-buttons">
-                            <button class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 flex items-center gap-2" onclick="window.open('https://t.me/MENGHONGY081', '_blank')">
-                                <i class="fab fa-telegram"></i> Telegram
+                          <div class="flex flex-col md:flex-row gap-2 mt-5 items-center justify-center " id="qr-buttons">
+                            
+                            <button onclick="window.open('https://t.me/Kp_PlanshopAI_bot', '_blank')" 
+                            class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 flex items-center gap-2">
+                            <i class="fab fa-telegram"></i> Bot AI Verify
+                            </button>
+                            <button class="bg-purple-600 text-white px-4 py-2 rounded shadow hover:bg-purple-700 flex items-center gap-2" onclick="window.open('https://t.me/MENGHONGY081', '_blank')">
+                                <i class="fab fa-telegram"></i> Telegram Admin
                             </button>
                             <button class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 flex items-center gap-2">
-                                <i class="fas fa-upload"></i> Upload QR
+                                <i class="fas fa-upload"></i> Upload QR Verify
                             </button>
                         </div>
                         </div>
@@ -305,20 +421,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <p class="text-sm text-gray-500 mb-8">Order #<?= str_pad($order['id'], 6, '0', STR_PAD_LEFT) ?> • Plant Shop, Phnom Penh</p>
                                 
                                 <!-- Simple button that triggers redirect to PayWay -->
-                                <form action="https://checkout.payway.com.kh/" method="POST"> <!-- Use sandbox URL for testing: https://sandbox.payway.com.kh/ -->
-                                    <!-- Hidden fields - replace with your real PayWay values -->
-                                    <input type="hidden" name="merchant_id" value="YOUR_MERCHANT_ID">
-                                    <input type="hidden" name="amount" value="<?= $grand_total * 100 ?>"> <!-- in cents / smallest unit -->
-                                    <input type="hidden" name="currency" value="USD"> <!-- or KHR -->
-                                    <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
-                                    <input type="hidden" name="return_url" value="https://your-site.com/payment/success?order=<?= $order['id'] ?>">
-                                    <input type="hidden" name="cancel_url" value="https://your-site.com/payment/cancel">
-                                    <!-- Add more required fields like hash for security - see PayWay docs -->
-                                    
-                                    <button type="submit" class="bg-primary text-white font-bold py-4 px-10 rounded-xl text-lg hover:bg-primary-dark transition">
+                                <form action="<?= htmlspecialchars($actionUrl) ?>" method="POST">
+                                    <?php if (!empty($cardError)): ?>
+                                        <div class="mb-4 text-red-600 font-semibold"><?= htmlspecialchars($cardError) ?></div>
+                                    <?php endif; ?>
+
+                                    <input type="hidden" name="merchant_id" value="<?= htmlspecialchars($merchant_id ?? '') ?>">
+                                    <input type="hidden" name="order_id" value="<?= htmlspecialchars($order_id) ?>">
+                                    <input type="hidden" name="amount" value="<?= htmlspecialchars((int)round($grand_total * 100)) ?>">
+                                    <input type="hidden" name="currency" value="USD">
+                                    <input type="hidden" name="return_url" value="<?= htmlspecialchars($return_url) ?>?order=<?= htmlspecialchars($order_id) ?>">
+                                    <input type="hidden" name="cancel_url" value="<?= htmlspecialchars($cancel_url) ?>">
+                                    <input type="hidden" name="signature" value="<?= htmlspecialchars($signatureBase64) ?>">
+
+                                    <button type="submit" <?php if (!empty($cardError)) echo 'disabled'; ?> class="w-full rounded-xl bg-pink-500 hover:bg-indigo-700 text-white font-semibold py-3 shadow-lg transition mt-6 flex items-center justify-center gap-2 <?php if (!empty($cardError)) echo 'opacity-50 cursor-not-allowed'; ?>">
                                         Pay Now with Card ($<?= number_format($grand_total, 2) ?>)
                                     </button>
                                 </form>
+
                                 
                                 <p class="mt-8 text-gray-600">Secure payment processed by ABA PayWay. We accept Visa, Mastercard, and more.</p>
                                 
@@ -332,7 +452,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                         <form action="upload.php" method="POST" enctype="multipart/form-data"
                             id="upload-form"
-                            class="mt-8 hidden rounded-2xl bg-surface-light dark:bg-surface-dark p-10 text-center shadow-2xl">
+                            class="mt-8 <?= isset($uploaded_file) && $uploaded_file ? '' : 'hidden' ?> rounded-2xl bg-surface-light dark:bg-surface-dark p-10 text-center shadow-2xl  ">
                             <!-- Header -->
                             <div class="text-center">
                                 <h2 class="text-2xl font-bold text-slate-800 dark:text-white">
@@ -342,6 +462,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     Upload your payment screenshot for confirmation
                                 </p>
                             </div>
+                            <?php if (!empty($upload_message)): ?>
+                                <div class="mt-4 mb-4 text-sm <?= (strpos($upload_message,'successfully')!==false)?'text-green-600':'text-red-600' ?> font-semibold"><?= htmlspecialchars($upload_message) ?></div>
+                            <?php endif; ?>
                             <!-- Order ID -->
                             <div class="grid grid-cols-2 gap-4">
                                 <!-- Hidden inputs for order data -->
@@ -371,7 +494,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     value="<?= htmlspecialchars($grand_total ?? '') ?>">
                             </div>
                             <!-- Order Date -->
-                            <div>
+                            <div>   
                                 <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">
                                     Order Date
                                 </label>
@@ -390,7 +513,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Upload Screenshot</label>
 
                                 <!-- Hidden real file input -->
-                                <input type="file" name="image" id="imgInput" accept="image/*" required class="hidden">
+                                <input type="file" name="image" id="imgInput" accept="image/*" <?= isset($uploaded_file) && $uploaded_file ? '' : 'required' ?> class="hidden">
 
                                 <!-- Styled label acts as button -->
                                 <label for="imgInput"
@@ -398,30 +521,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     📤 Choose Payment Screenshot
                                 </label>
 
-                                <!-- Show selected file name -->
-                                <p id="file-name" class="mt-3 text-sm text-slate-600 dark:text-slate-400">
-                                    No file selected
+                                <!-- Show selected file name or uploaded file -->
+                                <p id="file-name" class="mt-3 text-sm text-slate-600 dark:text-slate-400"><?php if (!empty($uploaded_file)): ?><?= htmlspecialchars(basename($uploaded_file)) ?><?php else: ?>No file chosen yet.<?php endif; ?>
                                 </p>
 
                                 <!-- Optional preview -->
                                 <div class="mt-4">
-                                    <img id="preview" class="hidden max-w-full h-auto rounded-xl mx-auto shadow" alt="Preview">
+                                    <img id="preview" class="<?= isset($uploaded_file) && $uploaded_file ? '' : 'hidden' ?> max-w-full h-auto rounded-xl mx-auto shadow" alt="Preview" <?php if (!empty($uploaded_file)): ?>src="<?= htmlspecialchars($uploaded_file) ?>"<?php endif; ?>>
                                 </div>
-                            </div>
-                            </div>
-                            <!-- Submit Button -->
-                            <button type="submit"
-                                    class="w-full rounded-xl bg-pink-500
-                                        hover:bg-indigo-700
-                                        text-white font-semibold py-3
-                                        shadow-lg transition mt-6 flex items-center justify-center gap-2">
-                                Verify Payment
-                            </button>
-                            <!-- Uplaod Img to feild  by photo -->
-                            <button type="button" class="w-full rounded-xl bg-indigo-600
-                                        hover:bg-indigo-700
-                                        text-white font-semibold py-3
-                                        shadow-lg transition mt-6 flex items-center justify-center gap-2" onclick="location.href='camara.php'" > 📸 Photo transaction</button>
+
+                                <?php if (!empty($uploaded_file)): ?>
+                                    <input type="hidden" name="uploaded_file" value="<?= htmlspecialchars($uploaded_file) ?>">
+                                <?php endif; ?>
+                                    </div>
+                                    </div>
+                                    <div class="col-span-2 mb-5">
+                                        <!-- Submit Button -->
+                                       <button type="submit" id="verify-btn"
+                                            class="w-full rounded-xl bg-pink-500
+                                                hover:bg-indigo-700
+                                                text-white font-semibold py-3
+                                                shadow-lg transition mt-6 flex items-center justify-center  gap-2">
+                                                <img src="image/ai.png" alt="AI" class="w-10 h-10">
+                                                <span id="verify-btn-text">Verify Payment By AI</span>
+                                        </button>
+                                    </div>
+                                    
+                                                <!-- Uplaod Img to feild  by photo -->
+                                        <button type="button" class="w-full rounded-xl bg-indigo-600
+                                                    hover:bg-indigo-700
+                                                    text-white font-semibold py-3
+                                                    shadow-lg transition mt-6 flex items-center justify-center gap-2" onclick="location.href='camara.php?order=<?= htmlspecialchars($order_id) ?>'" > 📸 Photo transaction</button>
+                                            
+
                             <!-- scan to AI Analysis -->
                             <button type="button" class="w-full rounded-xl bg-indigo-600
                                         hover:bg-indigo-700
@@ -515,9 +647,40 @@ document.querySelectorAll('input[name="payment"]').forEach(radio => {
         payBtn.classList.remove('opacity-60','cursor-not-allowed');
  
         // KHQR QR code generation
-        if (this.value === 'qr') {
+
+        // 1. Move the timer function OUTSIDE the event listener
+            function startTimer(durationInSeconds, displayElement, sectionToHide, pollingInterval) {
+                let timer = durationInSeconds;
+                let minutes, seconds;
+
+                const countdown = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    displayElement.textContent = minutes + ":" + seconds;
+
+                    if (--timer < 0) {
+                        clearInterval(countdown);
+                        clearInterval(pollingInterval); // STOP checking payment if expired
+                        
+                        sectionToHide.style.display = "none";
+                        const expiredMsg = document.getElementById('expired-message');
+                        if(expiredMsg) expiredMsg.style.display = "block";
+                    }
+                }, 1000);
+                
+                return countdown; // Return so we can clear it if payment succeeds early
+            }
+
+            // 2. Inside your selection change listener
+            if (this.value === 'qr') {
                 qrSection.classList.remove('hidden');
-                qrButtons.style.visibility = "hidden"; // Hide buttons in QR section
+                qrButtons.style.visibility = "hidden"; 
+
+                // Initialize QR
                 qrInstance = new QRCode(qrcodeDiv, {
                     text: <?= json_encode($khqr_payload) ?>,
                     width: 280,
@@ -527,56 +690,34 @@ document.querySelectorAll('input[name="payment"]').forEach(radio => {
                     correctLevel: QRCode.CorrectLevel.H
                 });
                 qrLogo.src = "https://devithuotkeo.com/static/image/portfolio/khqr/khqr-5.png";
-                // Check payment status every 3 seconds
-                    const checkStatus = setInterval(() => {
-                    fetch(`verify_payment.php?md5=<?php echo $md5_hash; ?>&order_id=<?php echo $order['id']; ?>&amount=<?php echo $grand_total; ?>`)
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                clearInterval(checkStatus);
-                                window.location.href = 'success.php?order_id=<?php echo $order['id']; ?>';
-                            }
-                        });
-                }, 3000);
 
+                // Start Polling
+                // Polling Interval
+                            const checkStatus = setInterval(() => {
+                                fetch('verify_payment.php', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        md5: '<?= $md5_hash ?>',
+                                        order_id: '<?= $order['id'] ?>',
+                                        amount: '<?= $grand_total ?>' // CRITICAL: This was missing!
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success === true) {
+                                        clearInterval(checkStatus);
+                                        alert("Payment Successful!");
+                                        window.location.href = 'successgr.php?order_id=<?= $order['id'] ?>';
+                                    }
+                                })
+                                .catch(err => console.error('Error:', err));
+                            }, 3000);
 
-                function startTimer(durationInSeconds, displayElement, sectionToHide) {
-                            let timer = durationInSeconds;
-                            let minutes, seconds;
-
-                            const countdown = setInterval(function () {
-                                minutes = parseInt(timer / 60, 10);
-                                seconds = parseInt(timer % 60, 10);
-
-                                // Format: Adds a leading zero if less than 10
-                                minutes = minutes < 10 ? "0" + minutes : minutes;
-                                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                                displayElement.textContent = minutes + ":" + seconds;
-
-                                // When the timer reaches 0
-                                if (--timer < 0) {
-                                    clearInterval(countdown);
-                                    
-                                    // Hide the QR section
-                                    sectionToHide.style.display = "none";
-                                    
-                                    // Show expired message (optional)
-                                    const expiredMsg = document.getElementById('expired-message');
-                                    if(expiredMsg) expiredMsg.style.display = "block";
-                                }
-                            }, 1000);
-                        }
-
-                        // Start the 10-minute timer (600 seconds)
-                        window.onload = function () {
-                            const tenMinutes = 60 * 10;
-                            const display = document.querySelector('#qr-time');
-                            const section = document.querySelector('#qr-section');
-                            
-                            startTimer(tenMinutes, display, section);
-                        };
-                    }
+                                                        // START TIMER HERE (When QR is shown, not on window load)
+                                                        const display = document.querySelector('#qr-time');
+                                                        const paymentTimer = startTimer(600, display, qrSection, checkStatus);
+                                                    }
 
         // WING - just display an image
         if (this.value === 'wing') {
@@ -619,6 +760,31 @@ document.querySelectorAll('input[name="payment"]').forEach(radio => {
     });
 });
     
+</script>
+<script>
+// Show AI loading state on upload form submit
+(function(){
+    const uploadForm = document.getElementById('upload-form');
+    const verifyBtn = document.getElementById('verify-btn');
+    if (!uploadForm || !verifyBtn) return;
+
+    uploadForm.addEventListener('submit', function (e) {
+        // Prevent multiple triggers
+        verifyBtn.disabled = true;
+        verifyBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+        // Replace content with spinner + message
+        verifyBtn.innerHTML = `
+            <svg class="animate-spin h-6 w-6 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+            <span>Please wait — AI processing...</span>
+        `;
+
+        // Allow form to submit normally
+    });
+})();
 </script>
 </body>
 </html>

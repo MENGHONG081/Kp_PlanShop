@@ -3,7 +3,8 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Plant Shop - Bring Nature Indoors</title>
+<link rel="icon" type="image/png" href="icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png">
+<title>KP Plant_Shop</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -11,30 +12,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 <script>
     tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary": "#2F4F4F",
-            "background-light": "#F5F5DC",
-            "background-dark": "#102213",
-            "secondary": "#B2AC88",
-            "text-light": "#36454F",
-            "text-dark": "#EAEAEA",
-            "accent": "#E2725B",
-          },
-          fontFamily: {
-            "display": ["Manrope", "sans-serif"]
-          },
-          borderRadius: {
-            "DEFAULT": "0.25rem",
-            "lg": "0.5rem",
-            "xl": "0.75rem",
-            "full": "9999px"
-          },
-        },
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        // Brand greens
+        "primary": "#2E7D32",          // Deep professional green
+        "secondary": "#4CAF50",        // Balanced medium green
+        "accent": "#A5D6A7",           // Soft mint highlight
+
+        // Backgrounds
+        "background-light": "#FFFFFF", // Clean white
+        "background-dark": "#0F172A",  // Dark navy for contrast
+
+        // Text
+        "text-light": "#2F4F4F",       // Slate gray for readability
+        "text-dark": "#F5F5F5",        // Light text for dark mode
       },
-    }
+      fontFamily: {
+        "display": ["Manrope", "sans-serif"],
+      },
+      borderRadius: {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px",
+      },
+    },
+  },
+}
   </script>
 <style>
     .material-symbols-outlined {
@@ -52,37 +58,75 @@
 <div class="flex flex-1 justify-center py-5">
 <div class="layout-content-container flex flex-col w-full max-w-7xl flex-1">
 <!-- TopNavBar -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 dark:border-secondary/20 px-4 sm:px-6 lg:px-10 py-3 w-full">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-3 text-primary dark:text-secondary">
-<span class="material-symbols-outlined text-3xl">potted_plant</span>
-<h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-primary dark:text-secondary">Verdant</h2>
-</div>
-<div class="hidden lg:flex items-center gap-6">
-<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-secondary" href="#">Shop All</a>
-<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-secondary" href="#">New Arrivals</a>
-<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-secondary" href="#">Indoor Plants</a>
-<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-secondary" href="#">Outdoor Plants</a>
-<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-secondary" href="#">Pots &amp; Accessories</a>
-</div>
-</div>
-<div class="flex flex-1 justify-end gap-3 sm:gap-4">
-<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
-<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-<div class="text-primary/80 dark:text-secondary/80 flex border-none bg-primary/10 dark:bg-secondary/10 items-center justify-center pl-3 rounded-l-lg border-r-0">
-<span class="material-symbols-outlined !text-xl">search</span>
-</div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-0 border-none bg-primary/10 dark:bg-secondary/10 h-full placeholder:text-primary/60 dark:placeholder:text-secondary/60 pl-2 text-sm font-normal leading-normal" placeholder="Search plants..." value=""/>
-</div>
-</label>
-<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/10 dark:bg-secondary/10 text-primary dark:text-secondary gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-<span class="material-symbols-outlined">person</span>
-</button>
-<button class="relative flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/10 dark:bg-secondary/10 text-primary dark:text-secondary gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-<span class="material-symbols-outlined">shopping_cart</span>
-<span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-white text-xs font-bold">3</span>
-</button>
-</div>
+<header class="sticky top-0 z-50 w-full border-b border-primary/20 dark:border-primary/20 bg-background-light/50 dark:bg-background-dark/80 backdrop-blur-md shadow-sm transition-all duration-300">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+    <!-- Logo + Brand -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3 rounded-xl bg-primary/5 dark:bg-secondary/10 px-4 py-2 shadow-sm">
+        <img 
+          src="icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" 
+          alt="KP Plant_Shop Logo" 
+          class="h-10 w-10 rounded-full border-2 border-primary/30 dark:border-secondary/30 object-cover"
+        />
+        <div class="flex flex-col">
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-primary dark:text-secondary tracking-tight leading-none">
+            KP Plant_Shop
+          </h1>
+          <p class="text-xs sm:text-sm text-primary/70 dark:text-secondary/70 font-medium">
+            Verdant • Fresh • Green
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Navigation + Search -->
+    <div class="hidden lg:flex items-center gap-10">
+      <!-- Nav Links -->
+      <nav class="flex items-center gap-8">
+        <a href="#" class="text-base font-medium text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary transition-colors">Home</a>
+        <a href="#" class="text-base font-medium text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary transition-colors">About</a>
+        <a href="#" class="text-base font-medium text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary transition-colors">Products</a>
+        <a href="#" class="text-base font-medium text-text-light hover:text-primary dark:text-text-dark dark:hover:text-secondary transition-colors">Details</a>
+      </nav>
+
+      <!-- Search Bar (Desktop) -->
+      <label class="relative flex items-center min-w-[280px]">
+        <span class="absolute left-3 text-primary/60 dark:text-secondary/60">
+          <span class="material-symbols-outlined text-xl">search</span>
+        </span>
+        <input 
+          type="text" 
+          placeholder="Search plants, pots, care tips..." 
+          class="w-full rounded-full bg-primary/10 dark:bg-secondary/10 pl-11 pr-4 py-2.5 text-sm text-text-light dark:text-text-dark placeholder:text-primary/50 dark:placeholder:text-secondary/50 border border-primary/20 dark:border-secondary/20 focus:border-primary/40 dark:focus:border-secondary/40 focus:outline-none transition-all"
+        />
+      </label>
+    </div>
+
+    <!-- Auth Buttons + Mobile Search Icon (right side) -->
+    <div class="flex items-center gap-3 sm:gap-4">
+      <!-- Mobile Search Icon (visible on < lg) -->
+      <button class="lg:hidden text-primary dark:text-secondary">
+        <span class="material-symbols-outlined text-2xl">search</span>
+      </button>
+
+      <!-- Login -->
+      <a href="login.php" 
+         class="hidden sm:flex items-center gap-2 rounded-full bg-primary/10 dark:bg-secondary/10 px-5 py-2.5 text-sm font-semibold text-primary dark:text-secondary hover:bg-primary/20 dark:hover:bg-secondary/20 transition-colors">
+        <span class="material-symbols-outlined">person</span>
+        Login
+      </a>
+
+      <!-- Sign Up (more prominent) -->
+      <a href="Sign_Up.php" 
+         class="flex items-center gap-2 rounded-full bg-primary text-white dark:bg-secondary dark:text-black px-6 py-2.5 text-sm font-bold hover:bg-primary/90 dark:hover:bg-secondary/90 transition-colors shadow-sm">
+        <span class="material-symbols-outlined">person_add</span>
+        Sign Up
+      </a>
+    </div>
+  </div>
+
+  <!-- Optional: Mobile Menu (you can toggle with JS) -->
+  <!-- For now hidden; add hamburger + JS if needed -->
 </header>
 <main class="flex flex-col gap-10 md:gap-16 lg:gap-20">
 <!-- HeroSection -->
@@ -272,14 +316,27 @@
 </div>
 </main>
 <!-- Footer -->
-<footer class="mt-16 sm:mt-24 bg-primary/5 dark:bg-secondary/5 py-12 px-4 sm:px-6 lg:px-10">
+<footer class="mt-16 sm:mt-24  dark:bg-secondary/4 bg-black/30 py-12 px-4 sm:px-6 lg:px-10">
 <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
 <div class="md:col-span-1">
-<div class="flex items-center gap-3 text-primary dark:text-secondary">
-<span class="material-symbols-outlined text-3xl">potted_plant</span>
-<h2 class="text-xl font-bold">Verdant</h2>
-</div>
-<p class="mt-4 text-sm text-text-light/70 dark:text-text-dark/70">Your home for happy, healthy plants. We're passionate about connecting people with nature.</p>
+<div class="flex items-center gap-4">
+      <div class="flex items-center gap-3 rounded-xl bg-primary/5 dark:bg-secondary/10 px-4 py-2 shadow-sm">
+        <img 
+          src="icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" 
+          alt="KP Plant_Shop Logo" 
+          class="h-10 w-10 rounded-full border-2 border-primary/30 dark:border-secondary/30 object-cover"
+        />
+        <div class="flex flex-col ">
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-primary dark:text-secondary tracking-tight leading-none">
+            KP Plant_Shop
+          </h1>
+          <p class="text-xs sm:text-sm text-primary/70 dark:text-secondary/70 font-medium">
+            Verdant • Fresh • Green
+          </p>
+        </div>
+      </div>
+    </div>
+<p class="mt-4 text-sm text-text-light/70  dark:text-text-dark/70">Your home for happy, healthy plants. We're passionate about connecting people with nature.</p>
 <div class="flex gap-4 mt-6">
 <a class="text-text-light/80 hover:text-primary dark:text-text-dark/80 dark:hover:text-secondary transition-colors" href="#">
 <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path></svg>
@@ -320,11 +377,31 @@
 </div>
 </div>
 <div class="mt-12 border-t border-primary/20 dark:border-secondary/20 pt-8 text-center text-xs text-text-light/60 dark:text-text-dark/60">
-<p>© 2024 Verdant Plant Shop. All rights reserved.</p>
+<p>© 2026 KP Plant_Shop. All rights reserved.</p>
 </div>
 </footer>
 </div>
 </div>
 </div>
 </div>
-</body></html>
+</body>
+<script>
+document.addEventListener('click', function(e){
+  // allow clicks on explicit login/signup anchors
+  const a = e.target.closest('a');
+  if(a){
+    const href = (a.getAttribute('href') || '').toLowerCase();
+    if(href.includes('login.php') || href.includes('signup.php')) return;
+  }
+  // protect interactive elements: buttons, links, product cards, Add to Cart (class protected-action optional)
+  const protectedEl = e.target.closest('.protected-action, button, a, .card, .product-card, [role="button"]');
+  if(protectedEl){
+    // if the clicked anchor is login/signup we already returned above
+    // show alert then redirect to login
+    e.preventDefault();
+    alert('Please login first!');
+    window.location.href = 'login.php';
+  }
+});
+</script>
+</html>

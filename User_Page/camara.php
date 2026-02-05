@@ -19,7 +19,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="Payment.php" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4">
+    <form action="Payment.php?order=<?= htmlspecialchars($_GET['order'] ?? '') ?>" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4">
 
         <!-- Video Preview -->
         <video id="video" autoplay playsinline class="w-full h-64 rounded-xl bg-gray-200 shadow-md"></video>
@@ -42,7 +42,7 @@
                 class="w-full py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold shadow-md transition">
             ✅ Take Photo
         </button>
-        <input type="file" name="image" id="imgInput" accept="image/*" required class="hidden">
+        
         <button type="submit"
                 class="w-full py-3 rounded-xl bg-black hover:bg-gray-900 text-white font-semibold shadow-md transition">
             💾 Submit Photo

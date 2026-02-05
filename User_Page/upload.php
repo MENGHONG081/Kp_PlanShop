@@ -5,8 +5,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__);  // or adjust path if needed
+$dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
 $dotenv->load();
+
 
 /* ================= SAFE INPUT ================= */
 $orderId        = $_POST['order_id']   ?? '';
@@ -19,7 +20,7 @@ if ($orderId === '' || $expectedAmount === '' || $orderDate === '') {
 
 /* ================= CONFIG ================= */
 $gemini_api_key = $_ENV['GEMINI_API_KEY'] ?? null;
-if (empty($geminiApiKey)) {
+if (empty($gemini_api_key)) {
     die('Missing GEMINI_API_KEY in .env file');
 }
 $expectedName   = 'YAUN MENGHONG';
@@ -31,13 +32,29 @@ $model_name     = 'gemini-2.5-flash';
 /* ================= IMAGE UPLOAD ================= */
 $dir = "uploads/";
 if (!is_dir($dir)) mkdir($dir, 0777, true);
-
-if (!isset($_FILES['image']) || $_FILES['image']['error'] !== 0) {
+// Accept either a freshly uploaded file or a previously saved server file path
+$imagePath = null;
+// 1) Fresh upload from form
+if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+    $imagePath = $dir . time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['image']['name']));
+    if (!move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
+        die("Failed to move uploaded image.");
+    }
+}
+// 2) Previously saved file (Payment.php saved it and provided hidden input `uploaded_file`)
+elseif (!empty($_POST['uploaded_file'])) {
+    $candidate = $_POST['uploaded_file'];
+    $realCandidate = realpath($candidate);
+    $realDir = realpath($dir);
+    if ($realCandidate && $realDir && strpos($realCandidate, $realDir) === 0 && is_file($realCandidate)) {
+        $imagePath = $realCandidate;
+    } else {
+        die("Invalid uploaded_file provided.");
+    }
+}
+else {
     die("Image upload failed.");
 }
-
-$imagePath = $dir . time() . '_' . basename($_FILES['image']['name']);
-move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
 
 // Detect MIME type dynamically
 $finfo = new finfo(FILEINFO_MIME_TYPE);

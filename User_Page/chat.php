@@ -1,32 +1,60 @@
 <?php
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
+require_once __DIR__ . '/vendor/autoload.php';
 
-// --- 1. ROBUST ENV LOADER ---
-function loadEnv($path) {
-    if (!file_exists($path)) return false;
-    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        if (strpos(trim($line), '#') === 0 || !strpos($line, '=')) continue;
-        list($name, $value) = explode('=', $line, 2);
-        putenv(trim($name) . "=" . trim($value, " \"'"));
-    }
-    return true;
-}
-//loadEnv(__DIR__ . '/.env');
+use Dotenv\Dotenv;
 
-// --- 2. CONFIGURATION ---
-$apiKey = 'AIzaSyAVykKgc4nxMme9UUNZkezRh6ddmCHX3qM';
-// In 2026, use gemini-2.5-flash for the best balance of speed and logic
-$model = "gemini-2.5-flash"; 
-// Use the STABLE v1 endpoint for 1.5 models, or v1beta for 2.5/3.0
-$apiVersion = "v1beta"; 
+/* =========================
+   1) ENV LOADING
+   ========================= */
+$dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
+$dotenv->load();
+
+$apiKey = $_ENV['GEMINI_API_KEY'] ?? null;
+$model = "gemini-2.5-flash";   // your choice
+$apiVersion = "v1beta";        // your choice
 
 if (!$apiKey) {
     echo json_encode(["error" => "CONFIG_ERROR", "detail" => "API Key missing in .env"]);
     exit;
 }
 
-// --- 3. INPUT HANDLING ---
+/* =========================
+   2) CSV DATASET MATCHER
+   ========================= */
+function findCsvReply(string $userMessage): ?string
+{
+    $csvFile = __DIR__ . '/dataset.csv';
+    if (!file_exists($csvFile)) return null;
+
+    $userMessage = strtolower(trim($userMessage));
+    if ($userMessage === '') return null;
+
+    if (($handle = fopen($csvFile, 'r')) === false) return null;
+
+    // Read header row (intent,input,response)
+    $header = fgetcsv($handle);
+
+    while (($row = fgetcsv($handle)) !== false) {
+        // Expect at least 3 columns: intent,input,response
+        if (count($row) < 3) continue;
+
+        $input = strtolower(trim($row[1]));
+        $response = trim($row[2]);
+
+        if ($input !== '' && str_contains($userMessage, $input)) {
+            fclose($handle);
+            return $response;
+        }
+    }
+
+    fclose($handle);
+    return null;
+}
+
+/* =========================
+   3) INPUT HANDLING
+   ========================= */
 $input = json_decode(file_get_contents('php://input'), true);
 $message = $input['message'] ?? '';
 
@@ -35,11 +63,24 @@ if (!$message) {
     exit;
 }
 
-// --- 4. API CALL ---
+/* =========================
+   4) CHECK CSV FIRST
+   ========================= */
+$csvReply = findCsvReply($message);
+if ($csvReply !== null) {
+    echo json_encode(["reply" => $csvReply], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+/* =========================
+   5) GEMINI API CALL (FALLBACK)
+   ========================= */
 $url = "https://generativelanguage.googleapis.com/{$apiVersion}/models/{$model}:generateContent?key=" . $apiKey;
 
 $payload = [
-    "contents" => [["parts" => [["text" => $message]]]],
+    "contents" => [
+        ["parts" => [["text" => $message]]]
+    ],
     "generationConfig" => [
         "temperature" => 0.7,
         "maxOutputTokens" => 800
@@ -59,7 +100,6 @@ $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $curlError = curl_error($ch);
 curl_close($ch);
 
-// --- 5. SMART ERROR LOGGING ---
 if ($curlError) {
     echo json_encode(["error" => "CONNECTION_FAILED", "detail" => $curlError]);
     exit;
@@ -74,8 +114,12 @@ if ($httpCode !== 200) {
         "code" => $httpCode,
         "suggested_fix" => "Check if the model '$model' is supported in version '$apiVersion'"
     ]);
-} else {
-    // Success! Send the AI text back
-    $reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? "AI processed but sent no text.";
-    echo json_encode(["reply" => $reply]);
+    exit;
 }
+
+/* =========================
+   6) SUCCESS RESPONSE
+   ========================= */
+$reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? "AI processed but sent no text.";
+echo json_encode(["reply" => $reply], JSON_UNESCAPED_UNICODE);
+?>

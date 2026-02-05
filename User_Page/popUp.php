@@ -7,6 +7,12 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
+              <!-- Carousel form admin -->
+           <!-- <div id="customCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carouselInner"></div>
+            </div> -->
+
+
             <!-- Carousel -->
             <div id="promoCarousel" class="carousel slide" data-bs-ride="false">
                 <div class="carousel-inner">
@@ -19,7 +25,7 @@
                         <div class="carousel-caption d-flex flex-column justify-content-center h-100 text-white text-start ps-5 pb-5">
                             <h2 class="display-4 fw-bold mb-3 text-shadow">Cambodia Need Peace</h2>
                             <p class="fs-4 fw-light mb-4 opacity-90">Thai Military Attacks and Violations of Cambodian</p>
-                            <a href="#shop" class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow">Need Peace →</a>
+                            <a href="https://angkor-whispers.vercel.app/" class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow">Need Peace →</a>
                         </div>
                     </div>
 
@@ -105,6 +111,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 <?php } ?>
+
+const slides = JSON.parse(localStorage.getItem("slides") || "[]");
+const carouselInner = document.getElementById("carouselInner");
+
+slides.forEach((slide, index) => {
+  const item = document.createElement("div");
+  item.className = "carousel-item" + (index === 0 ? " active" : "");
+  item.innerHTML = `
+    <img src="${slide.image}" class="d-block w-100" style="max-height:70vh; object-fit:cover;" alt="${slide.title}">
+    <div class="carousel-caption d-flex flex-column justify-content-center h-100 text-white text-start ps-5 pb-5">
+      <h2 class="display-4 fw-bold mb-3 text-shadow">${slide.title}</h2>
+      <p class="fs-4 fw-light mb-4 opacity-90">${slide.description}</p>
+    </div>
+  `;
+  carouselInner.appendChild(item);
+});
+
 </script>
 
 <style>
