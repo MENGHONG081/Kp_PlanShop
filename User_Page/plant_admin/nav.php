@@ -14,7 +14,6 @@
           .gradient-text.cool-animate {
             background: linear-gradient(90deg, #198754, #0aef52ff, #64f327ff, #9df74eff);
             background-size: 200% 200%;
-            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradientMove 3s linear infinite alternate;
             font-size: 2rem;
