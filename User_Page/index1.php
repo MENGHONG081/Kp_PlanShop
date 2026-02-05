@@ -1,21 +1,16 @@
 <?php
 require 'config1.php'; // Session and cart handling
-
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
-
 if (isset($_SESSION['success'])) {
     echo "<div class='alert alert-success'>".$_SESSION['success']."</div>";
     unset($_SESSION['success']); // clear after showing
 }
-
-
 $fullname = $_SESSION['user'];
 $email = $_SESSION['email'];
 //$fullname = $_SESSION['fullname'];
-
 // Determine user info
 $isLoggedIn = isset($_SESSION['user']); // Choose one consistent key, e.g., 'user'
 //$fullname = $isLoggedIn && isset($_SESSION['fullname']) ? htmlspecialchars($_SESSION['fullname']) : 'Guest';
@@ -26,7 +21,6 @@ $userId = $_SESSION['user_id'];
 $successMessage = '';
 $errorMessage = '';
 $userProfile = null;
-
 // Fetch user profile
 try {
     $profileuserStmt = $pdo->prepare("SELECT id, imgUser FROM users WHERE id = ?");

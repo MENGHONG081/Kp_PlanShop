@@ -2,30 +2,8 @@
 .env
 .env.*
 vendor/
-logs/
-.DS_Store
-Thumbs.db
-# Ignore real config files
-config/db.php
-.env
-
-# Ignore uploads
 uploads/
-
-# Ignore vendor
-vendor/
 node_modules/
 dist/
-build/
-.cache/
-# Ignore IDE files
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-# Ignore OS files
-.DS_Store
-Thumbs.db
-# Ignore test coverage
-coverage/
-.nyc_output/
+.vscode
+

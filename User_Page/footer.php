@@ -22,8 +22,8 @@
         <h4 class="fw-bold mb-3 fs-6">Shop</h4>
         <ul class="list-unstyled small">
           <li class="mb-2"><a href="Products.php" class="text-light text-decoration-none hover-link">All Plants</a></li>
-          <li class="mb-2"><a href="products.php" class="text-light text-decoration-none hover-link">New Arrivals</a></li>
-          <li class="mb-2"><a href="products.php" class="text-light text-decoration-none hover-link">Pots & Planters</a></li>
+          <li class="mb-2"><a href="Products.php" class="text-light text-decoration-none hover-link">New Arrivals</a></li>
+          <li class="mb-2"><a href="Products.php" class="text-light text-decoration-none hover-link">Pots & Planters</a></li>
           <li><a href="products.php" class="text-light text-decoration-none hover-link">Tools & Accessories</a></li>
         </ul>
       </div>

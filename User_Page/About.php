@@ -77,10 +77,10 @@
 
       <!-- Navigation -->
       <nav class="hidden md:flex items-center space-x-8" role="navigation">
-        <a href="Index1.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Home</a>
+        <a href="index1.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Home</a>
         <a href="About.php" class="text-primary dark:text-primary text-sm font-bold ">About Us</a>
         <a href="Products.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Products</a>
-        <a href="Contact.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Contact</a>
+        <a href="contact.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Contact</a>
          <a href="Detail.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Details</a>
       </nav>
 
@@ -259,7 +259,7 @@
 <p class="text-muted-light dark:text-muted-dark mt-2 max-w-xl">Find the perfect green companion for your space. Explore our collection of healthy, beautiful plants today.</p>
 </div>
 <button class="flex min-w-[84px] max-w-[480px] w-full md:w-auto shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary text-foreground-light text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all">
-<span class="truncate" onclick=" href='/PLANT_PROJECT/plant_admin/products.php'">Shop Our Collection</span>
+<span class="truncate" onclick="window.location.href='Products.php'">Shop Our Collection</span>
 </button>
 </div>
 </div>
@@ -280,9 +280,9 @@
 <h4 class="font-bold mb-4">Shop</h4>
 <ul class="space-y-2 text-sm">
 <li><a class="hover:text-primary transition-colors" href="index1.php">Home</a></li>
-<li><a class="hover:text-primary transition-colors" href="products.php">Products</a></li>
-<li><a class="hover:text-primary transition-colors" href="products_pots.php">Pots &amp; Planters</a></li>
-<li><a class="hover:text-primary transition-colors" href="products_tools.php">Tools &amp; Accessories</a></li>
+<li><a class="hover:text-primary transition-colors" href="Products.php">Products</a></li>
+<li><a class="hover:text-primary transition-colors" href="Products_pots.php">Pots &amp; Planters</a></li>
+<li><a class="hover:text-primary transition-colors" href="Products_tools.php">Tools &amp; Accessories</a></li>
 </ul>
 </div>
 <div>
