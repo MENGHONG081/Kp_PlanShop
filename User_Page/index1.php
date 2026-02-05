@@ -230,10 +230,10 @@ a[href*="login.php"], a[href*="signup.php"]{
     <div class="icon-group alighn-items-center d-flex justify-content-center gap-3">
         <img src="icon/4105939-info-information_113916.ico" width="32" height="32" class="img-colorful" />
         <img src="icon/3844439-gear-setting-settings-wheel_110294.ico" width="32" height="32" class="img-colorful" />
-        <img src="icon/buy_cart_ecommerce_basket_shopping_icon_227311.ico" width="32" height="32" class="img-colorful" onclick="window.location.href='/PLANT_PROJECT/User_Page/Order.php'" />
-        <img src="https://img.icons8.com/?size=100&id=saSupsgVcmJe&format=png&color=000000" width="32" height="32" class="img-colorful" onclick="window.location.href='/PLANT_PROJECT/User_Page/ai_chat.php'"/>
+        <img src="icon/buy_cart_ecommerce_basket_shopping_icon_227311.ico" width="32" height="32" class="img-colorful" onclick="window.location.href='Order.php'" />
+        <img src="https://img.icons8.com/?size=100&id=saSupsgVcmJe&format=png&color=000000" width="32" height="32" class="img-colorful" onclick="window.location.href='ai_chat.php'"/>
         <div class="d-flex gap-2  align-items-center text-success">
-        <img src="<?php echo htmlspecialchars($userProfile['imgUser'] ?? 'icon/icons8-account.gif'); ?>" width="32" height="32" class="img-colorful" onclick="window.location.href='/PLANT_PROJECT/User_Page/ac_user.php'" />
+        <img src="<?php echo htmlspecialchars($userProfile['imgUser'] ?? 'icon/icons8-account.gif'); ?>" width="32" height="32" class="img-colorful" onclick="window.location.href='ac_user.php'" />
         <span class="fw-bold" id="user-name"> Hi <?php echo $fullname; ?><br><p> Welcome Back!</p></span>
        </div>
        
@@ -242,7 +242,7 @@ a[href*="login.php"], a[href*="signup.php"]{
                 <?php if ($isLoggedIn): ?>
                     <a href="logout.php" class="btn btn-outline-danger btn-sm">Log out</a>
                     <?php if ($fullname === 'admin'): // or however you check admin ?>
-                        <a href="/PLANT_PROJECT/plant_admin/index.php" class="btn btn-outline-success btn-sm">Admin</a>
+                        <a href="/plant_admin/index.php" class="btn btn-outline-success btn-sm">Admin</a>
                     <?php endif; ?>
                 <?php else: ?>
                     <a href="login.php" class="btn btn-outline-success btn-sm">Log in</a>

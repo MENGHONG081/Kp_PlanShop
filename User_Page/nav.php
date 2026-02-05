@@ -17,11 +17,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active"href="/PLANT_PROJECT/User_Page/index1.php">Home</a></li>
-        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/User_Page/About.php">About Us</a></li>
-        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/User_Page/products.php">Products</a></li>
-        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/User_Page/Detail.php">Detail</a></li>
-        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/User_Page/Care Product.php">How to</a></li>
+        <li class="nav-item"><a class="nav-link active"href="index1.php">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="About.php">About Us</a></li>
+        <li class="nav-item"><a class="nav-link active" href="products.php">Products</a></li>
+        <li class="nav-item"><a class="nav-link active" href="Detail.php">Detail</a></li>
+        <li class="nav-item"><a class="nav-link active" href="Care Product.php">How to</a></li>
       </ul>
     </div>
   </div>
