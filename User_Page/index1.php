@@ -236,7 +236,7 @@ a[href*="login.php"], a[href*="signup.php"]{
                 <?php if ($isLoggedIn): ?>
                     <a href="logout.php" class="btn btn-outline-danger btn-sm">Log out</a>
                     <?php if ($fullname === 'admin'): // or however you check admin ?>
-                        <a href="/plant_admin/login.php" class="btn btn-outline-success btn-sm">Admin</a>
+                      <a href="plant_admin/login.php" class="btn btn-outline-success btn-sm">Admin</a>
                     <?php endif; ?>
                 <?php else: ?>
                     <a href="login.php" class="btn btn-outline-success btn-sm">Log in</a>

@@ -3,11 +3,13 @@ declare(strict_types=1);
 require __DIR__ . '/config.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Dotenv\Dotenv;
-
-/* ================== ENV ================== */
-$dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
-$dotenv->load();
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad(); // ✅ won't throw if missing keys
+} elseif (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->safeLoad();
+}
 
 $botToken       = getenv('TELEGRAM_BOT_TOKEN');
 $gemini_api_key = getenv('GEMINI_API_KEY');
