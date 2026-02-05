@@ -1,6 +1,6 @@
 <?php
-include 'plant_admin/auth.php';
-include 'plant_admin/functions.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/functions.php';
 
 
 // Initialize variables

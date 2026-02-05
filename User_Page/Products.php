@@ -61,7 +61,7 @@ $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
                         <a href="index1.php" class="text-gray-600 hover:text-primary">Home</a>
                         <a href="About.php" class="text-gray-600 hover:text-primary">About Us</a>
                         <a href="Products.php" class="text-primary font-bold">Products</a>
-                        <a href="Contact.php" class="text-gray-600 hover:text-primary">Contact</a>
+                        <a href="contact.php" class="text-gray-600 hover:text-primary">Contact</a>
                     </nav>
                     <div class="flex items-center gap-4">
                         <button id="searchToggle" class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 transition">

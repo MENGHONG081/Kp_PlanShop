@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php'; // Optional: remove if this page is public
+require __DIR__ . '/auth.php'; // Optional: remove if this page is public
 // require 'db.php'; // Make sure $pdo is available
 
 // 1. Discount Products

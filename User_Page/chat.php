@@ -1,14 +1,16 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/vendor/autoload.php';
-
-use Dotenv\Dotenv;
-
 /* =========================
-   1) ENV LOADING
+   1) CONFIGURATION
    ========================= */
-$dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
-$dotenv->load();
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad(); // ✅ won't throw if missing keys
+} elseif (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->safeLoad();
+}
 
 $apiKey = getenv('GEMINI_API_KEY');
 $model = "gemini-2.5-flash";   // your choice

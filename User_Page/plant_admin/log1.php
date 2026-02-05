@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php'; // defines $pdo
+require __DIR__ . '/auth.php';
 if(isset($_SESSION['admin_id'])) header('Location: plant_admin/index.php');
 
 if($_SERVER['REQUEST_METHOD']=='POST'){

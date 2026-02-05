@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php';
+require __DIR__ . '/auth.php';
 
 // OPTIONAL: Admin protection
 // session_start();

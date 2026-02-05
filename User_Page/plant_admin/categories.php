@@ -1,9 +1,9 @@
 <?php
-require 'auth.php'; // Assuming this handles session/auth and sets $pdo
+require __DIR__ . '/auth.php'; // Assuming this handles session/auth and sets $pdo
 // Initialize variables
 $successMessage = '';
 $errorMessage = '';
-$editId = isset($_GET['edit']) ? (int)$_GET['del'] : null; // Wait, fix: use $_GET['edit']
+$editId = isset($_GET['edit']) ? (int)$_GET['edit'] : null; // Wait, fix: use $_GET['edit']
 $editCategory = null;
 
 // Fetch edit data if needed

@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php';
+require __DIR__ . '/auth.php';
 // If not logged in, redirect to login page
 if (!isset($_SESSION['admin_id'])) {
     header('Location: login.php');

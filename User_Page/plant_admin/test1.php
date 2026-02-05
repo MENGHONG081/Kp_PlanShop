@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php';
+require __DIR__ . '/auth.php';;
 
 // Initialize cart if not exists
 if (!isset($_SESSION['cart'])) {

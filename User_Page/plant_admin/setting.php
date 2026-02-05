@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php';
+require __DIR__ . '/auth.php';;
  // Assuming this sets $pdo; functions.php not needed here
 
 // Initialize variables

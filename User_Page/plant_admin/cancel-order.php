@@ -1,5 +1,5 @@
 <?php
-require 'auth.php'; // defines $pdo
+require __DIR__ . '/auth.php';
 header('Content-Type: application/json');
 $input = json_decode(file_get_contents('php://input'), true);
 $order_id = $input['order_id'] ?? null;

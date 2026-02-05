@@ -56,10 +56,10 @@
 
             <!-- Navigation -->
             <nav class="hidden md:flex items-center space-x-8" role="navigation">
-              <a href="Index1.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Home</a>
+              <a href="index1.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Home</a>
               <a href="About.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">About Us</a>
               <a href="Products.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Products</a>
-              <a href="Contact.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Contact</a>
+              <a href="contact.php" class="text-foreground-light dark:text-foreground-dark text-sm font-medium hover:text-primary transition-colors">Contact</a>
               
               <a href="Detail.php" class="text-primary dark:text-primary text-sm font-bold">Details</a>
             </nav>
@@ -74,10 +74,10 @@
 
 
 <div class="flex gap-2">
-<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800 text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700">
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800 text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700" onclick="window.location.href='Order.php'">
   <span class="material-symbols-outlined">shopping_cart</span>
 </button>
-<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800 text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700">
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800 text-text-light dark:text-text-dark hover:bg-gray-200 dark:hover:bg-gray-700" onclick="window.location.href='ac_user.php'">
   <span class="material-symbols-outlined">person</span>
 </button>
 </div>

@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php'; // defines $pdo
+require __DIR__ . '/auth.php'; // defines $pdo
 header('Content-Type: application/json');
 
 try {

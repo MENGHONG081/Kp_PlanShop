@@ -1,5 +1,5 @@
 <?php
-include 'plant_admin/auth.php';
+require __DIR__ . '/auth.php';
 // Make sure $pdo is available
 //$user_id = $_SESSION['user_id'];
 
