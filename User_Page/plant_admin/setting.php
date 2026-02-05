@@ -1,6 +1,6 @@
 <?php
-require 'auth.php';
-require 'config.php'; // Assuming this sets $pdo; functions.php not needed here
+include 'plant_admin/auth.php';
+ // Assuming this sets $pdo; functions.php not needed here
 
 // Initialize variables
 $successMessage = '';
@@ -79,7 +79,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
     </style>
 </head>
 <body>
-    <?php include 'nav.php'; ?>
+    <?php include 'plant_admin/nav.php'; ?>
 
     <div class="container mt-5">
         <!-- Success/Error Alerts -->
@@ -157,7 +157,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                     <button class="btn btn-logout" id="toggleBtn" onclick=" return confirm('Are you sure you want to Change Password?'  );">
                         <i class="fas fa-sign-out-alt me-1"></i>Change Password 
                     </button>
-                    <button class="btn btn-logout" onclick="window.location.href='sitting_pageuser.php';">
+                    <button class="btn btn-logout" onclick="window.location.href='plant_admin/sitting_pageuser.php';">
                         <i class="fas fa-sign-out-alt me-1"></i>Sitting PageUser
                     </button>
                     <!-- Trigger Button -->

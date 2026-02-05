@@ -1,10 +1,4 @@
 <?php
-// config1.php (or whatever file you require from index1.php)
-ob_start();
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 require 'config.php'; // must create $pdo (pgsql)
 
 // ==================== CART INIT ====================

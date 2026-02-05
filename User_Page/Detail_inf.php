@@ -1,8 +1,7 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<?php 
+if (!empty($products)): ?>
 
-<?php if (!empty($products)): ?>
 <div class="card-group">
-
 <?php foreach ($products as $product): ?>
   <div class="card">
     <img src="../plant_admin/uploads/<?= htmlspecialchars($product['image'] ?? 'placeholder.png') ?>"
@@ -47,3 +46,4 @@
     text-align: center;
 }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">

@@ -62,7 +62,7 @@ try {
     $_SESSION['success'] = "Feedback submitted successfully.";
 
     // ✅ Use absolute path (works reliably on Render)
-    header("Location: /User_Page/index1.php");
+    header("Location:index1.php");
     exit;
 
 } catch (PDOException $e) {

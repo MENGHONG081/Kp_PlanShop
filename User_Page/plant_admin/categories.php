@@ -63,7 +63,7 @@ if (isset($_GET['del'])) {
     } catch (PDOException $e) {
         $errorMessage = 'Error deleting category.';
     }
-    header("Location: categories.php?success=1");
+    header("Location:Plant_admin/categories.php?success=1");
     exit();
 }
 

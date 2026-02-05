@@ -1,5 +1,5 @@
 <?php
-require 'auth.php';
+require 'plant_admin/auth.php';
 //require 'config.php'; // Make sure $pdo is available
 //$user_id = $_SESSION['user_id']; who to get user id
 
@@ -45,10 +45,10 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="d-flex align-items-center mb-4">
         <i class="fa fa-box-open fa-3x text-primary me-3"></i>
         <h1 class="h3 fw-bold mb-0">User Orders</h1>
-        <button class="btn btn-outline-primary btn-sm ms-auto" onclick="location.href='pay.php'">
+        <button class="btn btn-outline-primary btn-sm ms-auto" onclick="location.href='plant_admin/pay.php'">
             <i class="fa fa-credit-card me-1"></i> Payment Status
         </button>
-        <button class="btn btn-outline-secondary btn-sm ms-auto" onclick="location.href='Bot_View.php'">
+        <button class="btn btn-outline-secondary btn-sm ms-auto" onclick="location.href='plant_admin/Bot_View.php'">
             <i class="fa fa-robot me-1"></i> Check By BotAI
         </button>
 
@@ -133,7 +133,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 // Use the correct path - change if your file is in a different location
-const PAYMENT_URL = 'pay-order.php';  // ← Make sure this matches your file name/location
+const PAYMENT_URL = 'plant_admin/pay-order.php';  // ← Make sure this matches your file name/location
 
 document.querySelectorAll('.btn-pay').forEach(btn => {
     btn.addEventListener('click', function() {

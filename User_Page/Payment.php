@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+include 'config.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
   // loads everything above
@@ -39,9 +39,9 @@ $actionUrl = $env === 'sandbox'
 
 
 // Credentials from .env
-$token         = $_ENV['BAKONG_TOKEN']       ?? die('Missing BAKONG_TOKEN in .env');
-$apiBase       = $_ENV['BAKONG_API_BASE']    ?? 'https://api-bakong.nbc.gov.kh';
-$accountID = $_ENV['BAKONG_ACCOUNT']     ?? die('Missing BAKONG_ACCOUNT in .env');
+$token = getenv('BAKONG_TOKEN')       ?? die('Missing BAKONG_TOKEN in .env');
+$apiBase = getenv('BAKONG_API_BASE')    ?? 'https://api-bakong.nbc.gov.kh';
+$accountID = getenv('BAKONG_ACCOUNT')     ?? die('Missing BAKONG_ACCOUNT in .env');
 
 if (!isset($_SESSION['user_id'])) {
     die("Unauthorized access");
@@ -80,12 +80,12 @@ $tax = 0; // Adjust if needed
 $grand_total = round($order_total + $tax, 2);
 
 // PayWay / Card payment configuration
-$merchant_id = $_ENV['PAYWAY_MERCHANT_ID'] ?? null;
-$return_url  = $_ENV['PAYWAY_RETURN_URL']  ?? '';
-$cancel_url  = $_ENV['PAYWAY_CANCEL_URL']  ?? '';
-$payway_env  = $_ENV['PAYWAY_ENV']         ?? 'sandbox';
-$private_key_env = $_ENV['PAYWAY_PRIVATE_KEY'] ?? null;
-$private_key_path = $_ENV['PAYWAY_PRIVATE_KEY_PATH'] ?? null; // optional: path to PEM file on disk
+$merchant_id = getenv('PAYWAY_MERCHANT_ID') ?? null;
+$return_url  = getenv('PAYWAY_RETURN_URL')  ?? '';
+$cancel_url  = getenv('PAYWAY_CANCEL_URL')  ?? '';
+$payway_env  = getenv('PAYWAY_ENV')         ?? 'sandbox';
+$private_key_env = getenv('PAYWAY_PRIVATE_KEY') ?? null;
+$private_key_path = getenv('PAYWAY_PRIVATE_KEY_PATH') ?? null; // optional: path to PEM file on disk
 
 $actionUrl = $payway_env === 'sandbox'
     ? 'https://sandbox.payway.com.kh/'
@@ -110,7 +110,6 @@ if ($merchant_id && $private_key_env) {
     $pkey = @openssl_pkey_get_private($privateKeyPem);
     if ($pkey !== false) {
         $ok = openssl_sign($dataToSign, $signature, $pkey, OPENSSL_ALGO_SHA256);
-        openssl_free_key($pkey);
         if ($ok) {
             $signatureBase64 = base64_encode($signature);
         } else {

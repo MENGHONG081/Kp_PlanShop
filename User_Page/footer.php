@@ -34,7 +34,7 @@
         <ul class="list-unstyled small">
           <li class="mb-2"><a href="About.php" class="text-light text-decoration-none hover-link">Our Story</a></li>
           <li class="mb-2"><a href="About.php" class="text-light text-decoration-none hover-link">Workshops</a></li>
-          <li class="mb-2"><a href="faq.php" class="text-light text-decoration-none hover-link">FAQs</a></li>
+          <li class="mb-2"><a href="ai_chat.php" class="text-light text-decoration-none hover-link">FAQs</a></li>
           <li><a href="contact.php" class="text-light text-decoration-none hover-link">Contact Us</a></li>
         </ul>
       </div>

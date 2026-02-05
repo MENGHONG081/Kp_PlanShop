@@ -1,7 +1,5 @@
 <?php
-require 'auth.php';
-require 'config.php';
-
+include 'plant_admin/auth.php';
 // Initialize variables
 $successMessage = '';
 $errorMessage = '';
@@ -60,7 +58,7 @@ if (isset($_POST['save'])) {
                 }
                 // Redirect to avoid resubmit
                 if (empty($errorMessage)) {
-                    header("Location: users.php?success=1");
+                    header("Location: plant_admin/users.php?success=1");
                     exit();
                 }
             } catch (PDOException $e) {
@@ -81,7 +79,7 @@ if (isset($_GET['del'])) {
     } catch (PDOException $e) {
         $errorMessage = 'Error deleting user.';
     }
-    header("Location: users.php?success=1");
+    header("Location: plant_admin/users.php?success=1");
     exit();
 }
 

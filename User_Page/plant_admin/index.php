@@ -1,7 +1,5 @@
 <?php
-ob_start(); 
-if (session_status() === PHP_SESSION_NONE) { session_start(); } 
-require 'auth.php';
+include 'plant_admin/auth.php';
 // If not logged in, redirect to login page
 if (!isset($_SESSION['admin_id'])) {
     header('Location: login.php');

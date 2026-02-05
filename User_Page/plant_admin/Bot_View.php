@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require __DIR__ . '/config.php';
+include 'plant_admin/auth.php';
 
 $rows = $pdo->query("SELECT * FROM payments ORDER BY id DESC LIMIT 200")->fetchAll();
 ?>

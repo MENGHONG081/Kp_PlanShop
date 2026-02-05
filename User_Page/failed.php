@@ -33,7 +33,7 @@ unset($_SESSION['fail_reasons'], $_SESSION['ai_result']);
         <pre><?= json_encode($ai, JSON_PRETTY_PRINT) ?></pre>
 
         <p>A technical log has been saved to <code>gemini_tell.json</code>.</p>
-        <a href="payment.php" class="btn">← Try Again</a>
+        <a href="Payment.php" class="btn">← Try Again</a>
     </div>
 </body>
 </html>

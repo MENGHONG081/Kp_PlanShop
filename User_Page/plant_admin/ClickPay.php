@@ -1,7 +1,5 @@
 <?php
-ob_start(); 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-require 'auth.php'; // defines $pdo
+include 'plant_admin/auth.php'; // defines $pdo
 
 header('Content-Type: application/json');
 

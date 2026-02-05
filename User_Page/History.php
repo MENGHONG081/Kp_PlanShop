@@ -46,15 +46,15 @@
 <h2 class="text-xl font-bold tracking-tight">Plant Shop</h2>
 </div>
 <nav class="hidden items-center gap-8 md:flex">
-<a class="text-sm font-medium hover:text-primary dark:hover:text-primary" href="#">Shop</a>
-<a class="text-sm font-medium hover:text-primary dark:hover:text-primary" href="#">Account</a>
-<a class="text-sm font-bold text-primary dark:text-primary" href="#">Past Orders</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary" href="Products.php">Shop</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary" href="ac_user.php">Account</a>
+<a class="text-sm font-bold text-primary dark:text-primary" href="Order.php">Past Orders</a>
 </nav>
 <div class="flex items-center gap-4">
 <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
 <span class="material-symbols-outlined text-xl">favorite_border</span>
 </button>
-<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700" href="Products.php">
 <span class="material-symbols-outlined text-xl">shopping_bag</span>
 </button>
 <div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="User avatar placeholder image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0uvtQVcDXLWUyWDw-dHdMi0QaLwBoJvtc2ho5iJnUIxrtCUmEpOrcinA-nYot47Ak8THuT9tp0YILwWuiQ_DuYlds05LCX5jzS1iwshxM-ZKCiQpZSKdJGh9C9fG9JffapdX121pV_wMOgPKI61Hvr9TpYI-EhUi4-Ljhwqx5oae9aR40pxfDSB4z_fgKsY_aVGn1FeJyP9_3TNvJrNfEzYNQA0JIb90HYaucpu0hJ3t7BYPGGqmln8HGkfNqZiR3Sj3omAHZBH0')"></div>

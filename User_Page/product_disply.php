@@ -29,7 +29,7 @@
                     <!-- Buttons -->
                     <div class="d-flex gap-2">
                         <!-- Add to Cart -->
-                        <button type="button" onclick="window.location.href='/PLANT_PROJECT/User_Page/Products.php'"
+                        <button type="button" onclick="window.location.href='Products.php'"
                                 class="btn btn-success flex-fill add-to-cart-btn d-flex align-items-center justify-content-center gap-1"
                              >
                             <span class="material-symbols-outlined add-icon">add_shopping_cart</span>
@@ -37,7 +37,7 @@
                         </button>
 
                         <!-- Details -->
-                        <a href="/PLANT_PROJECT/User_Page/Detail.php"
+                        <a href="Detail.php?id=<?= htmlspecialchars($product['id']) ?>"
                            class="btn btn-outline-secondary flex-fill d-flex align-items-center justify-content-center gap-1">
                             <span class="material-symbols-outlined">visibility</span>
                             <span>Details</span>

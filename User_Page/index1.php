@@ -316,7 +316,7 @@ a[href*="login.php"], a[href*="signup.php"]{
             alt="AI Assistant" 
             class="ai-img-circle"
             class="img-colorful"
-            onclick="window.location.href='ai_chat.Php' ">
+            href="ai_chat.php" />
       </button>
 
 <div id="ai-chat-window" class="chat-window">

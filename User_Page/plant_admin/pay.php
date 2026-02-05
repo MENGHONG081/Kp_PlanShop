@@ -1,6 +1,6 @@
 <?php
-require 'auth.php';
-require 'config.php'; // Make sure $pdo is available
+include 'plant_admin/auth.php';
+// Make sure $pdo is available
 //$user_id = $_SESSION['user_id'];
 
 // Fetch all payments for the user's orders
@@ -37,7 +37,7 @@ $payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body class="bg-light">
-<?php include 'nav.php'; ?>
+<?php include 'plant_admin/nav.php'; ?>
 
 <div class="container py-5">
     <div class="d-flex align-items-center mb-4">

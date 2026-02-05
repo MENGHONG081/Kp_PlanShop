@@ -25,6 +25,4 @@ if (!defined('SITE_URL')) {
 if (!defined('UPLOAD_PATH')) {
     define('UPLOAD_PATH', __DIR__ . '/uploads/');
 }
-if (!defined('UPLOAD_URL')) {
-    define('UPLOAD_URL', SITE_URL . 'uploads/');
-}
+

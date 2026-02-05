@@ -1,9 +1,6 @@
 # Ignore sensitive & generated files
 .env
 .env.*
-vendor/
-uploads/
 node_modules/
-dist/
 .vscode
 

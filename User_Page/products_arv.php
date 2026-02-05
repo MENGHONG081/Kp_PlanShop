@@ -40,10 +40,10 @@ if (!empty($newArrivals)): ?>
                         <div class="d-flex gap-2 justify-content-center">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button class="btn btn-primary me-md-2" type="button"
-                                onclick="window.location.href='/PLANT_PROJECT/User_Page/Products.php?id=<?= $product['id'] ?>&action=add_to_cart'">
+                                onclick="window.location.href='Products.php?id=<?= $product['id'] ?>&action=add_to_cart'">
                                 <span class="material-symbols-outlined align-middle">add_shopping_cart</span>
                                 Add</button>
-                            <button class="btn btn-primary" type="button" onclick="location.href='/PLANT_PROJECT/User_Page/product_detail.php?id=<?= $product['id'] ?>'">
+                            <button class="btn btn-primary" type="button" onclick="location.href='product_detail.php?id=<?= $product['id'] ?>'">
                                 <span class="material-symbols-outlined align-middle">visibility</span>
                                 Details
                                 </button>

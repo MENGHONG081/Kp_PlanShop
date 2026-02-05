@@ -75,7 +75,7 @@ $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
     <p class="text-md text-gray-600 mb-6">Your order has been confirmed and is being processed.</p>
 
     <!-- Button -->
-    <a href="/PLANT_PROJECT/User_Page/Order.php?order=<?= urlencode($order_id) ?>"
+    <a href="Order.php?order=<?= urlencode($order_id) ?>"
        class="inline-block bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 transition">
        View Order Details
     </a>

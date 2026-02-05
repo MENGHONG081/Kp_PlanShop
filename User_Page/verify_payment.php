@@ -30,7 +30,7 @@ try {
     }
 
     // 1. Bakong API Verification
-    $token = $_ENV['BAKONG_TOKEN'] ?? '';
+    $token = getenv('BAKONG_TOKEN') ?? '';
     $bakong = new BakongKHQR($token);
     $response = $bakong->checkTransactionByMD5($md5);
 

@@ -229,17 +229,17 @@
 <div>
 <h4 class="font-bold mb-4">Explore</h4>
 <ul class="space-y-2 text-sm">
-<li><a class="hover:text-primary" href="#">Shop All</a></li>
-<li><a class="hover:text-primary" href="#">Care Guides</a></li>
-<li><a class="hover:text-primary" href="#">About Us</a></li>
+<li><a class="hover:text-primary" href="Products.php">Shop All</a></li>
+<li><a class="hover:text-primary" href="Care Product.php">Care Guides</a></li>
+<li><a class="hover:text-primary" href="About.php">About Us</a></li>
 </ul>
 </div>
 <div>
 <h4 class="font-bold mb-4">Support</h4>
 <ul class="space-y-2 text-sm">
-<li><a class="hover:text-primary" href="#">Contact</a></li>
-<li><a class="hover:text-primary" href="#">FAQs</a></li>
-<li><a class="hover:text-primary" href="#">Shipping &amp; Returns</a></li>
+<li><a class="hover:text-primary" href="contact.php">Contact</a></li>
+<li><a class="hover:text-primary" href="ai_chat.php">FAQs</a></li>
+<li><a class="hover:text-primary" href="Order.php">Shipping &amp; Returns</a></li>
 </ul>
 </div>
 <div>

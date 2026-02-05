@@ -192,43 +192,43 @@
         </div>
         <ul class="sidebar-menu">
             <li>
-                <a href="index.php" class="active">
+                <a href="plant_admin/index.php" class="active">
                     <i class="fas fa-tachometer-alt"></i>
                     <span class="menu-text">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="products.php">
+                <a href="plant_admin/products.php">
                     <i class="fas fa-boxes-stacked"></i>
                     <span class="menu-text">Products</span>
                 </a>
             </li>
             <li>
-                <a href="categories.php">
+                <a href="plant_admin/categories.php">
                     <i class="fas fa-tags"></i>
                     <span class="menu-text">Categories</span>
                 </a>
             </li>
             <li>
-                <a href="orders.php">
+                <a href="plant_admin/orders.php">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="menu-text">Orders</span>
                 </a>
             </li>
             <li>
-                <a href="users.php">
+                <a href="plant_admin/users.php">
                     <i class="fas fa-users"></i>
                     <span class="menu-text">Users</span>
                 </a>
             </li>
             <li>
-                <a href="setting.php">
+                <a href="plant_admin/setting.php">
                     <i class="fas fa-cog"></i>
                     <span class="menu-text">Settings</span>
                 </a>
             </li>
             <li>
-                <a href="logout.php">
+                <a href="plant_admin/logout.php">
                     <i class="fas fa-sign-out-alt"></i>
                     <span class="menu-text">Logout</span>
                 </a>

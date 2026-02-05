@@ -281,8 +281,8 @@
 <ul class="space-y-2 text-sm">
 <li><a class="hover:text-primary transition-colors" href="index1.php">Home</a></li>
 <li><a class="hover:text-primary transition-colors" href="Products.php">Products</a></li>
-<li><a class="hover:text-primary transition-colors" href="Products_pots.php">Pots &amp; Planters</a></li>
-<li><a class="hover:text-primary transition-colors" href="Products_tools.php">Tools &amp; Accessories</a></li>
+<li><a class="hover:text-primary transition-colors" href="Products.php">Pots &amp; Planters</a></li>
+<li><a class="hover:text-primary transition-colors" href="Products.php">Tools &amp; Accessories</a></li>
 </ul>
 </div>
 <div>
@@ -290,7 +290,7 @@
 <ul class="space-y-2 text-sm">
 <li><a class="hover:text-primary transition-colors" href="index1.php">Our Story</a></li>
 <li><a class="hover:text-primary transition-colors" href="About.php">Workshops</a></li>
-<li><a class="hover:text-primary transition-colors" href="faqs.php">FAQs</a></li>
+<li><a class="hover:text-primary transition-colors" href="ai_chat.php">FAQs</a></li>
 <li><a class="hover:text-primary transition-colors" href="contact.php">Contact Us</a></li>
 </ul>
 </div>

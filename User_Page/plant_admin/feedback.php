@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+include 'plant_admin/auth.php';
 
 // OPTIONAL: Admin protection
 // session_start();
@@ -61,7 +61,6 @@ $stmt = $pdo->prepare("
 $stmt->execute();
 $feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

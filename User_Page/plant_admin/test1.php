@@ -1,5 +1,5 @@
 <?php
-require 'auth.php';
+include 'plant_admin/auth.php';
 
 // Initialize cart if not exists
 if (!isset($_SESSION['cart'])) {
@@ -27,7 +27,7 @@ if (isset($_GET['add'])) {
 
     // Redirect to avoid resubmit, preserving search/filter params
     $query_string = http_build_query(array_filter($_GET, function($key) { return !in_array($key, ['add', 'qty']); }, ARRAY_FILTER_USE_KEY));
-    header("Location: products.php?" . $query_string);
+    header("Location: plant_admin/products.php?" . $query_string);
     exit();
 }
 
@@ -151,7 +151,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <?php endforeach; ?>
     </div>
     <div class="text-center">
-      <a href="cart.php" class="btn btn-success btn-lg">View Cart</a>
+      <a href="plant_admin/cart.php" class="btn btn-success btn-lg">View Cart</a>
     </div>
   <?php endif; ?>
 </div>

@@ -48,7 +48,7 @@
         <div class="col-lg-8">
             <h2 class="text-center mb-5 fw-bold text-primary">Upload Image & Video</h2>
 
-            <form action="/PLANT_PROJECT/User_Page/index1.php" method="POST" enctype="multipart/form-data">
+            <form action="index1.php" method="POST" enctype="multipart/form-data">
 
                 <!-- VIDEO UPLOAD CARD -->
                 <div class="card mb-4 border-0 shadow-sm">

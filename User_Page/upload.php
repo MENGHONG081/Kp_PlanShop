@@ -22,7 +22,7 @@ if ($orderId === '' || $expectedAmount === '' || $orderDate === '') {
 }
 
 /* ================= CONFIG ================= */
-$gemini_api_key = $_ENV['GEMINI_API_KEY'] ?? null;
+$gemini_api_key = getenv('GEMINI_API_KEY') ?? null;
 if (empty($gemini_api_key)) {
     die('Missing GEMINI_API_KEY in .env file');
 }
@@ -98,8 +98,6 @@ curl_setopt_array($ch, [
 
 $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
-
 $result = json_decode($response, true);
 
 /* ================= ERROR LOGGING (gemini_tell.json) ================= */

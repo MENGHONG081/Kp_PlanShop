@@ -1,6 +1,5 @@
 <?php
 require 'config.php'; // Your PDO connection ($pdo)
-
 // Get order_id from URL
 $order_id = $_GET['order'] ?? null;
 if (!$order_id || !is_numeric($order_id)) {
@@ -145,8 +144,8 @@ $shipping_address = "123 Green Street, Plant City, CA 90210"; // Replace with re
                 <h2 class="text-primary text-lg font-bold">KP Plant Shop</h2>
             </div>
             <nav class="hidden items-center gap-9 md:flex">
-                <a class="text-sm font-medium hover:text-primary" href="/PLANT_PROJECT/User_Page/Products.php">Shop</a>
-                <a class="text-sm font-medium hover:text-primary" href="/PLANT_PROJECT/User_Page/About.php">About Us</a>
+                <a class="text-sm font-medium hover:text-primary" href="Products.php">Shop</a>
+                <a class="text-sm font-medium hover:text-primary" href="About.php">About Us</a>
             </nav>
         </div>
     </header>
@@ -154,11 +153,11 @@ $shipping_address = "123 Green Street, Plant City, CA 90210"; // Replace with re
     <main class="container mx-auto flex-grow px-4 py-8 md:py-12">
         <!-- Breadcrumbs -->
         <div class="mb-6 flex flex-wrap items-center gap-2 text-sm">
-            <a class="font-medium text-primary hover:underline" href="/PLANT_PROJECT/User_Page/index1.php">Home</a>
+            <a class="font-medium text-primary hover:underline" href="index1.php">Home</a>
             <span class="text-text-light/50 dark:text-text-dark/50">/</span>
-            <a class="font-medium text-primary hover:underline" href="/PLANT_PROJECT/User_Page/Products.php">Shop</a>
+            <a class="font-medium text-primary hover:underline" href="Products.php">Shop</a>
             <span class="text-text-light/50 dark:text-text-dark/50">/</span>
-            <a class="font-medium text-primary hover:underline" href="/PLANT_PROJECT/User_Page/Order.php">Cart</a>
+            <a class="font-medium text-primary hover:underline" href="Order.php">Cart</a>
             <span class="text-text-light/50 dark:text-text-dark/50">/</span>
             <span class="font-medium">Order Confirmed</span>
         </div>
