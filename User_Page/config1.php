@@ -1,70 +1,130 @@
 <?php
-require 'config.php'; // Your PDO connection ($pdo)
-if (!isset($_SESSION['cart'])) {
+// config1.php (or whatever file you require from index1.php)
+ob_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require 'config.php'; // must create $pdo (pgsql)
+
+// ==================== CART INIT ====================
+if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Load products
-$stmt = $pdo->prepare("SELECT id, name, price, image, description FROM products");
+// ==================== LOAD PRODUCTS (for page + add_to_cart) ====================
+$stmt = $pdo->prepare("SELECT id, name, price, image, description FROM products ORDER BY id DESC");
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-/* ==================== AJAX: Add to Cart ==================== */
+// ==================== AJAX: ADD TO CART ====================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $product_id = (int)$_POST['product_id'];
-    $found = false;
+    header('Content-Type: application/json; charset=utf-8');
 
-    foreach ($products as $product) {
-        if ($product['id'] === $product_id) {
-            // Check if already in cart
-            foreach ($_SESSION['cart'] as &$item) {
-                if ($item['id'] === $product_id) {
-                    $item['quantity']++;
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) {
-                $_SESSION['cart'][] = [
-                    'id' => $product['id'],
-                    'name' => $product['name'],
-                    'price' => $product['price'],
-                    'image' => $product['image'],
-                    'description' => $product['description'],
-                    'quantity' => 1
-                ];
-            }
+    $product_id = (int)($_POST['product_id'] ?? 0);
+    if ($product_id <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Invalid product id']);
+        exit;
+    }
+
+    // Find product from $products
+    $productFound = null;
+    foreach ($products as $p) {
+        if ((int)$p['id'] === $product_id) {
+            $productFound = $p;
             break;
         }
     }
 
-    $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
+    if (!$productFound) {
+        echo json_encode(['success' => false, 'message' => 'Product not found']);
+        exit;
+    }
 
-    header('Content-Type: application/json');
+    // Update cart
+    $foundInCart = false;
+    foreach ($_SESSION['cart'] as &$item) {
+        if ((int)$item['id'] === $product_id) {
+            $item['quantity'] = (int)$item['quantity'] + 1;
+            $foundInCart = true;
+            break;
+        }
+    }
+    unset($item);
+
+    if (!$foundInCart) {
+        $_SESSION['cart'][] = [
+            'id'          => (int)$productFound['id'],
+            'name'        => (string)$productFound['name'],
+            'price'       => (float)$productFound['price'],
+            'image'       => (string)$productFound['image'],
+            'description' => (string)$productFound['description'],
+            'quantity'    => 1
+        ];
+    }
+
+    $cart_count = 0;
+    foreach ($_SESSION['cart'] as $it) {
+        $cart_count += (int)($it['quantity'] ?? 0);
+    }
+
     echo json_encode(['success' => true, 'cart_count' => $cart_count]);
     exit;
 }
 
-// Initial cart count for page load
-$cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
-// upload slider and logo 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// ==================== UPLOAD: SLIDER / LOGO ====================
+// IMPORTANT: avoid "if POST then upload" because it breaks other POST requests.
+// Use a hidden flag <input type="hidden" name="upload_slider" value="1">
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload_slider'])) {
 
-    if (!empty($_FILES['image']['name'])) {
-        move_uploaded_file($_FILES['image']['tmp_name'], "uploads/" . $_FILES['image']['name']);
+    // Ensure upload folder exists
+    $uploadDir = __DIR__ . "/uploads/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
     }
 
-    if (!empty($_FILES['video']['name'])) {
-        move_uploaded_file($_FILES['video']['tmp_name'], "uploads/" . $_FILES['video']['name']);
+    $saved = [];
+
+    // Image
+    if (!empty($_FILES['image']['name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
+        $imgName = basename($_FILES['image']['name']);
+        $imgPath = $uploadDir . $imgName;
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $imgPath)) {
+            $saved['image'] = "uploads/" . $imgName;
+        }
     }
 
-    echo "Upload Successful";
+    // Video
+    if (!empty($_FILES['video']['name']) && is_uploaded_file($_FILES['video']['tmp_name'])) {
+        $vidName = basename($_FILES['video']['name']);
+        $vidPath = $uploadDir . $vidName;
+        if (move_uploaded_file($_FILES['video']['tmp_name'], $vidPath)) {
+            $saved['video'] = "uploads/" . $vidName;
+        }
+    }
+
+    // You can redirect or return JSON
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode([
+        'success' => true,
+        'message' => 'Upload Successful',
+        'saved'   => $saved
+    ]);
+    exit;
 }
 
-// 1. Discount Products
+// ==================== CART COUNT (page load) ====================
+$cart_count = 0;
+foreach ($_SESSION['cart'] as $it) {
+    $cart_count += (int)($it['quantity'] ?? 0);
+}
+
+// ==================== 1) DISCOUNT PRODUCTS ====================
+// PostgreSQL-safe query
 $stmt = $pdo->query("
-    SELECT p.id, p.name, p.price, p.image, 
-           d.discount_percent, d.price_after_discount, d.description AS discount_desc
+    SELECT
+        p.id, p.name, p.price, p.image,
+        d.discount_percent, d.price_after_discount, d.description AS discount_desc
     FROM products p
     JOIN discounts d ON p.id = d.product_id
     WHERE d.discount_percent > 0
@@ -73,55 +133,64 @@ $stmt = $pdo->query("
 ");
 $discountProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// 2. New Arrivals (last 30 days)
+// ==================== 2) NEW ARRIVALS (last 30 days) ====================
+// FIXED: PostgreSQL uses NOW() - INTERVAL '30 days'
 $stmt = $pdo->prepare("
     SELECT id, name, price, image, created_at, description
     FROM products
-    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    WHERE created_at >= (NOW() - INTERVAL '30 days')
     ORDER BY created_at DESC
     LIMIT 4
 ");
 $stmt->execute();
 $newArrivals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// 3. Best Sellers (total qty sold >= 10)
+// ==================== 3) BEST SELLERS ====================
+// If your order_items table uses qty, this is OK for PostgreSQL.
+// If it uses quantity instead, change oi.qty -> oi.quantity
 $stmt = $pdo->query("
-    SELECT 
-        p.id, 
-        p.name, 
-        p.price, 
+    SELECT
+        p.id,
+        p.name,
+        p.price,
         p.image,
         SUM(oi.qty) AS total_sold
     FROM products p
     JOIN order_items oi ON p.id = oi.product_id
-    GROUP BY p.id
-    HAVING total_sold >= 10
+    GROUP BY p.id, p.name, p.price, p.image
+    HAVING SUM(oi.qty) >= 10
     ORDER BY total_sold DESC
     LIMIT 4
 ");
 $bestSellers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// show feedback form submission success message
+
+// ==================== 4) FEEDBACK (last 4) ====================
 $stmt = $pdo->prepare("
-    SELECT 
-    f.id,
-    f.comments,
-    f.rating,
-    f.visible,
-    f.submitted_at,
-    u.email,
-    u.fullname
-FROM customer_feedback f
-LEFT JOIN users u ON f.user_id = u.id
-ORDER BY f.submitted_at DESC
-LIMIT 4;
+    SELECT
+        f.id,
+        f.comments,
+        f.rating,
+        f.visible,
+        f.submitted_at,
+        u.email,
+        u.fullname
+    FROM customer_feedback f
+    LEFT JOIN users u ON f.user_id = u.id
+    ORDER BY f.submitted_at DESC
+    LIMIT 4
 ");
 $stmt->execute();
 $feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// silde page user
-if (isset($_GET['imgUrl']) && isset($_GET['title']) && isset($_GET['desc'])) {
-    $imgUrl = $_GET['imgUrl'];
-    $title  = $_GET['title'];
-    $desc   = $_GET['desc'];
+// ==================== SLIDE PAGE USER (GET) ====================
+$imgUrl = null;
+$title  = null;
+$desc   = null;
+
+if (isset($_GET['imgUrl'], $_GET['title'], $_GET['desc'])) {
+    // Basic sanitization (output-escape later in HTML too)
+    $imgUrl = (string)$_GET['imgUrl'];
+    $title  = (string)$_GET['title'];
+    $desc   = (string)$_GET['desc'];
 }
 ?>
