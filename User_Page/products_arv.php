@@ -35,14 +35,14 @@
 
                     <div class="mt-auto">
                         <p class="fw-bold text-success fs-5 mb-3">
-                            $<?= number_format($product['price'] / 100, 2) ?>
+                            $<?= number_format($product['price'] , 2) ?>
                         </p>
 
                         <!-- Buttons -->
                         <div class="d-flex gap-2 justify-content-center">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button class="btn btn-primary me-md-2" type="button"
-                                data-product-id="<?= $product['id'] ?>">
+                                onclick="window.location.href='Products.php?id=<?= $product['id'] ?>&action=add_to_cart'">
                                 <span class="material-symbols-outlined align-middle">add_shopping_cart</span>
                                 Add</button>
                             <button class="btn btn-primary" type="button" onclick="location.href='product_detail.php?id=<?= $product['id'] ?>'">

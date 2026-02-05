@@ -45,8 +45,8 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Format data for display
 $order_number = str_pad($order['id'], 6, '0', STR_PAD_LEFT);
-$order_total = $order['total'] / 100; // Convert cents to dollars
-$tax = $order_total * 0.08;
+$order_total = $order['total'] ; // Convert cents to dollars
+$tax = $order_total * 0; // Assuming 7% tax
 $grand_total = $order_total + $tax;
 
 // Fake some data for display (you can enhance this later)

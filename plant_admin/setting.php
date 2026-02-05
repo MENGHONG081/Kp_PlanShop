@@ -169,41 +169,67 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
             </div>
         </div>
 
-        <!-- Modal -->
-                <div class="modal fade" id="carouselModal" tabindex="-1" aria-labelledby="carouselModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <form id="carouselForm">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="carouselModalLabel">Add New Slide</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="imgUrl" class="form-label">Image URL</label>
-                            <input type="text" id="imgUrl" class="form-control" placeholder="Image URL" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="slideTitle" class="form-label">Title</label>
-                            <input type="text" id="slideTitle" class="form-control" placeholder="Title" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="slideDesc" class="form-label">Description</label>
-                            <textarea id="slideDesc" class="form-control" placeholder="Description" required></textarea>
-                        </div>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Save Slide</button>
-                        </div>
-                    </form>
-                    </div>
-                </div>
-                </div>
+        <!-- Admin Page - Carousel Management -->
 
-                <!-- Carousel -->
-                <div id="customCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
-                <div class="carousel-inner" id="carouselInner"></div>
-                </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="carouselModal" tabindex="-1" aria-labelledby="carouselModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form id="carouselForm">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="carouselModalLabel">Add New Slide</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="imgUrl" class="form-label">Image URL</label>
+                                                <input type="url" id="imgUrl" class="form-control" placeholder="https://..." required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="slideTitle" class="form-label">Title</label>
+                                                <input type="text" id="slideTitle" class="form-control" placeholder="Main heading" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="slideDesc" class="form-label">Description</label>
+                                                <textarea id="slideDesc" class="form-control" rows="3" placeholder="Short description or subtitle" required></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="btnText" class="form-label">Button Text (optional)</label>
+                                                <input type="text" id="btnText" class="form-control" placeholder="e.g. Need Peace →">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="btnLink" class="form-label">Button Link (optional)</label>
+                                                <input type="url" id="btnLink" class="form-control" placeholder="https://...">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success">Save Slide</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Slide Button -->
+                        <div class="container mt-4">
+                            <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#carouselModal">
+                                + Add New Slide
+                            </button>
+
+                            <!-- Carousel Preview (Admin) -->
+                            <div id="customCarousel" class="carousel slide mt-4 border rounded shadow" data-bs-ride="carousel">
+                                <div class="carousel-inner" id="carouselInner"></div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#customCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#customCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
 
 
     </div>
@@ -217,7 +243,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
         const matchText = document.getElementById('matchText');
         const updateBtn = document.getElementById('updateBtn');
         const passwordCard = document.getElementById('passwordCard');
-        const toggleBtn = document.getElementById("toggleBtn");
+       // const toggleBtn = document.getElementById("toggleBtn");
         passwordCard.classList.add('disabled');
         function calculateStrength(password) {
             let score = 0;
@@ -317,6 +343,89 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
 
                 // Load slides on page load
                 loadSlides();
+
+                // Slide data structure
+                let slides = JSON.parse(localStorage.getItem('carouselSlides')) || [
+                    {
+                        imgUrl: "https://i.pinimg.com/736x/c3/d5/db/c3d5dbdb618c753c8467454d942ef1d6.jpg",
+                        title: "Cambodia Need Peace",
+                        desc: "Thai Military Attacks and Violations of Cambodian",
+                        btnText: "Need Peace →",
+                        btnLink: "https://angkor-whispers.vercel.app/"
+                    }
+                    // You can add your other default slides here too
+                ];
+
+                // Render carousel
+                function renderCarousel() {
+                    const inner = document.getElementById('carouselInner');
+                    inner.innerHTML = '';
+
+                    slides.forEach((slide, index) => {
+                        const isActive = index === 0 ? 'active' : '';
+
+                        const item = document.createElement('div');
+                        item.className = `carousel-item ${isActive}`;
+                        item.innerHTML = `
+                            <img src="${slide.imgUrl}" class="d-block w-100" style="max-height: 70vh; object-fit: cover;" alt="${slide.title}">
+                            <div class="carousel-caption d-flex flex-column justify-content-center h-100 text-white text-start ps-5 pb-5">
+                                <h2 class="display-4 fw-bold mb-3 text-shadow">${slide.title}</h2>
+                                <p class="fs-4 fw-light mb-4 opacity-90">${slide.desc}</p>
+                                ${slide.btnText && slide.btnLink ? `
+                                    <a href="${slide.btnLink}" class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow" target="_blank">
+                                        ${slide.btnText}
+                                    </a>
+                                ` : ''}
+                                <button class="btn btn-danger btn-sm mt-3" onclick="deleteSlide(${index})">
+                                    Delete Slide
+                                </button>
+                            </div>
+                        `;
+                        inner.appendChild(item);
+                    });
+
+                    // Re-initialize carousel if needed
+                    const carousel = new bootstrap.Carousel(document.getElementById('customCarousel'));
+                }
+
+                // Delete slide
+                function deleteSlide(index) {
+                    if (confirm('Delete this slide?')) {
+                        slides.splice(index, 1);
+                        localStorage.setItem('carouselSlides', JSON.stringify(slides));
+                        renderCarousel();
+                    }
+                }
+
+                // Form submit
+                document.getElementById('carouselForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const newSlide = {
+                        imgUrl: document.getElementById('imgUrl').value.trim(),
+                        title: document.getElementById('slideTitle').value.trim(),
+                        desc: document.getElementById('slideDesc').value.trim(),
+                        btnText: document.getElementById('btnText').value.trim(),
+                        btnLink: document.getElementById('btnLink').value.trim()
+                    };
+
+                    if (!newSlide.imgUrl || !newSlide.title || !newSlide.desc) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+
+                    slides.push(newSlide);
+                    localStorage.setItem('carouselSlides', JSON.stringify(slides));
+
+                    // Reset form & close modal
+                    this.reset();
+                    bootstrap.Modal.getInstance(document.getElementById('carouselModal')).hide();
+
+                    renderCarousel();
+                });
+
+                // Load on page start
+                renderCarousel();
 
     </script>
 </body>

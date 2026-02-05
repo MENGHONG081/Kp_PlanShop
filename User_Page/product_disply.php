@@ -23,7 +23,7 @@
 
                 <div class="mt-auto">
                     <p class="fs-4 fw-bold text-success mb-3">
-                        $<?= number_format($product['price'] / 100, 2) ?>
+                        $<?= number_format($product['price'] , 2) ?>
                     </p>
 
                     <!-- Buttons -->
@@ -31,7 +31,7 @@
                         <!-- Add to Cart -->
                         <button type="button" onclick="window.location.href='Products.php'"
                                 class="btn btn-success flex-fill add-to-cart-btn d-flex align-items-center justify-content-center gap-1"
-                                data-product-id="<?= $product['id'] ?>">
+                             >
                             <span class="material-symbols-outlined add-icon">add_shopping_cart</span>
                             <span class="btn-text"> Order Now</span>
                         </button>

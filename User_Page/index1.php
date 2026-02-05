@@ -22,63 +22,6 @@ $isLoggedIn = isset($_SESSION['user']); // Choose one consistent key, e.g., 'use
 //$fullname = $isLoggedIn && isset($_SESSION['fullname']) ? htmlspecialchars($_SESSION['fullname']) : 'Guest';
 //$username = $isLoggedIn ? htmlspecialchars($_SESSION['user']) : '';
 // feedback backend logic can go here if needed
-// 1. Discount Products
-$stmt = $pdo->query("
-    SELECT p.id, p.name, p.price, p.image, 
-           d.discount_percent, d.price_after_discount, d.description AS discount_desc
-    FROM products p
-    JOIN discounts d ON p.id = d.product_id
-    WHERE d.discount_percent > 0
-    ORDER BY d.created_at DESC
-    LIMIT 8
-");
-$discountProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// 2. New Arrivals (last 30 days)
-$stmt = $pdo->prepare("
-    SELECT id, name, price, image, created_at, description
-    FROM products
-    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-    ORDER BY created_at DESC
-    LIMIT 8
-");
-$stmt->execute();
-$newArrivals = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// 3. Best Sellers (total qty sold >= 10)
-$stmt = $pdo->query("
-    SELECT 
-        p.id, 
-        p.name, 
-        p.price, 
-        p.image,
-        SUM(oi.qty) AS total_sold
-    FROM products p
-    JOIN order_items oi ON p.id = oi.product_id
-    GROUP BY p.id
-    HAVING total_sold >= 10
-    ORDER BY total_sold DESC
-    LIMIT 8
-");
-$bestSellers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// show feedback form submission success message
-$stmt = $pdo->prepare("
-    SELECT 
-    f.id,
-    f.comments,
-    f.rating,
-    f.visible,
-    f.submitted_at,
-    u.email,
-    u.fullname
-FROM customer_feedback f
-LEFT JOIN users u ON f.user_id = u.id
-ORDER BY f.submitted_at DESC
-LIMIT 4;
-");
-$stmt->execute();
-$feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 // add img user
 $userId = $_SESSION['user_id'];
 $successMessage = '';
@@ -97,12 +40,6 @@ try {
 } catch (PDOException $e) {
     $errorMessage = 'Error loading profile. Please try again.';
     error_log("Profile fetch error: " . $e->getMessage());
-}
-// silde page user
-if (isset($_GET['imgUrl']) && isset($_GET['title']) && isset($_GET['desc'])) {
-    $imgUrl = $_GET['imgUrl'];
-    $title  = $_GET['title'];
-    $desc   = $_GET['desc'];
 }
 
 ?>
@@ -336,7 +273,7 @@ a[href*="login.php"], a[href*="signup.php"]{
             <h2 class="mb-2 text-warning">Welcome to KP Plant_Shop</h2>
           </div>
            </marquee>
-      </div>
+         </div>
               
               <p class="lead text-white">Your one-stop shop for all things green and beautiful!</p>
             </div>
@@ -528,7 +465,7 @@ a[href*="login.php"], a[href*="signup.php"]{
                  class="img-colorful product-img mb-3">
       <h5><?= htmlspecialchars($p['name']) ?></h5>
     <p class="text-success fw-bold">$<?= number_format($p['price'], 2) ?></p>
-    <button onclick="window.location.href='Order.php?id=18'" class="btn btn-success btn-sm">Add to Cart</button>
+    <button onclick="window.location.href='Products.php'" class="btn btn-success btn-sm">Add to Cart</button>
     <button class="btn btn-outline-primary btn-sm ms-2">View</button>
   </div>
 </div>
@@ -538,10 +475,11 @@ a[href*="login.php"], a[href*="signup.php"]{
 <?php endif; ?>
 
   <!-- Product Promotions Section -->
-  <div class="section-header d-flex align-items-center mb-3"> <!-- Icon --> 
+  <a href="Order.php" class="section-header d-flex align-items-center mb-3 text-decoration-none"> <!-- Icon --> 
     <i class="bi bi-tag-fill text-success fs-2 me-2"></i>
-     <!-- Text --> <h2 class="mb-0 fw-bold" style="font-family: 'Poppins', sans-serif;">Promotionss && Discounts</h2>
-     </div> <!-- Styled horizontal rule --> <hr class="custom-hr">
+    <h2 class="mb-0 fw-bold" style="font-family: 'Poppins', sans-serif;">Promotionss && Discounts</h2>
+  </a>
+<hr class="custom-hr">
 <?php if (empty($discountProducts)): ?>
   <div class="text-center py-5">
     <p class="text-muted mb-0">No discounted products at the moment.</p>

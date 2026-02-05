@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     echo json_encode([
         'success' => true,
         'cart_count' => $cart_count,
-        'subtotal' => number_format($subtotal / 100, 2),
+        'subtotal' => number_format($subtotal, 2),
         'cart' => $cart
     ]);
     exit;
@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                             </div>
                                             <div class="flex-1 text-center sm:text-left">
                                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white"><?= htmlspecialchars($item['name']) ?></h3>
-                                                <p class="mt-1 text-lg font-semibold text-primary">$<?= number_format($item['price'] / 100, 2) ?></p>
+                                                <p class="mt-1 text-lg font-semibold text-primary">$<?= number_format($item['price'] , 2) ?></p>
                                                 <div class="flex items-center justify-center sm:justify-start gap-3 mt-5">
                                                     <button onclick="updateQuantity(<?= $item['id'] ?>, -1)" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition flex items-center justify-center text-lg font-bold">−</button>
                                                     <input type="text" value="<?= $item['quantity'] ?>" readonly class="quantity-input w-16 text-center text-lg font-semibold bg-transparent border-b-2 border-gray-300 dark:border-gray-600 outline-none"/>
@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                             </div>
                                             <div class="text-center sm:text-right">
                                                 <p class="text-2xl font-bold text-gray-900 dark:text-white item-total">
-                                                    $<?= number_format(($item['price'] * $item['quantity']) / 100, 2) ?>
+                                                    $<?= number_format(($item['price'] * $item['quantity']), 2) ?>
                                                 </p>
                                                 <button onclick="removeItem(<?= $item['id'] ?>)" class="mt-4 text-red-600 hover:text-red-700 font-medium text-sm flex items-center gap-1 justify-center sm:justify-end">
                                                     <span class="material-symbols-outlined text-lg">delete</span> Remove
@@ -244,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                 <span class="text-lg text-gray-600 dark:text-gray-400">
                                     Subtotal (<?= $cart_count ?> items)
                                 </span>
-                                <span class="text-2xl font-bold" id="subtotal">$<?= number_format($subtotal / 100, 2) ?></span>
+                                <span class="text-2xl font-bold" id="subtotal">$<?= number_format($subtotal, 2) ?></span>
                             </div>
                             <div class="space-y-3 py-5 text-gray-600 dark:text-gray-400">
                                 <div class="flex justify-between"><span>Shipping</span><span class="font-medium">Calculated at checkout</span></div>
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                             </div>
                             <div class="flex justify-between items-baseline pt-6 border-t-2 border-gray-300 dark:border-gray-600">
                                 <span class="text-xl font-semibold">Estimated Total</span>
-                                <span class="text-3xl font-black text-primary" id="total-display">$<?= number_format($subtotal / 100, 2) ?></span>
+                                <span class="text-3xl font-black text-primary" id="total-display">$<?= number_format($subtotal , 2) ?></span>
                             </div>
 
                             <!-- Checkout Button -->
@@ -312,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                         const product = data.cart.find(i => i.id == productId);
                         if (product) {
                             itemRow.querySelector('.quantity-input').value = product.quantity;
-                            itemRow.querySelector('.item-total').textContent = '$' + ((product.price / 100) * product.quantity).toFixed(2);
+                            itemRow.querySelector('.item-total').textContent = '$' + ((product.price) * product.quantity).toFixed(2);
                         }
                     }
                 }

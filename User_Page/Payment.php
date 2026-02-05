@@ -75,7 +75,7 @@ $stmt->execute([$order_id]);
 $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Calculate totals (assuming 'total' is stored in cents)
-$order_total = $order['total'] / 100; // cents → dollars
+$order_total = $order['total']; // cents → dollars
 $date= $order['created_at']; 
 $tax = 0; // Adjust if needed
 $grand_total = round($order_total + $tax, 2);
@@ -147,11 +147,7 @@ $individualInfo = new IndividualInfo(
     storeLabel:      "Plant Shop",
     terminalLabel:   "Online"
 );
-
-// Add expiration for dynamic QR (amount > 0)
-if ($grand_total > 0) {
-    $individualInfo->expirationTimestamp = time() + (15 * 60); // 15 minutes
-}
+// Optional fields can be set via properties
 
 // Generate KHQR
 $response = BakongKHQR::generateIndividual($individualInfo);
@@ -593,9 +589,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                                 <div class="flex-1">
                                     <p class="font-semibold"><?= htmlspecialchars($item['name']) ?></p>
-                                    <p class="text-sm text-gray-500">$<?= number_format($item['unit_price']/100, 2) ?> × <?= $item['qty'] ?></p>
+                                    <p class="text-sm text-gray-500">$<?= number_format($item['unit_price'], 2) ?> × <?= $item['qty'] ?></p>
                                 </div>
-                                <p class="font-semibold">$<?= number_format($item['item_total']/100, 2) ?></p>
+                                <p class="font-semibold">$<?= number_format($item['item_total'], 2) ?></p>
                             </div>
                             <?php endforeach; ?>
                         </div>

@@ -90,7 +90,7 @@
         <button class="flex items-center justify-center h-10 rounded-xl bg-primary/20 text-foreground-light dark:text-foreground-dark px-2.5 hover:bg-primary/30 transition-colors">
           <span class="material-symbols-outlined text-xl">favorite</span>
         </button>
-        <button class="flex items-center justify-center h-10 rounded-xl bg-primary/20 text-foreground-light dark:text-foreground-dark px-2.5 hover:bg-primary/30 transition-colors">
+        <button class="flex items-center justify-center h-10 rounded-xl bg-primary/20 text-foreground-light dark:text-foreground-dark px-2.5 hover:bg-primary/30 transition-colors" onclick="location.href='products.php'">
           <span class="material-symbols-outlined text-xl">shopping_cart</span>
         </button>
         <div class="bg-[url('https://lh3.googleusercontent.com/...')] bg-center bg-cover rounded-full size-10"></div>
@@ -179,7 +179,7 @@
 </div>
 <div class="flex flex-col text-right pr-8 pb-12">
 <p class="text-foreground-light dark:text-foreground-dark text-lg font-medium leading-normal">Our First Market Stall</p>
-<p class="text-muted-light dark:text-muted-dark text-base font-normal leading-normal">2019</p>
+<p class="text-muted-light dark:text-muted-dark text-base font-normal leading-normal">2020</p>
 <p class="text-foreground-light dark:text-foreground-dark mt-2 md:hidden">We took a leap of faith and set up our first stall at a local farmers' market. The response from the community was overwhelming and heartwarming.</p>
 </div>
 <div class="flex flex-col items-center h-full">
@@ -191,7 +191,7 @@
 </div>
 <div class="hidden md:flex flex-col text-right pr-8">
 <p class="text-foreground-light dark:text-foreground-dark text-lg font-medium leading-normal">Opening Our Flagship Store</p>
-<p class="text-muted-light dark:text-muted-dark text-base font-normal leading-normal">2021</p>
+<p class="text-muted-light dark:text-muted-dark text-base font-normal leading-normal">2022</p>
 </div>
 <div class="flex flex-col items-center h-full">
 <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center img-colorful me-2"><span class="material-symbols-outlined text-primary text-2xl">celebration</span></div>
@@ -204,7 +204,7 @@
 </div>
 <div class="flex flex-col text-right pr-8 pb-12">
 <p class="text-foreground-light dark:text-foreground-dark text-lg font-medium leading-normal">Launching Our Website</p>
-<p class="text-muted-light dark:text-muted-dark text-base font-normal leading-normal">2023</p>
+<p class="text-muted-light dark:text-muted-dark text-base font-normal leading-normal">2024</p>
 <p class="text-foreground-light dark:text-foreground-dark mt-2 md:hidden">We expanded our reach, bringing our curated collection of plants and goods to homes across the country through our online store.</p>
 </div>
 <div class="flex flex-col items-center h-full">
@@ -226,19 +226,19 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 <div class="flex flex-col items-center text-center group">
 <div class="relative w-48 h-48 mb-4 ">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-full img-colorful me-2" data-alt="Headshot of Jane Doe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOhm-_Xj4a4mGqOtogxGVmvFkQk-FvL3w74nLagF-wSJOUaWIvwGfIWwpyf2jePnWdroyI8C5o-8LXb33Xr09sLOPj20RCi9ymUa2PLTJ1rbeLo-sGpJ7labNkGptw-skndPTHYldE6CMPAaoVMNNhCte1oRXeB28raeGIMuAI7ZuMUIDkWGKr0C0hojpAndKJ3OzwOp4Tj3VKw2YRnMQCwqvYVMwmPImM9UzY7dONo-QGkUHBYFCqjSgZrEiZPR68ziQyc49k4No");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-full img-colorful me-2" data-alt="Headshot of Tann Sophearath" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOhm-_Xj4a4mGqOtogxGVmvFkQk-FvL3w74nLagF-wSJOUaWIvwGfIWwpyf2jePnWdroyI8C5o-8LXb33Xr09sLOPj20RCi9ymUa2PLTJ1rbeLo-sGpJ7labNkGptw-skndPTHYldE6CMPAaoVMNNhCte1oRXeB28raeGIMuAI7ZuMUIDkWGKr0C0hojpAndKJ3OzwOp4Tj3VKw2YRnMQCwqvYVMwmPImM9UzY7dONo-QGkUHBYFCqjSgZrEiZPR68ziQyc49k4No");'></div>
 </div>
-<h3 class="text-foreground-light dark:text-foreground-dark text-lg font-bold leading-tight">Jane Doe</h3>
+<h3 class="text-foreground-light dark:text-foreground-dark text-lg font-bold leading-tight">Tann Sophearath</h3>
 <p class="text-primary text-sm font-medium">Founder &amp; Chief Botanist</p>
-<p class="text-muted-light dark:text-muted-dark text-sm mt-2">Jane's lifelong love for botany is the root of our shop. She personally curates every plant we carry.</p>
+<p class="text-muted-light dark:text-muted-dark text-sm mt-2">Sophearath lifelong love for botany is the root of our shop. She personally curates every plant we carry.</p>
 </div>
 <div class="flex flex-col items-center text-center group">
 <div class="relative w-48 h-48 mb-4">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-full img-colorful me-2" data-alt="Headshot of John Smith" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOL70nuVOocUsOlPZSzUVE11JpPbCuN7kRoFlvWRLvH_L_2VyNAv2Godw2_EB8_mzGMaQIquhnbC99pR02BJ7FODyYXAQRwDBuYlabgXlk3HT4ySASlLSy2guuusKGyC4FQuw_hCVBGhDn6PGLWH_bKEGn-ZjrCerrCdRrQLCR80PdAfrgniSBJqhb4v9gho4J5H53Ug-FymkC0xHyVbJ0v7fFYsrYZzg323pc0W6MzDFNjiqMedyu7sMlaCwmglT5SXtW80ZAzvU");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-full img-colorful me-2" data-alt="Headshot of Yaun Menghong" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOL70nuVOocUsOlPZSzUVE11JpPbCuN7kRoFlvWRLvH_L_2VyNAv2Godw2_EB8_mzGMaQIquhnbC99pR02BJ7FODyYXAQRwDBuYlabgXlk3HT4ySASlLSy2guuusKGyC4FQuw_hCVBGhDn6PGLWH_bKEGn-ZjrCerrCdRrQLCR80PdAfrgniSBJqhb4v9gho4J5H53Ug-FymkC0xHyVbJ0v7fFYsrYZzg323pc0W6MzDFNjiqMedyu7sMlaCwmglT5SXtW80ZAzvU");'></div>
 </div>
-<h3 class="text-foreground-light dark:text-foreground-dark text-lg font-bold leading-tight">John Smith</h3>
+<h3 class="text-foreground-light dark:text-foreground-dark text-lg font-bold leading-tight">Yaun Menghong</h3>
 <p class="text-primary text-sm font-medium">Head of Operations</p>
-<p class="text-muted-light dark:text-muted-dark text-sm mt-2">John ensures that from our greenhouse to your home, every plant's journey is a happy and healthy one.</p>
+<p class="text-muted-light dark:text-muted-dark text-sm mt-2">Menghong ensures that from our greenhouse to your home, every plant's journey is a happy and healthy one.</p>
 </div>
 <div class="flex flex-col items-center text-center group">
 <div class="relative w-48 h-48 mb-4">
@@ -260,14 +260,61 @@
 <p class="text-muted-light dark:text-muted-dark mt-2 max-w-xl">Find the perfect green companion for your space. Explore our collection of healthy, beautiful plants today.</p>
 </div>
 <button class="flex min-w-[84px] max-w-[480px] w-full md:w-auto shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary text-foreground-light text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all">
-<span class="truncate">Shop Our Collection</span>
+<span class="truncate" onclick="location.href='products.php'">Shop Our Collection</span>
 </button>
 </div>
 </div>
 </section>
 </main>
 <!-- Footer -->
-<?php include 'footer.php'; ?>
+<footer class="w-full bg-foreground-light dark:bg-card-dark mt-auto">
+<div class="container mx-auto px-4 py-12 text-background-light dark:text-muted-dark">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+<div class="col-span-2 lg:col-span-2">
+<div class="flex items-center gap-2 mb-4">
+<img src="icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" alt="KP Plant_Shop Logo" width="50" height="30" class="img-colorful me-2" />
+<h3 class="text-lg font-bold">KP Plant_Shop</h3>
+</div>
+<p class="text-sm max-w-sm">Your one-stop shop for everything green and beautiful. We're passionate about bringing nature into your home.</p>
+</div>
+<div>
+<h4 class="font-bold mb-4">Shop</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-primary transition-colors" href="index1.php">Home</a></li>
+<li><a class="hover:text-primary transition-colors" href="products.php">Products</a></li>
+<li><a class="hover:text-primary transition-colors" href="products_pots.php">Pots &amp; Planters</a></li>
+<li><a class="hover:text-primary transition-colors" href="products_tools.php">Tools &amp; Accessories</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">About</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-primary transition-colors" href="index1.php">Our Story</a></li>
+<li><a class="hover:text-primary transition-colors" href="About.php">Workshops</a></li>
+<li><a class="hover:text-primary transition-colors" href="faqs.php">FAQs</a></li>
+<li><a class="hover:text-primary transition-colors" href="contact.php">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Follow Us</h4>
+<div class="flex space-x-4">
+<a class="hover:text-primary transition-colors" href="#">
+<svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path></svg>
+</a>
+<a class="hover:text-primary transition-colors" href="#">
+<svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+</a>
+<a class="hover:text-primary transition-colors" href="#">
+<svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.345 2.525c.636-.247 1.363-.416 2.427-.465C9.805 2.013 10.16 2 12.315 2zM12 7.177a4.823 4.823 0 100 9.646 4.823 4.823 0 000-9.646zM12 15a3 3 0 110-6 3 3 0 010 6zm4.83-8.44a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4z" fill-rule="evenodd"></path></svg>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-border-dark dark:border-border-light/20 mt-8 pt-6 text-center text-sm">
+<p>© 2026 KP PlanShop. All rights reserved.</p>
+</div>
+</div>
+</footer>
 </div>
 </body>
 </html>

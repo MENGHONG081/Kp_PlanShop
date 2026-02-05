@@ -1,6 +1,6 @@
 <!-- Footer -->
   <!-- Bootstrap Footer -->
-<footer class="bg-dark text-light pt-5 pb-4 mt-5 ">
+<footer class="bg-dark text-light pt-5 pb-4 mt-5  ">
   <div class="container-fluid">
 
     <div class="row gy-4">

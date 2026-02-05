@@ -1,7 +1,7 @@
 <?php
 session_start();
-require 'config.php'; // Your PDO connection ($pdo)
-
+//require 'config.php'; // Your PDO connection ($pdo)
+require 'config1.php'; // Session and cart handling
 // Initialize cart
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
@@ -12,40 +12,6 @@ $stmt = $pdo->prepare("SELECT id, name, price, image FROM products");
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-/* ==================== AJAX: Add to Cart ==================== */
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $product_id = (int)$_POST['product_id'];
-    $found = false;
-
-    foreach ($products as $product) {
-        if ($product['id'] === $product_id) {
-            // Check if already in cart
-            foreach ($_SESSION['cart'] as &$item) {
-                if ($item['id'] === $product_id) {
-                    $item['quantity']++;
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) {
-                $_SESSION['cart'][] = [
-                    'id' => $product['id'],
-                    'name' => $product['name'],
-                    'price' => $product['price'],
-                    'image' => $product['image'],
-                    'quantity' => 1
-                ];
-            }
-            break;
-        }
-    }
-
-    $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
-
-    header('Content-Type: application/json');
-    echo json_encode(['success' => true, 'cart_count' => $cart_count]);
-    exit;
-}
 
 // Initial cart count for page load
 $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
@@ -134,76 +100,165 @@ $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
                 <!-- Filters -->
                 <div class="flex flex-wrap items-center gap-3 mb-10 pb-6 border-b border-gray-200 dark:border-gray-800">
                     <button class="flex items-center gap-2 h-10 px-5 rounded-full bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/60 transition font-medium text-sm">
-                        Sort By: Featured
-                        <span class="material-symbols-outlined text-lg">expand_more</span>
-                    </button>
-                    <button class="flex items-center gap-2 h-10 px-5 rounded-full bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/60 transition font-medium text-sm">
                         Plant Type: All
                         <span class="material-symbols-outlined text-lg">expand_more</span>
                     </button>
                     <button class="flex items-center gap-2 h-10 px-5 rounded-full bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/60 transition font-medium text-sm">
-                        Size: All
+                        Sort By: Name
                         <span class="material-symbols-outlined text-lg">expand_more</span>
                     </button>
                     <button class="flex items-center gap-2 h-10 px-5 rounded-full bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/60 transition font-medium text-sm">
-                        Pet-Friendly
+                        Sort By: Price
                         <span class="material-symbols-outlined text-lg">expand_more</span>
                     </button>
+                    <button class="flex items-center gap-2 h-10 px-5 rounded-full bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/60 transition font-medium text-sm">
+                        Sort By: category
+                        <span class="material-symbols-outlined text-lg">expand_more</span>
+                    </button>
+                    <div class="relative inline-block text-left">
+                    <!-- Button -->
+                    <button id="dropdownButton" 
+                            class="flex items-center gap-2 h-10 px-5 rounded-full bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/60 transition font-medium text-sm">
+                        Sort By: category
+                        <span class="material-symbols-outlined text-lg">expand_more</span>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="dropdownMenu" 
+                        class="absolute right-0 mt-2 w-40 bg-white dark:bg-green-600 rounded-md shadow-lg blocked hidden z-50">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                        <li><a onclick="scrollToPromotions()" class="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-900"> Promotionss</a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-900"> New Arrivals </a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-900"> Best Sellers</a></li>
+                        </ul>
+                    </div>
+                    </div>
                     <button class="h-10 px-5 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-green-700 dark:hover:text-green-300 transition">
                         Clear Filters
                     </button>
                 </div>
+                
 
                <!-- Product Grid -->
-<?php if (!empty($products)): ?>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-    <?php foreach ($products as $product): ?>
-    <article class="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300">
-        <div class="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
-            <img src="../plant_admin/uploads/<?= htmlspecialchars($product['image'] ?? 'placeholder.png') ?>"
-                 alt="<?= htmlspecialchars($product['name']) ?>" 
-                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                 loading="lazy">
-        </div>
+                    <?php if (!empty($products)): ?>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                        <?php foreach ($products as $product): ?>
+                        <article class="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300">
+                            <div class="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
+                                <img src="../plant_admin/uploads/<?= htmlspecialchars($product['image'] ?? 'placeholder.png') ?>"
+                                    alt="<?= htmlspecialchars($product['name']) ?>" 
+                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy">
+                            </div>
 
-        <div class="p-5 md:p-6 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white line-clamp-2 mb-2">
-                <?= htmlspecialchars($product['name']) ?>
-            </h3>
+                            <div class="p-5 md:p-6 flex flex-col flex-grow">
+                                <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white line-clamp-2 mb-2">
+                                    <?= htmlspecialchars($product['name']) ?>
+                                </h3>
 
-            <div class="mt-auto space-y-4">
-                <p class="text-2xl font-bold text-green-700 dark:text-green-400">
-                    $<?= number_format($product['price'] / 100, 2) ?>
-                </p>
+                                <div class="mt-auto space-y-4">
+                                    <p class="text-2xl font-bold text-green-700 dark:text-green-400">
+                                        $<?= number_format($product['price'], 2) ?>
+                                    </p>
 
-                <!-- Buttons in a horizontal line -->
-                <div class="flex gap-3">
-                    <!-- Small Add to Cart Button -->
-                    <button type="button"
-                            class="add-to-cart-btn flex-1 min-w-0 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm hover:shadow flex items-center justify-center gap-1.5 text-sm"
-                            data-product-id="<?= $product['id'] ?>">
-                        <span class="material-symbols-outlined text-lg add-icon">add_shopping_cart</span>
-                        <span class="btn-text">Add</span>
-                        <span class="material-symbols-outlined text-lg hidden check-icon">check</span>
-                    </button>
+                                    <!-- Buttons in a horizontal line -->
+                                    <div class="flex gap-3">
+                                        <!-- Small Add to Cart Button -->
+                                        <button type="button"
+                                                class="add-to-cart-btn flex-1 min-w-0 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm hover:shadow flex items-center justify-center gap-1.5 text-sm"
+                                                data-product-id="<?= $product['id'] ?>">
+                                            <span class="material-symbols-outlined text-lg add-icon">add_shopping_cart</span>
+                                            <span class="btn-text">Add</span>
+                                            <span class="material-symbols-outlined text-lg hidden check-icon">check</span>
+                                        </button>
 
-                    <!-- Details Button -->
-                    <a href="product_detail.php?id=<?= $product['id'] ?>"
-                       class="flex-1 min-w-0 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2.5 px-4 rounded-lg transition shadow-sm hover:shadow flex items-center justify-center gap-1.5 text-sm">
-                        <span class="material-symbols-outlined text-lg">visibility</span>
-                        <span>Details</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </article>
-    <?php endforeach; ?>
-</div>
-<?php else: ?>
-<div class="text-center py-20 text-gray-500 dark:text-gray-400">
-    <p class="text-xl">No plants found.</p>
-</div>
-<?php endif; ?>
+                                        <!-- Details Button -->
+                                        <a href="product_detail.php?id=<?= $product['id'] ?>"
+                                        class="flex-1 min-w-0 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2.5 px-4 rounded-lg transition shadow-sm hover:shadow flex items-center justify-center gap-1.5 text-sm">
+                                            <span class="material-symbols-outlined text-lg">visibility</span>
+                                            <span>Details</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php else: ?>
+                    <div class="text-center py-20 text-gray-500 dark:text-gray-400">
+                        <p class="text-xl">No plants found.</p>
+                    </div>
+                    <?php endif; ?>
+
+                        <div class="flex items-center gap-5 mt-16 mb-6">
+                        <!-- Icon -->
+                        <span class="material-symbols-outlined text-green-600 text-3xl">
+                            local_offer
+                        </span>
+
+                        <!-- Heading -->
+                        <h2 class="font-bold text-2xl text-gray-900 font-[Poppins]">
+                            Promotions & Discounts
+                        </h2>
+                        </div>
+                        <!-- Promotions & Discounts Section -->
+                     <hr class="border-t border-gray-300 my-6" id ="promotions-discounts"/>
+                        <?php if (empty($discountProducts)): ?>
+                        <div class="text-center py-10">
+                            <p class="text-gray-500">No discounted products at the moment.</p>
+                        </div>
+                        <?php else: ?>
+                        <section class="container mx-auto mb-10 px-4">
+                            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            <?php foreach ($discountProducts as $p):
+                                $finalPrice = $p['price_after_discount'] ?? ($p['price'] * (1 - $p['discount_percent']/100));
+                            ?>
+                                <div class="bg-white dark:bg-green-950 rounded-xl shadow-md overflow-hidden relative flex flex-col transition hover:shadow-lg">
+                                
+                                <!-- Ribbon badge -->
+                                <div class="absolute top-0 left-0 z-10">
+                                    <span class="bg-red-600 text-white font-bold px-4 py-1 rounded-br-lg flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-sm">local_offer</span>
+                                    -<?= $p['discount_percent'] ?>%
+                                    </span>
+                                </div>
+
+                                <!-- Product image -->
+                                <img src="../plant_admin/uploads/<?= htmlspecialchars($p['image'] ?? 'placeholder.png') ?>"
+                                    alt="<?= htmlspecialchars($p['name']) ?>"
+                                    class="h-72 w-full object-cover transform transition-transform duration-300 hover:scale-105"
+                                    loading="lazy">
+
+                                <!-- Card body -->
+                                <div class="flex flex-col flex-grow p-5">
+                                    <h5 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    <?= htmlspecialchars($p['name']) ?>
+                                    </h5>
+                                    <p class="text-gray-500 text-sm flex-grow">
+                                    <?= htmlspecialchars($p['discount_desc'] ?? 'Limited time offer on this beautiful plant!') ?>
+                                    </p>
+
+                                    <!-- Price section -->
+                                    <div class="flex items-baseline gap-3 mt-4 mb-6">
+                                    <span class="text-2xl font-bold text-red-600">$<?= number_format($finalPrice, 2) ?></span>
+                                    <span class="line-through text-gray-400">$<?= number_format($p['price'], 2) ?></span>
+                                    <span class="bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded">
+                                        Save $<?= number_format($p['price'] - $finalPrice, 2) ?>
+                                    </span>
+                                    </div>
+
+                                    <!-- CTA -->
+                                    <a href="products.php" 
+                                    class="mt-auto inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                                    Shop Now →
+                                    </a>
+                                </div>
+                                </div>
+                            <?php endforeach; ?>
+                            </div>
+                        </section>
+                        <?php endif; ?>
+
 
                 <!-- Fixed Bottom Bar: Cart Summary + Place Order -->
                 <?php if (!empty($_SESSION['cart'])): ?>
@@ -212,14 +267,14 @@ $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
                         <div>
                             <p class="text-lg font-semibold">
                                 Total: $<span id="cart-total">
-                                    <?= number_format(array_sum(array_map(fn($i) => $i['price'] * $i['quantity'], $_SESSION['cart'])) / 100, 2) ?>
+                                    <?= number_format(array_sum(array_map(fn($i) => $i['price'] * $i['quantity'], $_SESSION['cart'])), 2) ?>
                                 </span>
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-400">
                                 <?= $cart_count ?> item<?= $cart_count > 1 ? 's' : '' ?> in cart
                             </p>
                         </div>
-                        <button id="place-order-btn" class="bg-primary hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl transition shadow-lg">
+                        <button id="place-order-btn" onclick="window.location.href='Order.php'" class="bg-primary hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl transition shadow-lg">
                             Place Order
                         </button>
                     </div>
@@ -321,6 +376,29 @@ $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
                 });
             });
         }
+        // Dropdown toggle
+    
+            const button = document.getElementById("dropdownButton");
+            const menu = document.getElementById("dropdownMenu");
+
+            button.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+
+            // Optional: close dropdown when clicking outside
+            document.addEventListener("click", (event) => {
+                if (!button.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add("hidden");
+                }
+            });
+
+            //promotions and discounts section
+            const promotionsSection = document.getElementById("promotions-discounts");
+            promotionsSection.scrollIntoView({ behavior: 'smooth' });
+            function scrollToPromotions() {
+                promotionsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
     </script>
 </body>
 </html>
