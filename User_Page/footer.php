@@ -22,9 +22,9 @@
         <h4 class="fw-bold mb-3 fs-6">Shop</h4>
         <ul class="list-unstyled small">
           <li class="mb-2"><a href="Products.php" class="text-light text-decoration-none hover-link">All Plants</a></li>
-          <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-link">New Arrivals</a></li>
-          <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-link">Pots & Planters</a></li>
-          <li><a href="#" class="text-light text-decoration-none hover-link">Tools & Accessories</a></li>
+          <li class="mb-2"><a href="products.php" class="text-light text-decoration-none hover-link">New Arrivals</a></li>
+          <li class="mb-2"><a href="products.php" class="text-light text-decoration-none hover-link">Pots & Planters</a></li>
+          <li><a href="products.php" class="text-light text-decoration-none hover-link">Tools & Accessories</a></li>
         </ul>
       </div>
 
@@ -32,10 +32,10 @@
       <div class="col-6 col-md-3 col-lg-2">
         <h4 class="fw-bold mb-3 fs-6">About</h4>
         <ul class="list-unstyled small">
-          <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-link">Our Story</a></li>
-          <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-link">Workshops</a></li>
-          <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-link">FAQs</a></li>
-          <li><a href="#" class="text-light text-decoration-none hover-link">Contact Us</a></li>
+          <li class="mb-2"><a href="About.php" class="text-light text-decoration-none hover-link">Our Story</a></li>
+          <li class="mb-2"><a href="About.php" class="text-light text-decoration-none hover-link">Workshops</a></li>
+          <li class="mb-2"><a href="faq.php" class="text-light text-decoration-none hover-link">FAQs</a></li>
+          <li><a href="contact.php" class="text-light text-decoration-none hover-link">Contact Us</a></li>
         </ul>
       </div>
 

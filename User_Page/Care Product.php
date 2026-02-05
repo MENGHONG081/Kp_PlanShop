@@ -58,12 +58,12 @@
 <h2 class="text-text-light dark:text-text-dark text-xl font-bold">Planty</h2>
 </div>
 <nav class="hidden md:flex items-center gap-9">
-<a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal" href="#">Shop</a>
-<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-1" href="#">Guides</a>
-<a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal" href="#">About</a>
+<a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal" href="products.php">Shop</a>
+<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-1" href="index.php">Home</a>
+<a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal" href="about.php">About</a>
 </nav>
 <div class="flex items-center gap-4">
-<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-border-light dark:bg-border-dark text-text-light dark:text-text-dark">
+<button  class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-border-light dark:bg-border-dark text-text-light dark:text-text-dark" onclick="location.href='ac_user.php'">
 <span class="material-symbols-outlined">person</span>
 </button>
 </div>

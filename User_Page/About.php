@@ -259,7 +259,7 @@
 <p class="text-muted-light dark:text-muted-dark mt-2 max-w-xl">Find the perfect green companion for your space. Explore our collection of healthy, beautiful plants today.</p>
 </div>
 <button class="flex min-w-[84px] max-w-[480px] w-full md:w-auto shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary text-foreground-light text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-all">
-<span class="truncate" onclick="location.href='products.php'">Shop Our Collection</span>
+<span class="truncate" onclick=" href='/PLANT_PROJECT/plant_admin/products.php'">Shop Our Collection</span>
 </button>
 </div>
 </div>

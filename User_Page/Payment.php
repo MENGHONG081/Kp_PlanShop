@@ -445,7 +445,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Upload QR img Section -->
                     
-                        <form action="/PLANT_PROJECT/User_Page/upload.php" method="POST" enctype="multipart/form-data"
+                        <form action="upload.php" method="POST" enctype="multipart/form-data"
                             id="upload-form"
                             class="mt-8 <?= isset($uploaded_file) && $uploaded_file ? '' : 'hidden' ?> rounded-2xl bg-surface-light dark:bg-surface-dark p-10 text-center shadow-2xl  ">
                             <!-- Header -->

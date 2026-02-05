@@ -10,7 +10,7 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
 $dotenv->load();
 
-$apiKey = $_ENV['GEMINI_API_KEY'] ?? null;
+$apiKey = getenv('GEMINI_API_KEY');
 $model = "gemini-2.5-flash";   // your choice
 $apiVersion = "v1beta";        // your choice
 

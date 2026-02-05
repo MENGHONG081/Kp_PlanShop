@@ -242,7 +242,7 @@ a[href*="login.php"], a[href*="signup.php"]{
                 <?php if ($isLoggedIn): ?>
                     <a href="logout.php" class="btn btn-outline-danger btn-sm">Log out</a>
                     <?php if ($fullname === 'admin'): // or however you check admin ?>
-                        <a href="/plant_admin/index.php" class="btn btn-outline-success btn-sm">Admin</a>
+                        <a href="/plant_admin/login.php" class="btn btn-outline-success btn-sm">Admin</a>
                     <?php endif; ?>
                 <?php else: ?>
                     <a href="login.php" class="btn btn-outline-success btn-sm">Log in</a>
@@ -862,7 +862,7 @@ a[href*="login.php"], a[href*="signup.php"]{
           <i class="bi bi-chat-dots-fill"></i> Customer Feedback
         </h3>
         <hr class="border-success opacity-50">
-        <form action="/PLANT_PROJECT/User_Page/submit_feedback.php" method="POST">
+        <form action="submit_feedback.php" method="POST">
           <div class="mb-3">
             <label for="name" class="form-label fw-semibold" >Name</label>
             <input type="text" class="form-control rounded-pill" id="name" name="name" value="<?php echo $fullname ?>" placeholder="Enter your name" required disabled>

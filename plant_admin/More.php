@@ -214,7 +214,7 @@ if (isset($_POST['save_discount'])) {
                                 <h5 class="card-title fw-bold"><?= htmlspecialchars($p['name']) ?></h5>
                                 <p class="text-dark fw-bold fs-4">$<?= number_format($p['price'], 2) ?></p>
                                 <small class="text-muted">Sold: <?= $p['total_sold'] ?> units</small><br>
-                                <a href="/PLANT_PROJECT/plant_admin/login.php?redirect=product.php?id=<?= $p['id'] ?>" class="btn btn-warning btn-sm mt-2">
+                                <a href="login.php?redirect=product.php?id=<?= $p['id'] ?>" class="btn btn-warning btn-sm mt-2">
                                     Buy Now
                                 </a>
                             </div>

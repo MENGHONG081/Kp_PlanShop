@@ -9,8 +9,13 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
 $dotenv->load();
 
-$botToken       = $_ENV['TELEGRAM_BOT_TOKEN'] ?? null;
-$gemini_api_key = $_ENV['GEMINI_API_KEY'] ?? null;
+$botToken       = getenv('TELEGRAM_BOT_TOKEN');
+$gemini_api_key = getenv('GEMINI_API_KEY');
+
+if (!$botToken || !$gemini_api_key) {
+    die("Environment variables not set");
+}
+
 
 if (empty($botToken) || empty($gemini_api_key)) {
   http_response_code(500);

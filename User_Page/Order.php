@@ -1,13 +1,11 @@
 <?php
 require 'config.php'; // Your PDO connection ($pdo)
-
 // Initialize cart
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 $cart = $_SESSION['cart'];
 $user_id = $_SESSION['user_id'] ?? 0;
-
 // Calculate initial totals
 $subtotal = 0;
 $cart_count = 0;
@@ -15,7 +13,6 @@ foreach ($cart as $item) {
     $subtotal += $item['price'] * $item['quantity'];
     $cart_count += $item['quantity'];
 }
-
 /* ==================== AJAX: Update Quantity / Remove Item ==================== */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -42,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $cart = array_values($cart); // Re-index
         $_SESSION['cart'] = $cart;
     }
-
     // Recalculate
     $subtotal = 0;
     $cart_count = 0;
@@ -50,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $subtotal += $item['price'] * $item['quantity'];
         $cart_count += $item['quantity'];
     }
-
     header('Content-Type: application/json');
     echo json_encode([
         'success' => true,
@@ -60,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     ]);
     exit;
 }
-
 /* ==================== AJAX: Place Order ==================== */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     if (empty($cart)) {
@@ -68,12 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         echo json_encode(['success' => false, 'message' => 'Your cart is empty.']);
         exit;
     }
-
     $total = 0;
     foreach ($cart as $item) {
         $total += $item['price'] * $item['quantity'];
     }
-
     try {
         $pdo->beginTransaction();
 
@@ -96,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 $item['price']
             ]);
         }
-
         $pdo->commit();
 
         // Clear cart

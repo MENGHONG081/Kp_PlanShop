@@ -12,8 +12,8 @@ $dotenv->required([
     'PAYWAY_PUBLIC_KEY'
 ])->notEmpty();
 
-$merchant_id = $_ENV['PAYWAY_MERCHANT_ID'];
-$public_key  = $_ENV['PAYWAY_PUBLIC_KEY'];
+$merchant_id = getenv('PAYWAY_MERCHANT_ID');
+$public_key  = getenv('PAYWAY_PUBLIC_KEY')  ;
 
 // Optional: Add more env vars if needed (e.g. sandbox/production toggle)
 // $endpoint = $_ENV['PAYWAY_SANDBOX'] === 'true' 
