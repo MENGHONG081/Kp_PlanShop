@@ -1,6 +1,5 @@
 <?php
 require 'auth.php'; // Assuming this handles session/auth and sets $pdo
-
 // Initialize variables
 $successMessage = '';
 $errorMessage = '';

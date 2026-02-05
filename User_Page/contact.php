@@ -1,8 +1,4 @@
 <?php
-// contact.php - Modern and Professional Contact Form
-// Handles form submission and sends email using PHP's mail() function
-// Note: Configure SMTP settings or use a service like PHPMailer for production
-
 // Configuration
 $to_email = 'your-email@example.com'; // Change to your email
 $subject_prefix = 'Contact Form Submission: ';

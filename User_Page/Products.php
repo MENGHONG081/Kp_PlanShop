@@ -1,6 +1,4 @@
 <?php
-session_start();
-//require 'config.php'; // Your PDO connection ($pdo)
 require 'config1.php'; // Session and cart handling
 // Initialize cart
 if (!isset($_SESSION['cart'])) {

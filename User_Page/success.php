@@ -1,5 +1,4 @@
 <?php
-session_start();
 require 'config.php';
 
 // 1. Get the Order ID from URL
@@ -24,7 +23,6 @@ if (!$payment) {
 if (file_exists('gemini_tell.json')) {
     unlink('gemini_tell.json');
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

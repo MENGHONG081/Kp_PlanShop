@@ -1,9 +1,8 @@
 <?php
-session_start();
+ob_start();
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 require 'auth.php'; // must define $pdo
-
 header('Content-Type: application/json');
-
 // Optional: check if current session is admin
 $is_admin = $_SESSION['admin_id'] ?? false;
 if (!$is_admin) {

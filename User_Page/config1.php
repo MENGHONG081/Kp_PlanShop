@@ -126,5 +126,4 @@ if (isset($_GET['imgUrl']) && isset($_GET['title']) && isset($_GET['desc'])) {
     $title  = $_GET['title'];
     $desc   = $_GET['desc'];
 }
-
 ?>

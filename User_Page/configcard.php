@@ -1,6 +1,4 @@
 <?php
-// configcard.php - PayWay Purchase API Configuration & Hash Generator
-
 // 1. Load Composer autoloader (must be first)
 require_once __DIR__ . '/../vendor/autoload.php';
 

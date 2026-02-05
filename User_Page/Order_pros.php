@@ -1,5 +1,4 @@
 <?php
-session_start();
 require 'config.php'; // Your PDO connection ($pdo)
 
 // Get order_id from URL

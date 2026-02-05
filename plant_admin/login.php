@@ -1,5 +1,6 @@
 <?php
-session_start();
+ob_start(); 
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

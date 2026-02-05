@@ -1,5 +1,6 @@
-
 <?php
+ob_start(); // Prevents "Headers already sent" by buffering output
+session_start();
 require 'config.php'; // contains $pdo connection
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Please fill in all fields.');</script>";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html class="light" lang="en"><head>

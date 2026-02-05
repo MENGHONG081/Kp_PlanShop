@@ -1,6 +1,4 @@
-
 <?php
-session_start(); //must be at the top of every page that uses session data.
 include 'config.php'; // contains $pdo connection
 $message = "";
 $toastClass = "";

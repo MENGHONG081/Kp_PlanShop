@@ -1,5 +1,6 @@
 <?php
-session_start();
+ob_start(); 
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 require 'auth.php'; // defines $pdo
 
 header('Content-Type: application/json');
@@ -24,3 +25,4 @@ try {
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => 'Server error: ' . $e->getMessage()]);
 }
+?>

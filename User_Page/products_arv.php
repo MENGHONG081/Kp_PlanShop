@@ -1,7 +1,5 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-
-<?php if (!empty($newArrivals)): ?>
+<?php 
+if (!empty($newArrivals)): ?>
 <div class="row g-4 mb-8">
 
 <?php foreach ($newArrivals as $product): ?>
@@ -77,4 +75,5 @@
         transform: scale(1.05);
     }
 </style>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">

@@ -1,5 +1,4 @@
 <?php
-//require 'config.php'; // Your PDO connection ($pdo)
 require 'config1.php'; // Session and cart handling
 
 if (!isset($_SESSION['user_id'])) {
@@ -41,9 +40,7 @@ try {
     $errorMessage = 'Error loading profile. Please try again.';
     error_log("Profile fetch error: " . $e->getMessage());
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

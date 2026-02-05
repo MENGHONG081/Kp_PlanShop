@@ -1,9 +1,8 @@
 <?php
-session_start();
+ob_start(); 
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 require 'auth.php'; // defines $pdo
-
 header('Content-Type: application/json');
-
 $input = json_decode(file_get_contents('php://input'), true);
 $order_id = $input['order_id'] ?? null;
 

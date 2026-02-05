@@ -1,5 +1,4 @@
 <?php
-session_start();
 require 'config.php'; // assumes $pdo is ready + PDO::ERRMODE_EXCEPTION
 
 if (!isset($_SESSION['user_id'])) {
@@ -119,9 +118,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_profile'])) {
         }
     }
 }
-
-// Password change logic remains the same (omitted here for brevity)
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

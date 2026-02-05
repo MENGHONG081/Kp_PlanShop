@@ -1,5 +1,8 @@
 <?php
-session_start();
+ob_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $failReasons = $_SESSION['fail_reasons'] ?? [];
 $ai          = $_SESSION['ai_result'] ?? [];
 unset($_SESSION['fail_reasons'], $_SESSION['ai_result']);

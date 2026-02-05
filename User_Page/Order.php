@@ -1,5 +1,4 @@
 <?php
-session_start();
 require 'config.php'; // Your PDO connection ($pdo)
 
 // Initialize cart
@@ -118,7 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html class="light" lang="en">
 <head>

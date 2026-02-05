@@ -27,4 +27,3 @@ if (!defined('UPLOAD_PATH')) {
 if (!defined('UPLOAD_URL')) {
     define('UPLOAD_URL', SITE_URL . 'uploads/');
 }
-?>
