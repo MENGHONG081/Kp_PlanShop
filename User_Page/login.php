@@ -1,36 +1,34 @@
 <?php
-require 'config.php'; // contains $pdo connection
+ob_start(); // 1. Start output buffering
+session_start(); // 2. Start the session
+
+require 'config.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? null;
-    //$fullname = $_POST['fullname'] ?? null;
     $password = $_POST['password'] ?? null;
 
     if ($email && $password) {
-
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-         // ✅ Create session from DB values
+            // ✅ Create session from DB values
             $_SESSION['user'] = $user['fullname'];
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['email']    = $user['email'];
+            $_SESSION['email'] = $user['email'];
             $_SESSION['just_logged_in'] = true;
 
             header("Location: index1.php");
-            exit;
-
+            exit; // Always exit after a redirect
         } else {
             echo "<script>alert('Invalid email or password.');</script>";
         }
-
     } else {
         echo "<script>alert('Please fill in all fields.');</script>";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html class="light" lang="en"><head>
