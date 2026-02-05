@@ -72,7 +72,6 @@ if (isset($_POST['save_discount'])) {
         echo "Error saving discount";
     }
 }
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -154,7 +153,7 @@ if (isset($_POST['save_discount'])) {
                                     $<?= number_format($finalPrice, 2) ?>
                                 </p>
                                 <p class="price-old">$<?= number_format($p['price'], 2) ?></p>
-                                <a href="product.php?id=<?= $p['id'] ?>" class="btn btn-danger btn-sm">
+                                <a href="/PLANT_PROJECT/plant_admin/login.php?redirect=product.php?id=<?= $p['id'] ?>" class="btn btn-danger btn-sm">
                                     <i class="fa fa-shopping-cart me-1"></i> View Deal
                                 </a>
                             </div>
@@ -184,7 +183,7 @@ if (isset($_POST['save_discount'])) {
                             <div class="card-body text-center">
                                 <h5 class="card-title fw-bold"><?= htmlspecialchars($p['name']) ?></h5>
                                 <p class="text-primary fw-bold fs-4">$<?= number_format($p['price'], 2) ?></p>
-                                <a href="product.php?id=<?= $p['id'] ?>" class="btn btn-outline-primary btn-sm">
+                                <a href="/PLANT_PROJECT/plant_admin/login.php?redirect=product.php?id=<?= $p['id'] ?>" class="btn btn-outline-primary btn-sm">
                                     View Product
                                 </a>
                             </div>
@@ -215,7 +214,7 @@ if (isset($_POST['save_discount'])) {
                                 <h5 class="card-title fw-bold"><?= htmlspecialchars($p['name']) ?></h5>
                                 <p class="text-dark fw-bold fs-4">$<?= number_format($p['price'], 2) ?></p>
                                 <small class="text-muted">Sold: <?= $p['total_sold'] ?> units</small><br>
-                                <a href="product.php?id=<?= $p['id'] ?>" class="btn btn-warning btn-sm mt-2">
+                                <a href="/PLANT_PROJECT/plant_admin/login.php?redirect=product.php?id=<?= $p['id'] ?>" class="btn btn-warning btn-sm mt-2">
                                     Buy Now
                                 </a>
                             </div>

@@ -81,7 +81,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <link rel="stylesheet" href="assets/bootstrap.min.css">
 </head>
 <body>
-<?php include 'nav.php'; ?>
+<?php include ROOT_PATH . '/plant_admin/nav.php'; ?>
 <div class="container mt-4">
   <h2>Our Plants</h2>
 

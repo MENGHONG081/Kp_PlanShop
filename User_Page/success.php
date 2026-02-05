@@ -70,7 +70,7 @@ if (file_exists('gemini_tell.json')) {
         </div>
     </div>
 
-    <a href="index1.php" class="btn-home">Back to Dashboard</a>
+    <a href="/PLANT_PROJECT/User_Page/index1.php" class="btn-home">Back to Dashboard</a>
 </div>
 
 </body>

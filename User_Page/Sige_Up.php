@@ -165,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="field text-center mt-4">
   <p style="margin-top:15px; font-size:14px; color:#888;">
     Back to account?
-    <a href="login.php" style="color:var(--accent); text-decoration:none;">
+    <a href="/PLANT_PROJECT/User_Page/login.php" style="color:var(--accent); text-decoration:none;">
       Log In
     </a>
   </p>

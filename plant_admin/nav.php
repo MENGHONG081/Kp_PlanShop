@@ -34,13 +34,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="index.php">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link  active" href="products.php">Products</a></li>
-        <li class="nav-item"><a class="nav-link active" href="categories.php">Categories</a></li>
-        <li class="nav-item"><a class="nav-link  active" href="orders.php">Orders</a></li>
-        <li class="nav-item"><a class="nav-link active" href="users.php">Users</a></li>
-        <li class="nav-item"><a class="nav-link active" href="setting.php">Settings</a></li>
-        <li class="nav-item"><a class="nav-link active" href="logout.php">Logout</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/plant_admin/index.php">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link  active" href="/PLANT_PROJECT/plant_admin/products.php">Products</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/plant_admin/categories.php">Categories</a></li>
+        <li class="nav-item"><a class="nav-link  active" href="/PLANT_PROJECT/plant_admin/orders.php">Orders</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/plant_admin/users.php">Users</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/plant_admin/setting.php">Settings</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/PLANT_PROJECT/plant_admin/logout.php">Logout</a></li>
       </ul>
     </div>
   </div>

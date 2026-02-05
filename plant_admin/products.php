@@ -79,7 +79,7 @@ if (isset($_POST['save'])) {
                         $successMessage = 'Product added successfully!';
                     }
                     // Redirect to avoid resubmit
-                    header("Location: products.php?success=1");
+                    header("Location: /PLANT_PROJECT/plant_admin/products.php?success=1");
                     exit();
                 } catch (PDOException $e) {
                     $errorMessage = 'Database error occurred. Please try again.';
@@ -108,7 +108,7 @@ if (isset($_GET['del'])) {
     } catch (PDOException $e) {
         $errorMessage = 'Error deleting product.';
     }
-    header("Location: products.php?success=1");
+    header("Location: /PLANT_PROJECT/plant_admin/products.php?success=1");
     exit();
 }
 

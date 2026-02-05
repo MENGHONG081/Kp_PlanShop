@@ -58,10 +58,10 @@ $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
                         <h2 class="text-primary text-lg font-bold">KP Plant Shop</h2>
                     </div>
                     <nav class="hidden md:flex items-center space-x-8">
-                        <a href="Index1.php" class="text-gray-600 hover:text-primary">Home</a>
-                        <a href="About.php" class="text-gray-600 hover:text-primary">About Us</a>
-                        <a href="Products.php" class="text-primary font-bold">Products</a>
-                        <a href="Contact.php" class="text-gray-600 hover:text-primary">Contact</a>
+                        <a href="/PLANT_PROJECT/User_Page/Index1.php" class="text-gray-600 hover:text-primary">Home</a>
+                        <a href="/PLANT_PROJECT/User_Page/About.php" class="text-gray-600 hover:text-primary">About Us</a>
+                        <a href="/PLANT_PROJECT/User_Page/Products.php" class="text-primary font-bold">Products</a>
+                        <a href="/PLANT_PROJECT/User_Page/Contact.php" class="text-gray-600 hover:text-primary">Contact</a>
                     </nav>
                     <div class="flex items-center gap-4">
                         <button id="searchToggle" class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 transition">
@@ -71,10 +71,10 @@ $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
                             <input class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 w-64 shadow-lg" type="search" placeholder="Search for plants..." aria-label="Search">
                         </div>
 
-                        <button class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 transition" onclick="window.location.href='ac_user.php'">
+                        <button class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 transition" onclick="window.location.href='/PLANT_PROJECT/User_Page/ac_user.php'">
                             <span class="material-symbols-outlined">person</span>
                         </button>
-                        <button class="relative flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 transition" onclick="window.location.href='Order.php'">
+                        <button class="relative flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 transition" onclick="window.location.href='/PLANT_PROJECT/User_Page/Order.php'">
                             <span class="material-symbols-outlined">shopping_bag</span>
                             <span class="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white <?= $cart_count > 0 ? '' : 'hidden' ?>" id="cartCount"><?= $cart_count ?></span>
                         </button>
@@ -171,7 +171,7 @@ $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
                                         </button>
 
                                         <!-- Details Button -->
-                                        <a href="product_detail.php?id=<?= $product['id'] ?>"
+                                        <a href="/PLANT_PROJECT/User_Page/product_detail.php?id=<?= $product['id'] ?>"
                                         class="flex-1 min-w-0 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2.5 px-4 rounded-lg transition shadow-sm hover:shadow flex items-center justify-center gap-1.5 text-sm">
                                             <span class="material-symbols-outlined text-lg">visibility</span>
                                             <span>Details</span>

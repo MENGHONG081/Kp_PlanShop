@@ -159,17 +159,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                         <h2 class="text-primary text-lg font-bold">KP Plant Shop</h2>
                     </div>
                     <nav class="hidden md:flex items-center space-x-8">
-                        <a href="Index1.php" class="text-gray-600 hover:text-primary">Home</a>
-                        <a href="About.php" class="text-gray-600 hover:text-primary">About Us</a>
-                        <a href="Products.php" class="text-gray-600 hover:text-primary">Products</a>
-                        <a href="Contact.php" class="text-gray-600 hover:text-primary">Contact</a>
+                        <a href="/PLANT_PROJECT/User_Page/index1.php" class="text-gray-600 hover:text-primary">Home</a>
+                        <a href="/PLANT_PROJECT/User_Page/About.php" class="text-gray-600 hover:text-primary">About Us</a>
+                        <a href="/PLANT_PROJECT/User_Page/Products.php" class="text-gray-600 hover:text-primary">Products</a>
+                        <a href="/PLANT_PROJECT/User_Page/Contact.php" class="text-gray-600 hover:text-primary">Contact</a>
                     </nav>
                     <div class="flex items-center gap-4">
-                        <button class="relative" onclick="window.location.href='Order.php'">
+                        <button class="relative" onclick="window.location.href='/PLANT_PROJECT/User_Page/Order.php'">
                             <span class="material-symbols-outlined text-2xl">shopping_bag</span>
                             <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white" id="cartCount"><?= $cart_count ?></span>
                         </button>
-                        <button onclick="window.location.href='ac_user.php'">
+                        <button onclick="window.location.href='/PLANT_PROJECT/User_Page/ac_user.php'">
                             <span class="material-symbols-outlined text-2xl">person</span>
                         </button>
                     </div>
@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                 <div class="text-center py-20 px-6">
                                     <span class="material-symbols-outlined text-6xl text-gray-300 dark:text-gray-700 mb-4">shopping_bag</span>
                                     <p class="text-xl font-medium text-gray-500 dark:text-gray-400">Your cart is empty</p>
-                                    <a href="Products.php" class="mt-6 inline-block bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition">
+                                    <a href="/PLANT_PROJECT/User_Page/Products.php" class="mt-6 inline-block bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition">
                                         Continue Shopping
                                     </a>
                                 </div>
@@ -258,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                 Proceed to Checkout
                             </button>
 
-                            <a href="Products.php" class="block text-center mt-4 text-primary hover:underline font-medium">
+                            <a href="/PLANT_PROJECT/User_Page/Products.php" class="block text-center mt-4 text-primary hover:underline font-medium">
                                 ← Continue Shopping
                             </a>
 

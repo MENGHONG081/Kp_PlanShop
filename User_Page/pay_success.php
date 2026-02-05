@@ -505,7 +505,7 @@ $orderData = [
                     <a href="#" class="btn btn-primary">
                         <i class="fas fa-box"></i> Track Order
                     </a>
-                    <a href="#" class="btn btn-secondary">
+                    <a href="/PLANT_PROJECT/User_Page/Products.php" class="btn btn-secondary">
                         <i class="fas fa-shopping-bag"></i> Continue Shopping
                     </a>
                 </div>

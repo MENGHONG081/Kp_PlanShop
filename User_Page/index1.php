@@ -230,10 +230,10 @@ a[href*="login.php"], a[href*="signup.php"]{
     <div class="icon-group alighn-items-center d-flex justify-content-center gap-3">
         <img src="icon/4105939-info-information_113916.ico" width="32" height="32" class="img-colorful" />
         <img src="icon/3844439-gear-setting-settings-wheel_110294.ico" width="32" height="32" class="img-colorful" />
-        <img src="icon/buy_cart_ecommerce_basket_shopping_icon_227311.ico" width="32" height="32" class="img-colorful" onclick="window.location.href='Order.Php'" />
-        <img src="https://img.icons8.com/?size=100&id=saSupsgVcmJe&format=png&color=000000" width="32" height="32" class="img-colorful" onclick="window.location.href='ai_chat.Php'"/>
+        <img src="icon/buy_cart_ecommerce_basket_shopping_icon_227311.ico" width="32" height="32" class="img-colorful" onclick="window.location.href='/PLANT_PROJECT/User_Page/Order.php'" />
+        <img src="https://img.icons8.com/?size=100&id=saSupsgVcmJe&format=png&color=000000" width="32" height="32" class="img-colorful" onclick="window.location.href='/PLANT_PROJECT/User_Page/ai_chat.php'"/>
         <div class="d-flex gap-2  align-items-center text-success">
-        <img src="<?php echo htmlspecialchars($userProfile['imgUser'] ?? 'icon/icons8-account.gif'); ?>" width="32" height="32" class="img-colorful" onclick="window.location.href='ac_user.php'" />
+        <img src="<?php echo htmlspecialchars($userProfile['imgUser'] ?? 'icon/icons8-account.gif'); ?>" width="32" height="32" class="img-colorful" onclick="window.location.href='/PLANT_PROJECT/User_Page/ac_user.php'" />
         <span class="fw-bold" id="user-name"> Hi <?php echo $fullname; ?><br><p> Welcome Back!</p></span>
        </div>
        
@@ -462,7 +462,7 @@ a[href*="login.php"], a[href*="signup.php"]{
                  class="img-colorful product-img mb-3">
       <h5><?= htmlspecialchars($p['name']) ?></h5>
     <p class="text-success fw-bold">$<?= number_format($p['price'], 2) ?></p>
-    <button onclick="window.location.href='Products.php'" class="btn btn-success btn-sm">Add to Cart</button>
+    <button onclick="window.location.href='/PLANT_PROJECT/User_Page/Products.php'" class="btn btn-success btn-sm">Add to Cart</button>
     <button class="btn btn-outline-primary btn-sm ms-2">View</button>
   </div>
 </div>
@@ -862,7 +862,7 @@ a[href*="login.php"], a[href*="signup.php"]{
           <i class="bi bi-chat-dots-fill"></i> Customer Feedback
         </h3>
         <hr class="border-success opacity-50">
-        <form action="submit_feedback.php" method="POST">
+        <form action="/PLANT_PROJECT/User_Page/submit_feedback.php" method="POST">
           <div class="mb-3">
             <label for="name" class="form-label fw-semibold" >Name</label>
             <input type="text" class="form-control rounded-pill" id="name" name="name" value="<?php echo $fullname ?>" placeholder="Enter your name" required disabled>

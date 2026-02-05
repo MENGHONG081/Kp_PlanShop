@@ -244,28 +244,28 @@ $hasData = array_sum($amounts) > 0;
         <!-- Stats Cards -->
         <div class="row mb-4">
             <div class="col-md-3 mb-3">
-                <div class="dashboard-card text-center p-3" onclick="location.href='products.php'">
+                <div class="dashboard-card text-center p-3" onclick="location.href='/PLANT_PROJECT/plant_admin/products.php'">
                     <i class="fas fa-boxes stat-icon text-primary onclick"></i>
                     <div class="stat-number"><?php echo $stats['total_products']; ?></div>
                     <div class="stat-label">Total Products</div>
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="dashboard-card text-center p-3" onclick="location.href='categories.php'">
+                <div class="dashboard-card text-center p-3" onclick="location.href='/PLANT_PROJECT/plant_admin/categories.php'">
                     <i class="fas fa-tags stat-icon text-success"></i>
                     <div class="stat-number"><?php echo $stats['total_categories']; ?></div>
                     <div class="stat-label">Total Categories</div>
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="dashboard-card text-center p-3" onclick="location.href='orders.php'">
+                <div class="dashboard-card text-center p-3" onclick="location.href='/PLANT_PROJECT/plant_admin/orders.php'">
                     <i class="fas fa-shopping-cart stat-icon text-info"></i>
                     <div class="stat-number"><?php echo $stats['total_orders']; ?></div>
                     <div class="stat-label">Total Orders</div>
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="dashboard-card text-center p-3" onclick="location.href='users.php'">
+                <div class="dashboard-card text-center p-3" onclick="location.href='/PLANT_PROJECT/plant_admin/users.php'">
                     <i class="fas fa-users stat-icon text-warning"></i>
                     <div class="stat-number"><?php echo $stats['total_users']; ?></div>
                     <div class="stat-label">Total Users</div>

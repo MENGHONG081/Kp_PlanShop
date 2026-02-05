@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($admin && password_verify($_POST['pass'], $admin['password'])) {
         $_SESSION['admin_id'] = $admin['id'];
-        header('Location: index.php');
+        header('Location: /PLANT_PROJECT/plant_admin/index.php');
         exit();
     } else {
         $error = "Invalid credentials";
