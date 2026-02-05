@@ -30,4 +30,3 @@ if (!defined('SITE_URL')) {
  */
 if (!defined('UPLOAD_PATH')) {
     define('UPLOAD_PATH', __DIR__ . '/uploads/');
-}
