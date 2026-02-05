@@ -1,33 +1,26 @@
 <?php
-ob_start(); // Prevents "Headers already sent" by buffering output
-session_start();
-require 'config.php'; // contains $pdo connection
-
+require 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? null;
-    //$fullname = $_POST['fullname'] ?? null;
     $password = $_POST['password'] ?? null;
 
     if ($email && $password) {
-
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-         // ✅ Create session from DB values
+            // ✅ Create session from DB values
             $_SESSION['user'] = $user['fullname'];
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['email']    = $user['email'];
+            $_SESSION['email'] = $user['email'];
             $_SESSION['just_logged_in'] = true;
 
             header("Location: index1.php");
-            exit;
-
+            exit; // Always exit after a redirect
         } else {
             echo "<script>alert('Invalid email or password.');</script>";
         }
-
     } else {
         echo "<script>alert('Please fill in all fields.');</script>";
     }

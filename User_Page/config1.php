@@ -1,7 +1,5 @@
 <?php
 require 'config.php'; // Your PDO connection ($pdo)
-
-// Initialize cart
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }

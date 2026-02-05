@@ -1,11 +1,6 @@
 <?php
 ob_start(); 
 if (session_status() === PHP_SESSION_NONE) session_start();
-
-/**
- * Read from Environment Variables
- * (Local: .env / Server: Render Environment)
- */
 $host = getenv('DB_HOST') ?: '127.0.0.1';
 $port = getenv('DB_PORT') ?: '3307';
 $dbname = getenv('DB_NAME') ?: 'plantshop';
@@ -37,4 +32,3 @@ if (!defined('SITE_URL')) {
  */
 if (!defined('UPLOAD_PATH')) {
     define('UPLOAD_PATH', __DIR__ . '/uploads/');
-}
