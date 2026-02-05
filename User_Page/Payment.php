@@ -545,14 +545,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <button type="button" class="w-full rounded-xl bg-indigo-600
                                                     hover:bg-indigo-700
                                                     text-white font-semibold py-3
-                                                    shadow-lg transition mt-6 flex items-center justify-center gap-2" onclick="location.href='/PLANT_PROJECT/User_Page/camara.php?order=<?= htmlspecialchars($order_id) ?>'" > 📸 Photo transaction</button>
+                                                    shadow-lg transition mt-6 flex items-center justify-center gap-2" onclick="location.href='camara.php?order=<?= htmlspecialchars($order_id) ?>'" > 📸 Photo transaction</button>
                                             
 
                             <!-- scan to AI Analysis -->
                             <button type="button" class="w-full rounded-xl bg-indigo-600
                                         hover:bg-indigo-700
                                         text-white font-semibold py-3
-                                        shadow-lg transition mt-6 flex items-center justify-center gap-2" onclick="location.href='/PLANT_PROJECT/User_Page/Scan.php'">
+                                        shadow-lg transition mt-6 flex items-center justify-center gap-2" onclick="location.href='Scan.php'">
                                         <img src="image/ai.png" alt="AI" class="w-10 h-10">
  
                                         Capture & Verify By AI Scan</button>

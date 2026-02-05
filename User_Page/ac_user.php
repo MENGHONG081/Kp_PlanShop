@@ -1,5 +1,5 @@
 <?php
-require 'config.php'; // assumes $pdo is ready + PDO::ERRMODE_EXCEPTION
+include 'config.php'; // assumes $pdo is ready + PDO::ERRMODE_EXCEPTION
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");

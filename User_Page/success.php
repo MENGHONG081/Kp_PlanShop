@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+include 'config.php';
 // 1. Get the Order ID from URL
 $orderId = $_GET['id'] ?? '';
 

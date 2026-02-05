@@ -1,5 +1,5 @@
 <?php
-require 'config.php'; // Your PDO connection ($pdo)
+include 'config.php'; // Your PDO connection ($pdo)
 // Get order_id from URL
 $order_id = $_GET['order'] ?? null;
 if (!$order_id || !is_numeric($order_id)) {

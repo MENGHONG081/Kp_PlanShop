@@ -1,5 +1,5 @@
 <?php
-require 'config1.php'; // Session and cart handling
+include 'config1.php'; // Session and cart handling
 // Initialize cart
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];

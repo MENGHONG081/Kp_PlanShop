@@ -1,46 +1,17 @@
 <?php
-require 'config.php';
+include 'plant_admin/auth.php'; // defines $pdo
+if(isset($_SESSION['admin_id'])) header('Location: plant_admin/index.php');
 
-$error = null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Trim inputs
-    $username = trim($_POST['user'] ?? '');
-    $password = $_POST['pass'] ?? '';
-
-    // Validate input
-    if ($username === '' || $password === '') {
-        $error = "Please enter username and password.";
-    } else {
-
-        $stmt = $pdo->prepare(
-            "SELECT id, password 
-             FROM admins 
-             WHERE username = :username 
-             LIMIT 1"
-        );
-
-        $stmt->execute([
-            ':username' => $username
-        ]);
-
-        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($admin && password_verify($password, $admin['password'])) {
-
-            // Prevent session fixation
-            session_regenerate_id(true);
-
-            $_SESSION['admin_id'] = $admin['id'];
-            $_SESSION['admin_login_time'] = time();
-
-            header('Location: plant_admin/index.php');
-            exit;
-
-        } else {
-            $error = "Invalid username or password.";
-        }
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $stmt = $pdo->prepare("SELECT id,password FROM admins WHERE username=?");
+    $stmt->execute([$_POST['user']]);
+    $admin = $stmt->fetch();
+    if($admin && password_verify($_POST['pass'], $admin['password'])){
+      $_SESSION['admin_id'] = $admin['id'];
+      header('Location:plant_admin/index.php');
+      exit();
+    }else{
+      $error = "Invalid credentials";
     }
 }
 ?>

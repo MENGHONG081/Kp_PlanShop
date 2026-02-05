@@ -1,18 +1,14 @@
 <?php
-require 'config.php';
-if(isset($_SESSION['admin_id'])) header('Location:/PLANT_PROJECT/plant_admin/index.php');
+include 'plant_admin/auth.php'; // defines $pdo
+if(isset($_SESSION['admin_id'])) header('Location: plant_admin/index.php');
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $stmt = $pdo->prepare("SELECT id,password FROM admins WHERE username=?");
     $stmt->execute([$_POST['user']]);
     $admin = $stmt->fetch();
-    // ...existing code...
-
-  // ...existing code...
-
     if($admin && password_verify($_POST['pass'], $admin['password'])){
       $_SESSION['admin_id'] = $admin['id'];
-      header('Location: /PLANT_PROJECT/plant_admin/index.php');
+      header('Location:plant_admin/index.php');
       exit();
     }else{
       $error = "Invalid credentials";

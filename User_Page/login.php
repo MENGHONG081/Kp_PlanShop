@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+include 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? null;
     $password = $_POST['password'] ?? null;
