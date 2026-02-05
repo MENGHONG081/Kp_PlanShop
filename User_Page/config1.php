@@ -1,7 +1,5 @@
 <?php
 require 'config.php'; // Your PDO connection ($pdo)
-
-// Initialize cart
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
@@ -127,4 +125,3 @@ if (isset($_GET['imgUrl']) && isset($_GET['title']) && isset($_GET['desc'])) {
     $desc   = $_GET['desc'];
 }
 
-?>
