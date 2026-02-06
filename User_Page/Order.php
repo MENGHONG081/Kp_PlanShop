@@ -6,9 +6,7 @@ if (!isset($_SESSION['cart'])) {
 }
 $cart = $_SESSION['cart'];
 $user_id = $_SESSION['user_id'] ?? null;
-if ($user_id === 0) {
-    $user_id = null;
-}
+$user_id = $_SESSION['user_id'] ?? 0;
 // Calculate initial totals
 $subtotal = 0;
 $cart_count = 0;
