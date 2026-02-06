@@ -2,8 +2,9 @@
 require __DIR__ . '/auth.php';
 // If not logged in, redirect to login page
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit();
+header('Location: ' . BASE_URL . '/login.php');
+exit;
+
 
 }
 $fullname = $_SESSION['admin_name'] ?? 'Admin';

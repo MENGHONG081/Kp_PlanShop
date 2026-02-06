@@ -236,7 +236,7 @@ a[href*="login.php"], a[href*="signup.php"]{
                 <?php if ($isLoggedIn): ?>
                     <a href="logout.php" class="btn btn-outline-danger btn-sm">Log out</a>
                     <?php if ($fullname === 'admin'): // or however you check admin ?>
-                      <a href="plant_admin/login.php" class="btn btn-outline-success btn-sm">Admin</a>
+                      <a href="/plant_admin/login.php" class="btn btn-outline-success btn-sm">Admin</a>
                     <?php endif; ?>
                 <?php else: ?>
                     <a href="login.php" class="btn btn-outline-success btn-sm">Log in</a>
@@ -311,12 +311,12 @@ a[href*="login.php"], a[href*="signup.php"]{
   </div>
 
   <!-- AI Float Buttons -->
-       <button class="ai-float-button">
+       <button class="ai-float-button" onclick="window.location.href='ai_chat.php'">
         <img src="https://www.htx.gov.sg/images/default-source/news/2024/ai-article-1-banner-shot-min.jpg?sfvrsn=4b7c6915_3" 
             alt="AI Assistant" 
             class="ai-img-circle"
             class="img-colorful"
-            href="ai_chat.php" />
+             />
       </button>
 
 <div id="ai-chat-window" class="chat-window">

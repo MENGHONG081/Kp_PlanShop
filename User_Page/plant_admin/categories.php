@@ -63,8 +63,8 @@ if (isset($_GET['del'])) {
     } catch (PDOException $e) {
         $errorMessage = 'Error deleting category.';
     }
-    header("Location:Plant_admin/categories.php?success=1");
-    exit();
+    header('Location: ' . BASE_URL . '/plant_admin/categories.php?success=1');
+    exit;
 }
 
 // Fetch all categories
@@ -96,8 +96,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
     </style>
 </head>
 <body>
-    <?php include 'nav.php'; ?>
-
+<?php include __DIR__ . '/nav.php'; ?>
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="fas fa-tags me-2"></i>Category Management</h2>

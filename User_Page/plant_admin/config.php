@@ -1,37 +1,49 @@
 <?php
-ob_start(); 
-if (session_status() === PHP_SESSION_NONE) session_start();
+ob_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+/**
+ * Database config
+ */
+$dbDriver = getenv('DB_DRIVER') ?: 'pgsql'; // pgsql | mysql
+
 $host = getenv('DB_HOST') ?: '127.0.0.1';
-$port = getenv('DB_PORT') ?: '3307';
+$port = getenv('DB_PORT') ?: ($dbDriver === 'pgsql' ? '5432' : '3306');
 $dbname = getenv('DB_NAME') ?: 'plantshop';
 $username = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASS') ?: '';
 
 try {
-    // PostgreSQL (Render)
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+    if ($dbDriver === 'pgsql') {
+        $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+    } else {
+        $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
+    }
+
     $pdo = new PDO($dsn, $username, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]);
 } catch (PDOException $e) {
-    die("Database connection failed");
+    die('Database connection failed');
 }
 
 /**
- * Site URL
+ * Base URL
  */
-if (!defined('SITE_URL')) {
+if (!defined('BASE_URL')) {
     define(
-        'SITE_URL',
-        getenv('SITE_URL') ?: 'http://localhost/plant-admin/'
+        'BASE_URL',
+        getenv('SITE_URL') ?: 'http://localhost/User_Page'
     );
 }
 
 /**
- * Upload path (Render: NOT persistent)
+ * Paths
  */
-if (!defined('UPLOAD_PATH')) {
-    define('UPLOAD_PATH', __DIR__ . '/uploads/');
-}
-define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . '/PLANT_PROJECT');
+define('ROOT_PATH', dirname(__DIR__)); // project root
+define('UPLOAD_PATH', ROOT_PATH . '/uploads');
 ?>
