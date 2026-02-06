@@ -45,10 +45,10 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="d-flex align-items-center mb-4">
         <i class="fa fa-box-open fa-3x text-primary me-3"></i>
         <h1 class="h3 fw-bold mb-0">User Orders</h1>
-        <button class="btn btn-outline-primary btn-sm ms-auto" onclick="location.href='plant_admin/pay.php'">
+        <button class="btn btn-outline-primary btn-sm ms-auto" onclick="location.href='pay.php'">
             <i class="fa fa-credit-card me-1"></i> Payment Status
         </button>
-        <button class="btn btn-outline-secondary btn-sm ms-auto" onclick="location.href='plant_admin/Bot_View.php'">
+        <button class="btn btn-outline-secondary btn-sm ms-auto" onclick="location.href='Bot_View.php'">
             <i class="fa fa-robot me-1"></i> Check By BotAI
         </button>
 

@@ -291,7 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="card mx-auto">
     <div class="card-header mb-3">
       <div class="logo-aside">
-        <img src="../User_Page/icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" alt="KP Plant Shop Logo" class="logo-img">
+        <img src="../icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" alt="KP Plant Shop Logo" class="logo-img">
         <span class="logo-text">Plant Admin</span>
       </div>
     </div>
@@ -309,9 +309,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button class="btn btn-primary w-100" type="submit">
           <i class="fas fa-sign-in-alt me-2"></i>Login
         </button>
-          <a href="../index1.php" class="btn btn-link mt-3 d-block text-center">Back to Main Site</a>
-          <a href="log1.php" class="btn btn-link mt-3 d-block text-center"> Change UI </a>
+          
       </form>
+      <a href="../index1.php" class="btn btn-link mt-3 d-block text-center">Back to Main Site</a>
+      <a href="log1.php" class="btn btn-link mt-3 d-block text-center"> Change UI </a>
     </div>
   </div>
 </div>

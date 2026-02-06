@@ -5,7 +5,10 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 $cart = $_SESSION['cart'];
-$user_id = $_SESSION['user_id'] ?? 0;
+$user_id = $_SESSION['user_id'] ?? null;
+if ($user_id === 0) {
+    $user_id = null;
+}
 // Calculate initial totals
 $subtotal = 0;
 $cart_count = 0;
@@ -71,10 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
 
         // Insert order
         $stmt = $pdo->prepare("INSERT INTO orders (user_id, total, status, created_at) 
-                               VALUES (?, ?, 'pending', NOW())");
+                               VALUES (?, ?, 'Pending', NOW())
+                               RETURNING id");
         $stmt->execute([$user_id, $total]);
-        $order_id = $pdo->lastInsertId();
-
+        $order_id = $stmt->fetchColumn();
+        if (!$order_id) {
+            throw new Exception('Failed to create order.');
+        }
         // Insert order items
         $itemStmt = $pdo->prepare("INSERT INTO order_items 
                                    (order_id, product_id, qty, unit_price) 
@@ -358,6 +364,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     });
 });
 });
-    </script>
+</script>
 </body>
 </html>

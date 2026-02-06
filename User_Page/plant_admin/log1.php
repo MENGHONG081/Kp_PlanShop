@@ -275,9 +275,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button class="btn w-100" type="submit">
           <i class="fas fa-arrow-right me-2"></i>Enter Garden
         </button>
-          <a href="../index1.php" class="btn btn-link mt-3 d-block text-center">Back to Main Site</a>
-          <a href="log1.php" class="btn btn-link mt-3 d-block text-center"> Change UI </a>
       </form>
+      <a href="../index1.php" class="btn btn-link mt-3 d-block text-center">Back to Main Site</a>
+      <a href="login.php" class="btn btn-link mt-3 d-block text-center"> Change UI </a>
     </div>
   </div>
 </div>

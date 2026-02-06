@@ -190,17 +190,17 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
             <span>Add Product</span>
         </button>
 
-        <button class="btn btn-info text-white d-flex align-items-center gap-2 shadow-sm" onclick="window.location.href='plant_admin/More.php#new-arrivals'"> 
+        <button class="btn btn-info text-white d-flex align-items-center gap-2 shadow-sm" onclick="window.location.href='More.php#new-arrivals'"> 
             <i class="fas fa-truck-loading"></i>
             <span>New Arrival</span>
         </button>
 
-        <button class="btn btn-warning d-flex align-items-center gap-2 shadow-sm" onclick="window.location.href='plant_admin/More.php#discount-products'">
+        <button class="btn btn-warning d-flex align-items-center gap-2 shadow-sm" onclick="window.location.href='More.php#discount-products'">
             <i class="fas fa-tags"></i>
             <span>Discount</span>
         </button>
 
-        <button class="btn btn-danger d-flex align-items-center gap-2 shadow-sm" onclick="window.location.href='plant_admin/More.php#best-sellers'">
+        <button class="btn btn-danger d-flex align-items-center gap-2 shadow-sm" onclick="window.location.href='More.php#best-sellers'">
             <i class="fas fa-fire"></i>
             <span>Best Seller</span>
         </button>

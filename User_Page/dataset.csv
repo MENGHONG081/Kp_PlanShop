@@ -1,6 +1,176 @@
 intent,input,response
-greeting,hi, Hello 👋 welcome to KH Plan_Shop Chat  I’m very happy to meet you! 😊 What do you want to Ask me ? 
-greeting,hello,Hello 😊 Nice to meet you!
-status,how are you,I’m doing great, thank you for asking!
+greeting,hi,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,hii,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,hello,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,helo,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,hey,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,yo,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,sup,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,សួស្តី,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,សួរស្តី,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+greeting,សួស្តីៗ,Hello 👋 welcome to KH Plan_Shop Chat! I’m very happy to meet you 😊 What do you want to ask me?
+
+status,how are you,I’m doing great 😊 thank you for asking!
+status,how r u,I’m doing great 😊 thank you for asking!
+status,how are u,I’m doing great 😊 thank you for asking!
+status,u ok?,I’m doing great 😊 thank you for asking!
+status,are you ok,I’m doing great 😊 thank you for asking!
+status,សុខសប្បាយទេ,I’m doing great 😊 thank you for asking!
+status,សុខសប្បាយអត់,I’m doing great 😊 thank you for asking!
+
+gratitude,thank you,You’re welcome! 😊 If you have any more questions, feel free to ask.
+gratitude,thanks,You’re welcome! 😊 If you have any more questions, feel free to ask.
+gratitude,thx,You’re welcome! 😊 If you have any more questions, feel free to ask.
+gratitude,ty,You’re welcome! 😊 If you have any more questions, feel free to ask.
+gratitude,អរគុណ,You’re welcome! 😊 If you have any more questions, feel free to ask.
+gratitude,អរគុណច្រើន,You’re welcome! 😊 If you have any more questions, feel free to ask.
+
 farewell,bye,Goodbye 👋 Have a great day!
-gratitude,thank you,You’re welcome! If you have any more questions, feel free to ask.
+farewell,bye bye,Goodbye 👋 Have a great day!
+farewell,goodbye,Goodbye 👋 Have a great day!
+farewell,see you,Goodbye 👋 Have a great day!
+farewell,see ya,Goodbye 👋 Have a great day!
+farewell,later,Goodbye 👋 Have a great day!
+farewell,លាហើយ,Goodbye 👋 Have a great day!
+farewell,ចា៎ bye,Goodbye 👋 Have a great day!
+
+products,what do you sell,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+products,what u sell,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+products,sell what?,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+products,products?,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+products,plants?,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+products,flowers?,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+products,មានអីលក់?,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+products,លក់អ្វី?,KP PlanShop sells plants and flowers 🌱 Please check the Products page.
+
+pricing,how much,Prices depend on the product 🌿 Please check the Products page for details.
+pricing,price?,Prices depend on the product 🌿 Please check the Products page for details.
+pricing,how much?,Prices depend on the product 🌿 Please check the Products page for details.
+pricing,cheap?,Prices depend on the product 🌿 Please check the Products page for details.
+pricing,expensive?,Prices depend on the product 🌿 Please check the Products page for details.
+pricing,ថ្លៃប៉ុន្មាន?,Prices depend on the product 🌿 Please check the Products page for details.
+pricing,ថោកអត់?,Prices depend on the product 🌿 Please check the Products page for details.
+
+payment,can i pay by qr,Yes 👍 You can pay using Bakong KHQR. Please scan the QR code at checkout.
+payment,qr payment,Yes 👍 You can pay using Bakong KHQR. Please scan the QR code at checkout.
+payment,bakong?,Yes 👍 You can pay using Bakong KHQR. Please scan the QR code at checkout.
+payment,pay qr,Yes 👍 You can pay using Bakong KHQR. Please scan the QR code at checkout.
+payment,បង់ qr បានអត់?,Yes 👍 You can pay using Bakong KHQR. Please scan the QR code at checkout.
+
+order,where is my order,Please go to Account → My Orders to check your order status 📦
+order,my order?,Please go to Account → My Orders to check your order status 📦
+order,order status,Please go to Account → My Orders to check your order status 📦
+order,status?,Please go to Account → My Orders to check your order status 📦
+order,order នៅណា?,Please go to Account → My Orders to check your order status 📦
+order,ស្ថានភាព order?,Please go to Account → My Orders to check your order status 📦
+add cart,ចុច Add to Cart 🛒,cart
+add to cart,ចុច Add to Cart 🛒,cart
+ដាក់ cart,ចុច Add to Cart 🛒,cart
+checkout,ទៅ Cart → Checkout → Confirm ✅,checkout
+pay now,ទៅ Cart → Checkout → Confirm ✅,checkout
+qr pay,យើងគាំទ្រ Bakong KHQR 👍 សូម Scan QR,payment
+bakong?,យើងគាំទ្រ Bakong KHQR 👍 សូម Scan QR,payment
+scan qr,យើងគាំទ្រ Bakong KHQR 👍 សូម Scan QR,payment
+payment fail,សូមសាកល្បងម្ដងទៀត ឬទាក់ទង support,payment_error
+pay error,សូមសាកល្បងម្ដងទៀត ឬទាក់ទង support,payment_error
+my order,ចូល Account → My Orders 📦,order
+order where?,ចូល Account → My Orders 📦,order
+status?,ចូល Account → My Orders 📦,order
+order now?,ចូល Account → My Orders 📦,orderKP PlanShop ជាអ្វី?,KP PlanShop ជា website លក់ដើមឈើ និងផ្កា 🌿 អ្នកអាចទិញ online បានងាយស្រួល,about
+This shop is?,KP PlanShop ជា website លក់ដើមឈើ និងផ្កា 🌿 អ្នកអាចទិញ online បានងាយស្រួល,about
+KP PlanShop legit អត់?,KP PlanShop ជា online plant shop ដែលមាន order និង payment system,about
+cart save អត់?,cart នឹងរក្សាទុកក្នុង session បន្ទាប់ពី login,cart
+cart clear ហេតុអី?,អាចដោយ session expire ឬ logout,cart
+checkout fail?,សូមពិនិត្យ cart និង internet connection,checkout
+confirm order ហើយ next?,បន្ទាប់ពី confirm អ្នកទៅ payment step,checkout
+website នេះលក់អី?,KP PlanShop លក់ដើមឈើ និងផ្កា 🌱,about
+ត្រូវ register ទេ?,ត្រូវការ register/login ដើម្បី checkout និងមើល order history,account
+need account?,ត្រូវការ register/login ដើម្បី checkout និងមើល order history,account
+guest checkout បានទេ?,ជាទូទៅត្រូវ login បើមាន guest checkout វានឹងបង្ហាញ,account
+promo auto show?,promotion អាចបង្ហាញជា popup បន្ទាប់ពី login,promotion
+discount code មានទេ?,បើមាន discount code វានឹងបង្ហាញនៅ promotion,promotion​
+promo not show?,សូម refresh ឬ login ម្ដងទៀត,promotion
+profile edit ធ្វើម៉េច?,ចូល Account → Profile ដើម្បីកែព័ត៌មាន,account
+bakong safe អត់?,Bakong KHQR ជា payment system ដែលមានសុវត្ថិភាព 👍,payment
+QR expire អត់?,QR អាចមានពេលកំណត់ សូម refresh ដើម្បីបង្កើតថ្មី,payment
+pay success but no update?,សូម refresh page ឬពិនិត្យ Order History,payment
+money deduct តែ order pending?,សូមទាក់ទង support ជាមួយ Order ID,payment
+help me pls,សូមប្រាប់បញ្ហា និង Order ID ខ្ញុំនឹងជួយ,support
+contact admin,សូមផ្ញើ message ជាមួយ Order ID,support
+customer service?,សូមទាក់ទង support តាម Contact page,support
+admin login same?,admin login ផ្សេងពី user login,admin
+admin page នៅណា?,admin page ស្ថិតនៅ plant_admin,admin
+user vs admin?,user សម្រាប់ទិញ admin សម្រាប់គ្រប់គ្រង,adminKP PlanShop អ្នកណាបង្កើត?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+Website នេះអ្នកណាធ្វើ?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+Who created KP PlanShop?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+Who made this website?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+Owner KP PlanShop?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+Dev អ្នកណា?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+dev name?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+Ai shop នេះអ្នកណាធ្វើ?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+Project នេះរបស់អ្នកណា?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+KP PlanShop by who?,KP PlanShop ត្រូវបានបង្កើតឡើងដោយ យ៉ូន ម៉េងហុង និង តាន់ សុភារ័ត្ន 👨‍💻🌿,creator
+
+input_km,input_en,output_km,output_en,topic
+សួស្តី,Hi,សួស្តី 🌿 KP PlanShop មានអ្វីជួយបាន?,Hi 🌿 Welcome to KP PlanShop. How can I help?,greeting
+មានផ្កាអ្វីលក់?,What plants do you have?,យើងមានផ្កា និងដើមឈើជាច្រើន 🌱 សូមចូល Products ដើម្បីមើល,We have many plants 🌱 Check the Products page,products
+តម្លៃថោកអត់?,Is it cheap?,មានតម្លៃចាប់ពីថោកដល់ពិសេស 💚 អាស្រ័យលើប្រភេទ,Prices range from affordable to premium 💚,pricing
+មាន promotion ទេ?,Any promo?,មាន promo ពេលខ្លះ 🎉 Login ដើម្បីឃើញ,Yes 🎉 Log in to see promotions,promotion
+Add to cart ធ្វើម៉េច?,How to add to cart?,ចុច “Add to Cart” លើផលិតផលដែលអ្នកចង់ទិញ,Click “Add to Cart” on the product,cart
+Cart នៅណា?,Where is my cart?,ចុច icon Cart 🛒 នៅលើ website,Click the Cart 🛒 icon,cart
+Checkout យ៉ាងម៉េច?,How to checkout?,ទៅ Cart → Checkout → Confirm order,Go to Cart → Checkout → Confirm order,checkout
+បង់ QR បានអត់?,Can I pay by QR?,បាន 👍 យើងគាំទ្រ Bakong KHQR,Yes 👍 We support Bakong KHQR,payment
+Scan QR រួចហើយ,next?,I scanned QR, what next?,បើបង់ជោគជ័យ Order នឹង update ស្វ័យប្រវត្តិ,After success your order updates automatically,payment
+Payment fail 😭,Payment failed 😭,សូមសាកល្បងម្ដងទៀត ឬទាក់ទង support,Please try again or contact support,payment
+Login មិនចូល,Can't login,សូមពិនិត្យ username/password ឬ Caps Lock,Check username/password or Caps Lock,auth
+Forgot password 😢,Forgot password 😢,សូមប្រើ Forgot Password ឬទាក់ទង admin,Use Forgot Password or contact admin,auth
+Order ខ្ញុំនៅណា?,Where is my order?,ចូល Account → My Orders ដើម្បីពិនិត្យ,Go to Account → My Orders,order
+Order status មានអ្វីខ្លះ?,Order status?,Pending, Paid, Processing, Delivering, Completed, Cancelled,Pending, Paid, Processing, Delivering, Completed, Cancelled,order
+Cancel order បានអត់?,Can I cancel?,បើមិនទាន់ដឹក អាចស្នើ Cancel បាន,If not shipped, you can request cancel,order
+ដឹកទៅខេត្តខ្ញុំទេ?,Do you deliver to my area?,សូមប្រាប់ខេត្ត ខ្ញុំនឹងពិនិត្យឲ្យ,Tell me your area and I’ll check,shipping
+ថ្លៃដឹកប៉ុន្មាន?,Shipping fee?,អាស្រ័យលើតំបន់ នឹងបង្ហាញពេល Checkout,Depends on area, shown at checkout,shipping
+Website lag 😐,Website is slow 😐,សូម refresh ឬពិនិត្យ internet,Please refresh or check internet,technical
+Page មិនចូល,Page not working,សូមប្រាប់ page name ឬ error code,Please tell me the page or error,technical
+Admin login នៅណា?,Where is admin login?,Admin login នៅ plant_admin page,Admin login is at plant_admin page,admin
+Contact admin ធ្វើម៉េច?,How to contact admin?,សូមផ្ញើ message ជាមួយ Order ID,Send a message with your Order ID,support
+Thanks 🥰,Thanks 🥰,អរគុណដែលជ្រើស KP PlanShop 💚,Thanks for choosing KP PlanShop 💚,closing
+Bye 👋,Bye 👋,លាហើយ 👋 សូមមកវិញម្ដងទៀត,Bye 👋 See you again,closing
+greeting,hi,Hello 👋 Welcome to KP Plant Shop Chat! 🌿 How can I help you today?
+greeting,hello,Hello 👋 Welcome to KP Plant Shop Chat! 🌿 How can I help you today?
+greeting,hey,Hello 👋 Welcome to KP Plant Shop Chat! 🌿 How can I help you today?
+
+plant_importance,why are plants important,Plants are important because they produce oxygen, absorb carbon dioxide, protect the environment, and support life.
+plant_importance,importance of plants,Plants produce oxygen, improve air quality, and help protect the environment.
+plant_importance,plants good for what,Plants clean the air, support the ecosystem, and make our surroundings more beautiful.
+
+plant_benefits,benefits of plant decoration,Plant decoration adds natural beauty, improves air quality, reduces stress, and creates a relaxing environment.
+plant_benefits,why decorate with plants,Decorating with plants improves air quality, reduces stress, and creates a calm atmosphere.
+
+plant_types,types of plants,Plants come in many types such as trees, shrubs, herbs, grasses, and vines.
+plant_types,plant categories,Common plant categories include trees, shrubs, herbs, grasses, and vines.
+
+indoor_plants,indoor plants examples,Common indoor plants include snake plant, pothos, and spider plant.
+indoor_plants,plants for inside house,Popular indoor plants are snake plant, pothos, and spider plant.
+
+outdoor_plants,outdoor plants examples,Common outdoor plants include rose bushes, lavender, sunflowers, and tomato plants.
+outdoor_plants,plants for garden,Popular garden plants are roses, lavender, sunflowers, and tomatoes.
+
+plant_care,how to take care of plants,To care for plants: water regularly, give enough sunlight, use good soil, and trim dead parts.
+plant_care,plant care tips,Water regularly, provide sunlight, use good soil, and remove dead parts.
+
+diy_decor,diy plant decoration ideas,DIY plant decoration uses pots, jars, or recycled items to create creative and beautiful plant displays.
+diy_decor,decorate plants at home,You can decorate plants using recycled pots, hanging designs, and creative containers.
+
+technology,technology used in kp plant shop,KP Plant Shop uses HTML, CSS, JavaScript for frontend and PHP with database for backend.
+technology,what tech is used,The website is built using HTML, CSS, JavaScript, PHP, and development tools like VS Code.
+
+challenges,project challenges,Challenges include plant care for beginners, displaying many products clearly, and handling secure payments.
+challenges,solutions to challenges,Solutions include clear care instructions, product categories, and secure online payment systems.
+
+conclusion,project conclusion,KP Plant Shop is a user-friendly e-commerce website that helps users browse, choose, and care for plants easily.
+conclusion,about kp plant shop project,The project successfully simulates a full e-commerce experience for plant lovers.
+
+farewell,bye,Goodbye 👋 Thank you for visiting KP Plant Shop!
+farewell,goodbye,Goodbye 👋 Thank you for visiting KP Plant Shop!
+gratitude,thank you,You’re welcome 😊 Feel free to ask if you have more questions!
+gratitude,thanks,You’re welcome 😊 Feel free to ask if you have more questions!

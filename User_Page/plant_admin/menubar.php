@@ -183,7 +183,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo-wrapper">
-                <img src="../User_Page/icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" alt="KP Plant Shop Logo" class="logo-img" />
+                <img src="../icon/plant_cactus_flower_nature_flower_pot_garden_planter_icon_141184.png" alt="KP Plant Shop Logo" class="logo-img" />
                 <span class="gradient-text">KP Plant Shop</span>
             </div>
             <button class="sidebar-toggle" id="sidebarToggle">
@@ -192,43 +192,43 @@
         </div>
         <ul class="sidebar-menu">
             <li>
-                <a href="plant_admin/index.php" class="active">
+                <a href="index.php" class="active">
                     <i class="fas fa-tachometer-alt"></i>
                     <span class="menu-text">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="plant_admin/products.php">
+                <a href="products.php">
                     <i class="fas fa-boxes-stacked"></i>
                     <span class="menu-text">Products</span>
                 </a>
             </li>
             <li>
-                <a href="plant_admin/categories.php">
+                <a href="categories.php">
                     <i class="fas fa-tags"></i>
                     <span class="menu-text">Categories</span>
                 </a>
             </li>
             <li>
-                <a href="plant_admin/orders.php">
+                <a href="orders.php">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="menu-text">Orders</span>
                 </a>
             </li>
             <li>
-                <a href="plant_admin/users.php">
+                <a href="users.php">
                     <i class="fas fa-users"></i>
                     <span class="menu-text">Users</span>
                 </a>
             </li>
             <li>
-                <a href="plant_admin/setting.php">
+                <a href="setting.php">
                     <i class="fas fa-cog"></i>
                     <span class="menu-text">Settings</span>
                 </a>
             </li>
             <li>
-                <a href="plant_admin/logout.php">
+                <a href="logout.php">
                     <i class="fas fa-sign-out-alt"></i>
                     <span class="menu-text">Logout</span>
                 </a>
