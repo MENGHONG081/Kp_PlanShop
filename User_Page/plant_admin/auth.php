@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . '/config.php';   // session_start() នៅទីនេះ
+require __DIR__ . '/config.php';
+
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
+    header('Location: /plant_admin/login.php');
     exit;
 }
-?>

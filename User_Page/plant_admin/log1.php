@@ -1,17 +1,26 @@
 <?php
-require __DIR__ . '/auth.php';
-if(isset($_SESSION['admin_id'])) header('Location: plant_admin/index.php');
+require __DIR__ . '/config.php'; // session_start + $pdo only
 
-if($_SERVER['REQUEST_METHOD']=='POST'){
-    $stmt = $pdo->prepare("SELECT id,password FROM admins WHERE username=?");
-    $stmt->execute([$_POST['user']]);
+// If already logged in, go to admin dashboard
+if (isset($_SESSION['admin_id'])) {
+    header('Location: /plant_admin/index.php');
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user = trim($_POST['user'] ?? '');
+    $pass = $_POST['pass'] ?? '';
+
+    $stmt = $pdo->prepare("SELECT id, password FROM admins WHERE username = ?");
+    $stmt->execute([$user]);
     $admin = $stmt->fetch();
-    if($admin && password_verify($_POST['pass'], $admin['password'])){
-      $_SESSION['admin_id'] = $admin['id'];
-      header('Location: index.php');
-      exit();
-    }else{
-      $error = "Invalid credentials";
+
+    if ($admin && password_verify($pass, $admin['password'])) {
+        $_SESSION['admin_id'] = $admin['id'];
+        header('Location: /plant_admin/index.php');
+        exit;
+    } else {
+        $error = "Invalid credentials";
     }
 }
 ?>
