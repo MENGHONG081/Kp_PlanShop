@@ -53,30 +53,20 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
 $sql = "
     SELECT 
         d.day_num,
-        CONCAT(d.day_num, ' ', MONTHNAME(CURDATE())) AS label,
+        d.day_num || ' ' || TO_CHAR(CURRENT_DATE, 'Month') AS label,
         COALESCE(SUM(p.amount), 0) AS total_amount
     FROM (
-        SELECT 1 AS day_num UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION
-        SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION
-        SELECT 11 UNION SELECT 12 UNION SELECT 13 UNION SELECT 14 UNION SELECT 15 UNION
-        SELECT 16 UNION SELECT 17 UNION SELECT 18 UNION SELECT 19 UNION SELECT 20 UNION
-        SELECT 21 UNION SELECT 22 UNION SELECT 23 UNION SELECT 24 UNION SELECT 25 UNION
-        SELECT 26 UNION SELECT 27 UNION SELECT 28 UNION SELECT 29 UNION SELECT 30 UNION
-        SELECT 31
+        SELECT generate_series(1, 31) AS day_num
     ) AS d
     LEFT JOIN payments p 
-        ON DAY(p.payment_date) = d.day_num
-       AND YEAR(p.payment_date) = YEAR(CURDATE())
-       AND MONTH(p.payment_date) = MONTH(CURDATE())
-     AND (
-    p.payment_status = 'success'
-    OR p.payment_status = 'SUCCESS'
-    OR p.payment_status = 'PAID'
-)
+        ON EXTRACT(DAY FROM p.payment_date) = d.day_num
+       AND EXTRACT(YEAR FROM p.payment_date) = EXTRACT(YEAR FROM CURRENT_DATE)
+       AND EXTRACT(MONTH FROM p.payment_date) = EXTRACT(MONTH FROM CURRENT_DATE)
+       AND p.payment_status IN ('success', 'SUCCESS', 'PAID')
+    WHERE d.day_num <= EXTRACT(DAY FROM (DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month - 1 day'))
     GROUP BY d.day_num
     ORDER BY d.day_num
 ";
-
 $stmt = $pdo->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -91,7 +81,6 @@ foreach ($rows as $row) {
 $labels_json = json_encode($labels);
 $amounts_json = json_encode($amounts);
 $hasData = array_sum($amounts) > 0;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
