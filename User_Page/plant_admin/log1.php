@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $admin = $stmt->fetch();
     if($admin && password_verify($_POST['pass'], $admin['password'])){
       $_SESSION['admin_id'] = $admin['id'];
-      header('Location:plant_admin/index.php');
+      header('Location: index.php');
       exit();
     }else{
       $error = "Invalid credentials";
@@ -266,6 +266,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         <button class="btn w-100" type="submit">
           <i class="fas fa-arrow-right me-2"></i>Enter Garden
         </button>
+          <a href="../index1.php" class="btn btn-link mt-3 d-block text-center">Back to Main Site</a>
+          <a href="log1.php" class="btn btn-link mt-3 d-block text-center"> Change UI </a>
       </form>
     </div>
   </div>

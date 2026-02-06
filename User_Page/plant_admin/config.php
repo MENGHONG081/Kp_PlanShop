@@ -31,19 +31,6 @@ try {
     die('Database connection failed');
 }
 
-/**
- * Base URL
- */
-if (!defined('BASE_URL')) {
-    define(
-        'BASE_URL',
-        getenv('SITE_URL') ?: 'http://localhost/User_Page'
-    );
-}
-
-/**
- * Paths
- */
 define('ROOT_PATH', dirname(__DIR__)); // project root
 define('UPLOAD_PATH', ROOT_PATH . '/uploads');
 ?>

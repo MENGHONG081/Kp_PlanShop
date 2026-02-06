@@ -25,7 +25,7 @@ if (isset($_GET['toggle'])) {
         $update->execute([$newVisible, $id]);
     }
 
-header('Location: ' . BASE_URL . '/feedback.php');
+header('Location: feedback.php');
 exit;
 }
 
@@ -38,7 +38,7 @@ if (isset($_GET['delete'])) {
     $del = $pdo->prepare("DELETE FROM customer_feedback WHERE id = ?");
     $del->execute([$id]);
 
-header('Location: ' . BASE_URL . '/feedback.php');
+header('Location: feedback.php');
 exit;
 
 }

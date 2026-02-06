@@ -2,7 +2,7 @@
 require __DIR__ . '/auth.php';
 // If not logged in, redirect to login page
 if (!isset($_SESSION['admin_id'])) {
-header('Location: ' . BASE_URL . '/login.php');
+header('Location: login.php');
 exit;
 
 
@@ -203,8 +203,7 @@ $hasData = array_sum($amounts) > 0;
     </style>
 </head>
 <body>
-    <?php include 'nav.php'; ?>
-
+    <?php include __DIR__ . '/nav.php'; ?>
     <div class="container mt-4">
         <!-- Success/Error Alerts -->
         <?php if ($successMessage): ?>

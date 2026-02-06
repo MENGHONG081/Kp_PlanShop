@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $admin = $stmt->fetch();
     if($admin && password_verify($_POST['pass'], $admin['password'])){
       $_SESSION['admin_id'] = $admin['id'];
-      header('Location:plant_admin/index.php');
+      header('Location: index.php');
       exit();
     }else{
       $error = "Invalid credentials";
