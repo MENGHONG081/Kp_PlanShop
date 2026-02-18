@@ -11,8 +11,11 @@ use Dotenv\Dotenv;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
-$dotenv->load();
+$dotenvPath = __DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..');
+if (file_exists($dotenvPath . '/.env')) {
+    $dotenv = Dotenv::createImmutable($dotenvPath);
+    $dotenv->safeLoad();
+}
 
 // Example order data
 

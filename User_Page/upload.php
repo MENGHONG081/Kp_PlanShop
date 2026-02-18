@@ -8,8 +8,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..'));
-$dotenv->load();
+$dotenvPath = __DIR__ . (file_exists(__DIR__ . '/.env') ? '' : '/..');
+if (file_exists($dotenvPath . '/.env')) {
+    $dotenv = Dotenv::createImmutable($dotenvPath);
+    $dotenv->safeLoad();
+}
 
 
 /* ================= SAFE INPUT ================= */
@@ -24,7 +27,7 @@ if ($orderId === '' || $expectedAmount === '' || $orderDate === '') {
 /* ================= CONFIG ================= */
 $gemini_api_key = getenv('GEMINI_API_KEY') ?? null;
 if (empty($gemini_api_key)) {
-    die('Missing GEMINI_API_KEY in .env file');
+    die('Missing GEMINI_API_KEY environment variable.');
 }
 $expectedName   = 'YAUN MENGHONG';
 $maxMinutes     = 60;

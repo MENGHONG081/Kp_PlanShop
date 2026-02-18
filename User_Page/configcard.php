@@ -2,15 +2,12 @@
 // 1. Load Composer autoloader (must be first)
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// 2. Load .env from project root
-$dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
-
-// 3. Enforce required env variables
-$dotenv->required([
-    'PAYWAY_MERCHANT_ID',
-    'PAYWAY_PUBLIC_KEY'
-])->notEmpty();
+// 2. Load .env from project root if it exists
+$dotenvPath = dirname(__DIR__);
+if (file_exists($dotenvPath . '/.env')) {
+    $dotenv = \Dotenv\Dotenv::createImmutable($dotenvPath);
+    $dotenv->safeLoad();
+}
 
 $merchant_id = getenv('PAYWAY_MERCHANT_ID');
 $public_key  = getenv('PAYWAY_PUBLIC_KEY')  ;
