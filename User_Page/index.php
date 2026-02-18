@@ -117,7 +117,7 @@
       </a>
 
       <!-- Sign Up (more prominent) -->
-      <a href="Sign_Up.php" 
+      <a href="Sige_Up.php" 
          class="flex items-center gap-2 rounded-full bg-primary text-white dark:bg-secondary dark:text-black px-6 py-2.5 text-sm font-bold hover:bg-primary/90 dark:hover:bg-secondary/90 transition-colors shadow-sm">
         <span class="material-symbols-outlined">person_add</span>
         Sign Up

@@ -19,7 +19,7 @@ try {
 }
 
 if (!defined('SITE_URL')) {
-    define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/plant-admin/');
+    define('SITE_URL', getenv('SITE_URL') ?: '/');
 }
 
 if (!defined('UPLOAD_PATH')) {

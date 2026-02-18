@@ -3,7 +3,7 @@ require __DIR__ . '/config.php'; // session_start + $pdo only
 
 // If already logged in, go to admin dashboard
 if (isset($_SESSION['admin_id'])) {
-    header('Location: /plant_admin/index.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($admin && password_verify($pass, $admin['password'])) {
         $_SESSION['admin_id'] = $admin['id'];
-        header('Location: /plant_admin/index.php');
+        header('Location: index.php');
         exit;
     } else {
         $error = "Invalid credentials";
