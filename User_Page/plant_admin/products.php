@@ -263,7 +263,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productModal" onclick="editProduct(<?php echo $p['id']; ?>, '<?php echo addslashes($p['name']); ?>', <?php echo $p['category_id']; ?>, <?php echo $p['price']; ?>, <?php echo $p['stock']; ?>, '<?php echo addslashes($p['description']); ?>', '<?php echo addslashes($p['image']); ?>')">
+                                            <a href="products.php" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productModal" onclick="editProduct(<?php echo $p['id']; ?>, '<?php echo addslashes($p['name']); ?>', <?php echo $p['category_id']; ?>, <?php echo $p['price']; ?>, <?php echo $p['stock']; ?>, '<?php echo addslashes($p['description']); ?>', '<?php echo addslashes($p['image']); ?>')">
                                                 <i class="fas fa-edit me-1"></i>Edit
                                             </a>
                                             <a href="products.php?del=<?php echo $p['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product? This will also remove the associated image and cannot be undone.');">
