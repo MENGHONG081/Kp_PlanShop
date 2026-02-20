@@ -98,9 +98,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
 }
 // Count today's feedback
 $stmt = $pdo->prepare("
-    SELECT COUNT(*) 
-    FROM customer_feedback 
-    WHERE DATE(submitted_at) = CURDATE()
+    SELECT COUNT(*)
+    FROM customer_feedback
+    WHERE DATE(submitted_at) = CURRENT_DATE
 ");
 $stmt->execute();
 $todayCount = $stmt->fetchColumn();
