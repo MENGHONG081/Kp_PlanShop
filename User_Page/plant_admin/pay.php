@@ -37,7 +37,7 @@ $payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body class="bg-light">
-<?php include 'plant_admin/nav.php'; ?>
+<?php include 'nav.php'; ?>
 
 <div class="container py-5">
     <div class="d-flex align-items-center mb-4">
