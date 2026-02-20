@@ -18,10 +18,12 @@ $discountProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->prepare("
     SELECT id, name, price, image, created_at
     FROM products
-    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    WHERE created_at >= NOW() - INTERVAL '30 days'
     ORDER BY created_at DESC
     LIMIT 8
 ");
+$stmt->execute();
+$newArrivals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt->execute();
 $newArrivals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -122,7 +124,7 @@ if (isset($_POST['save_discount'])) {
     </style>
 </head>
 <body class="bg-light">
-<?php include 'plant_admin/nav.php'; ?>
+<?php include 'nav.php'; ?>
 
 <div class="container py-5">
 
