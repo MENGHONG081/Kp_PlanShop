@@ -1,28 +1,51 @@
 <?php
 include 'config.php';
+
+$loginError = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'] ?? null;
-    $password = $_POST['password'] ?? null;
-
-    if ($email && $password) {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
-
-        if ($user && password_verify($password, $user['password'])) {
-            // ✅ Create session from DB values
-            $_SESSION['user'] = $user['fullname'];
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['just_logged_in'] = true;
-
-            header("Location: index1.php");
-            exit; // Always exit after a redirect
-        } else {
-            echo "<script>alert('Invalid email or password.');</script>";
-        }
+    // Verify CSRF token
+    if (!isset($_POST['csrf_token']) || !verifyCSRFToken($_POST['csrf_token'])) {
+        logSecurityEvent('csrf_token_mismatch', ['action' => 'login_attempt']);
+        $loginError = 'Security validation failed. Please try again.';
     } else {
-        echo "<script>alert('Please fill in all fields.');</script>";
+        // Check rate limiting
+        $email = sanitizeInput($_POST['email'] ?? '');
+        if (!checkRateLimit('login_' . $email, 5, 300)) {
+            logSecurityEvent('rate_limit_exceeded', ['email' => $email, 'action' => 'login_attempt']);
+            $loginError = 'Too many login attempts. Please try again later.';
+        } else if (empty($email) || empty($_POST['password'] ?? '')) {
+            $loginError = 'Please fill in all fields.';
+        } else if (!validateEmail($email)) {
+            $loginError = 'Please enter a valid email address.';
+        } else {
+            $password = $_POST['password'];
+            
+            // Use prepared statement to prevent SQL injection
+            $stmt = $pdo->prepare("SELECT id, fullname, email, password FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch();
+
+            if ($user && password_verify($password, $user['password'])) {
+                // Regenerate session ID to prevent session fixation
+                session_regenerate_id(true);
+                
+                // Create session from DB values
+                $_SESSION['user'] = $user['fullname'];
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['just_logged_in'] = true;
+                $_SESSION['login_time'] = time();
+
+                logSecurityEvent('successful_login', ['user_id' => $user['id']]);
+                
+                header("Location: index1.php");
+                exit;
+            } else {
+                logSecurityEvent('failed_login', ['email' => $email]);
+                $loginError = 'Invalid email or password.';
+            }
+        }
     }
 }
 ?>
@@ -92,14 +115,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <p class="text-2xl font-bold text-text-light dark:text-text-dark">Kp Plant_Shop</p>
   </div>
 <form method="POST" action="login.php" class="w-full max-w-md space-y-6">
+<input type="hidden" name="csrf_token" value="<?php echo escapeHTML(generateCSRFToken()); ?>">
 <div class="flex flex-col gap-6">
+<?php if ($loginError): ?>
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg" role="alert">
+    <strong>Error:</strong> <?php echo escapeHTML($loginError); ?>
+</div>
+<?php endif; ?>
 <!-- Headline -->
 <h1 class="text-text-light dark:text-text-dark tracking-tight text-[32px] font-bold leading-tight text-left">Welcome Back!</h1>
 <!-- Email Input -->
   <div class="flex w-full flex-wrap items-end">
   <label class="flex flex-col w-full flex-1">
   <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">Email</p>
-  <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-field-border-light dark:border-field-border-dark bg-field-bg-light dark:bg-field-bg-dark focus:border-primary dark:focus:border-green-400 h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-4 text-base font-normal leading-normal" type="email" name="email" placeholder="Enter your email" required/>
+  <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-field-border-light dark:border-field-border-dark bg-field-bg-light dark:bg-field-bg-dark focus:border-primary dark:focus:border-green-400 h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-4 text-base font-normal leading-normal" type="email" name="email" placeholder="Enter your email" value="<?php echo isset($_POST['email']) ? escapeHTML($_POST['email']) : ''; ?>" required/>
   </label>
   </div>
 <!-- Password Input -->
@@ -107,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <label class="flex flex-col w-full flex-1">
     <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">Password</p>
     <div class="flex w-full flex-1 items-stretch rounded-lg">
-    <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-field-border-light dark:border-field-border-dark bg-field-bg-light dark:bg-field-bg-dark focus:border-primary dark:focus:border-green-400 h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-4 rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal"type="password" name="password" placeholder="Enter your password" type="password" value=""/>
+    <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-field-border-light dark:border-field-border-dark bg-field-bg-light dark:bg-field-bg-dark focus:border-primary dark:focus:border-green-400 h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-4 rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal" type="password" name="password" placeholder="Enter your password" required/>
     <div class="text-gray-500 dark:text-gray-400 flex border border-field-border-light dark:border-field-border-dark bg-field-bg-light dark:bg-field-bg-dark items-center justify-center px-4 rounded-r-lg border-l-0" data-icon="Eye">
     <span class="material-symbols-outlined cursor-pointer">visibility</span>
      </div>
@@ -119,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <p class="text-primary dark:text-green-400 hover:text-accent dark:hover:text-accent text-sm font-medium leading-normal underline cursor-pointer">Forgot Password?</p>
   </div>
 <!-- Login Button -->
-<button class="flex items-center justify-center text-center font-bold text-base h-14 w-full rounded-lg bg-primary text-white hover:bg-opacity-90 transition-colors duration-200 mt-4" id="loginBtn">Login</button>
+<button type="submit" class="flex items-center justify-center text-center font-bold text-base h-14 w-full rounded-lg bg-primary text-white hover:bg-opacity-90 transition-colors duration-200 mt-4" id="loginBtn">Login</button>
 <!-- Sign Up Link -->
 <p class="text-text-light dark:text-text-dark text-sm font-normal text-center pt-6">New here? <a class="font-bold text-primary dark:text-green-400 hover:text-accent dark:hover:text-accent underline" href="Sige_Up.php">Create an account</a></p>
 </div>
