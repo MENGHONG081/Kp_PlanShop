@@ -82,54 +82,48 @@ $date= $order['created_at'];
 $tax = 0; // Adjust if needed
 $grand_total = round($order_total + $tax, 2);
 
-// PayWay / Card payment configuration
-$merchant_id = getenv('PAYWAY_MERCHANT_ID') ?? null;
-$return_url  = getenv('PAYWAY_RETURN_URL')  ?? '';
-$cancel_url  = getenv('PAYWAY_CANCEL_URL')  ?? '';
-$payway_env  = getenv('PAYWAY_ENV')         ?? 'sandbox';
-$private_key_env = getenv('PAYWAY_PRIVATE_KEY') ?? null;
-$private_key_path = getenv('PAYWAY_PRIVATE_KEY_PATH') ?? null; // optional: path to PEM file on disk
-
-$actionUrl = $payway_env === 'sandbox'
-    ? 'https://sandbox.payway.com.kh/'
-    : 'https://checkout.payway.com.kh/';
-
-$signatureBase64 = '';
-$cardError = null;
-
-// If a key file path is provided, prefer loading that (safer than storing key in .env)
-if ($private_key_path && file_exists($private_key_path)) {
-    $fileContents = @file_get_contents($private_key_path);
-    if ($fileContents !== false) {
-        $private_key_env = $fileContents;
-    }
-}
-
-if ($merchant_id && $private_key_env) {
-    $amountCents = (int)round($grand_total * 100);
-    $dataToSign = $merchant_id . $order_id . $amountCents . "USD";
-    $privateKeyPem = str_replace('\\n', "\n", $private_key_env);
-
-    $pkey = @openssl_pkey_get_private($privateKeyPem);
-    if ($pkey !== false) {
-        $ok = openssl_sign($dataToSign, $signature, $pkey, OPENSSL_ALGO_SHA256);
-        if ($ok) {
-            $signatureBase64 = base64_encode($signature);
-        } else {
-            $cardError = "Failed to generate payment signature.";
-        }
-    } else {
-        $opensslErr = '';
-        while ($err = openssl_error_string()) { $opensslErr .= $err . ' | '; }
-        $cardError = "Invalid PayWay private key configuration.";
-        if (!empty($opensslErr)) {
-            // Append a short OpenSSL hint (do not expose key contents)
-            $cardError .= " (OpenSSL: " . rtrim($opensslErr, ' | ') . ")";
-        }
-    }
-} else {
-    $cardError = "Card payment is not configured.";
-}
+	// PayWay / Card payment configuration
+	$merchant_id = getenv('PAYWAY_MERCHANT_ID') ?? null;
+	$public_key  = getenv('PAYWAY_PUBLIC_KEY')   ?? null; // PayWay uses public key for HMAC
+	$return_url  = getenv('PAYWAY_RETURN_URL')  ?? '';
+	$cancel_url  = getenv('PAYWAY_CANCEL_URL')  ?? '';
+	$payway_env  = getenv('PAYWAY_ENV')         ?? 'sandbox';
+	
+	$actionUrl = $payway_env === 'sandbox'
+	    ? 'https://checkout-sandbox.payway.com.kh/api/payment-gateway/v1/payments/purchase'
+	    : 'https://checkout.payway.com.kh/api/payment-gateway/v1/payments/purchase';
+	
+	$hash = '';
+	$cardError = null;
+	$req_time = gmdate('YmdHis');
+	$tran_id = (string)$order_id;
+	$amount_str = number_format((float)$grand_total, 2, '.', '');
+	
+	if ($merchant_id && $public_key) {
+	    // PayWay HMAC-SHA512 Signature Generation
+	    // Concat order: req_time + merchant_id + tran_id + amount + items + shipping + ctid + pwt + firstname + lastname + email + phone + type + payment_option + return_url + cancel_url + continue_success_url + return_deeplink + currency + custom_fields + return_params
+	    
+	    // Get user info for signature
+	    $stmt = $pdo->prepare("SELECT fullname, email, phone FROM users WHERE id = ?");
+	    $stmt->execute([$user_id]);
+	    $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+	    
+	    $name_parts = explode(' ', $user_info['fullname'] ?? 'Guest User', 2);
+	    $firstname = $name_parts[0];
+	    $lastname = $name_parts[1] ?? $name_parts[0];
+	    $email = $user_info['email'] ?? '';
+	    $phone = $user_info['phone'] ?? '';
+	    
+	    $return_url_encoded = base64_encode($return_url . '?order=' . $tran_id);
+	    $cancel_url_encoded = base64_encode($cancel_url . '?order=' . $tran_id);
+	    
+	    $hash_string = $req_time . $merchant_id . $tran_id . $amount_str . '' . '' . '' . '' . $firstname . $lastname . $email . $phone . 'purchase' . 'cards' . $return_url_encoded . $cancel_url_encoded . '' . '' . 'USD' . '' . '';
+	    
+	    $hash_binary = hash_hmac('sha512', $hash_string, $public_key, true);
+	    $hash = base64_encode($hash_binary);
+	} else {
+	    $cardError = "Visa/Mastercard payment is not fully configured in .env";
+	}
 
 // Bakong account details
 $name      = "YAUN MENGHONG";
@@ -417,24 +411,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <p class="text-xl font-semibold mb-2">Amount: <span class="text-primary">$<?= number_format($grand_total, 2) ?></span></p>
                                 <p class="text-sm text-gray-500 mb-8">Order #<?= str_pad($order['id'], 6, '0', STR_PAD_LEFT) ?> • Plant Shop, Phnom Penh</p>
                                 
-                                <!-- Simple button that triggers redirect to PayWay -->
-                                <form action="<?= htmlspecialchars($actionUrl) ?>" method="POST">
-                                    <?php if (!empty($cardError)): ?>
-                                        <div class="mb-4 text-red-600 font-semibold"><?= htmlspecialchars($cardError) ?></div>
-                                    <?php endif; ?>
+	                                <!-- Simple button that triggers redirect to PayWay -->
+	                                <form action="<?= htmlspecialchars($actionUrl) ?>" method="POST">
+	                                    <?php if (!empty($cardError)): ?>
+	                                        <div class="mb-4 text-red-600 font-semibold"><?= htmlspecialchars($cardError) ?></div>
+	                                    <?php endif; ?>
+	
+	                                    <input type="hidden" name="hash" value="<?= htmlspecialchars($hash) ?>">
+	                                    <input type="hidden" name="tran_id" value="<?= htmlspecialchars($tran_id) ?>">
+	                                    <input type="hidden" name="amount" value="<?= htmlspecialchars($amount_str) ?>">
+	                                    <input type="hidden" name="firstname" value="<?= htmlspecialchars($firstname ?? '') ?>">
+	                                    <input type="hidden" name="lastname" value="<?= htmlspecialchars($lastname ?? '') ?>">
+	                                    <input type="hidden" name="phone" value="<?= htmlspecialchars($phone ?? '') ?>">
+	                                    <input type="hidden" name="email" value="<?= htmlspecialchars($email ?? '') ?>">
+	                                    <input type="hidden" name="merchant_id" value="<?= htmlspecialchars($merchant_id ?? '') ?>">
+	                                    <input type="hidden" name="type" value="purchase">
+	                                    <input type="hidden" name="payment_option" value="cards">
+	                                    <input type="hidden" name="currency" value="USD">
+	                                    <input type="hidden" name="return_url" value="<?= htmlspecialchars(base64_encode($return_url . '?order=' . $tran_id)) ?>">
+	                                    <input type="hidden" name="cancel_url" value="<?= htmlspecialchars(base64_encode($cancel_url . '?order=' . $tran_id)) ?>">
+	                                    <input type="hidden" name="req_time" value="<?= htmlspecialchars($req_time) ?>">
 
-                                    <input type="hidden" name="merchant_id" value="<?= htmlspecialchars($merchant_id ?? '') ?>">
-                                    <input type="hidden" name="order_id" value="<?= htmlspecialchars($order_id) ?>">
-                                    <input type="hidden" name="amount" value="<?= htmlspecialchars((int)round($grand_total * 100)) ?>">
-                                    <input type="hidden" name="currency" value="USD">
-                                    <input type="hidden" name="return_url" value="<?= htmlspecialchars($return_url) ?>?order=<?= htmlspecialchars($order_id) ?>">
-                                    <input type="hidden" name="cancel_url" value="<?= htmlspecialchars($cancel_url) ?>">
-                                    <input type="hidden" name="signature" value="<?= htmlspecialchars($signatureBase64) ?>">
-
-                                    <button type="submit" <?php if (!empty($cardError)) echo 'disabled'; ?> class="w-full rounded-xl bg-pink-500 hover:bg-indigo-700 text-white font-semibold py-3 shadow-lg transition mt-6 flex items-center justify-center gap-2 <?php if (!empty($cardError)) echo 'opacity-50 cursor-not-allowed'; ?>">
-                                        Pay Now with Card ($<?= number_format($grand_total, 2) ?>)
-                                    </button>
-                                </form>
+	                                    <button type="submit" <?php if (!empty($cardError)) echo 'disabled'; ?> class="w-full rounded-xl bg-pink-500 hover:bg-indigo-700 text-white font-semibold py-3 shadow-lg transition mt-6 flex items-center justify-center gap-2 <?php if (!empty($cardError)) echo 'opacity-50 cursor-not-allowed'; ?>">
+	                                        Pay Now with Card ($<?= number_format($grand_total, 2) ?>)
+	                                    </button>
+	                                </form>
 
                                 
                                 <p class="mt-8 text-gray-600">Secure payment processed by ABA PayWay. We accept Visa, Mastercard, and more.</p>

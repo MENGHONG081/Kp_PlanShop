@@ -49,42 +49,64 @@
     if(!val) return;
 
     // 1. Add User Message
-    box.innerHTML += `<div class="flex justify-end mb-4"><div class="bg-blue-600 p-3 rounded-xl text-sm">${val}</div></div>`;
+    box.innerHTML += `<div class="flex justify-end mb-4"><div class="bg-blue-600 p-3 rounded-xl text-sm shadow-lg">${val}</div></div>`;
     
     // 2. Add "Thinking" status
     const tempId = 'status-' + Date.now();
-    box.innerHTML += `<div id="${tempId}" class="text-[10px] text-gray-500 italic mb-4">Contacting KP Server...</div>`;
+    box.innerHTML += `<div id="${tempId}" class="flex items-center gap-2 text-[10px] text-gray-400 italic mb-4">
+        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+        KP Assistant is thinking...
+    </div>`;
     input.value = "";
     box.scrollTop = box.scrollHeight;
 
     try {
-        const res = await fetch('chat.php', {
+        // Using chat_smart.php for enhanced intelligence
+        const res = await fetch('chat_smart.php', {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: val })
         });
 
         const rawText = await res.text();
-        document.getElementById(tempId).remove();
+        const statusEl = document.getElementById(tempId);
+        if (statusEl) statusEl.remove();
 
         // 3. CHECK FOR SERVER CRASH (HTML output)
         if (rawText.trim().startsWith("<")) {
-            showClearError("PHP_CRASH", "Your PHP file has a code error. It is sending HTML instead of JSON.", rawText);
+            showClearError("SERVER_ERROR", "The server returned an unexpected response. Please check your PHP configuration.", rawText);
             return;
         }
 
-        const data = JSON.parse(rawText);
+        let data;
+        try {
+            data = JSON.parse(rawText);
+        } catch (e) {
+            showClearError("PARSE_ERROR", "Failed to parse server response.", rawText);
+            return;
+        }
 
         // 4. CHECK FOR API/CONFIG ERRORS
         if (data.error) {
-            showClearError(data.error, data.detail || "General Error", JSON.stringify(data, null, 2));
+            if (data.error === "CONFIG_ERROR") {
+                showClearError("CONFIGURATION_REQUIRED", "The AI Chatbot is not yet configured. Please set your GEMINI_API_KEY in the .env file.", "Missing API Key");
+            } else {
+                showClearError(data.error, data.detail || "General Error", JSON.stringify(data, null, 2));
+            }
         } else {
-            // SUCCESS
-            box.innerHTML += `<div class="flex justify-start mb-4"><div class="bg-white/10 p-3 rounded-xl text-sm border border-white/5">${data.reply}</div></div>`;
+            // SUCCESS - Format the reply with line breaks
+            const formattedReply = data.reply.replace(/\n/g, '<br>');
+            box.innerHTML += `<div class="flex justify-start mb-4">
+                <div class="bg-white/10 p-4 rounded-2xl rounded-tl-none text-sm border border-white/10 shadow-xl max-w-[90%] leading-relaxed">
+                    ${formattedReply}
+                </div>
+            </div>`;
         }
 
     } catch (err) {
-        if(document.getElementById(tempId)) document.getElementById(tempId).remove();
-        showClearError("NETWORK_FAIL", "Cannot reach chat.php. Check your internet or file path.", err.message);
+        const statusEl = document.getElementById(tempId);
+        if (statusEl) statusEl.remove();
+        showClearError("CONNECTION_ERROR", "Cannot reach the chat server. Please check your internet connection.", err.message);
     }
     box.scrollTop = box.scrollHeight;
 }
