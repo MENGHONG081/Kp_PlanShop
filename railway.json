@@ -1,0 +1,33 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "sh -c \"php-fpm -D && nginx -g \'daemon off;\'\"",
+    "healthcheckPath": "/index.php",
+    "healthcheckTimeout": 10
+  },
+  "environment": {
+    "DB_DRIVER": "pgsql",
+    "DB_HOST": "${{PostgreSQL.HOST}}",
+    "DB_PORT": "${{PostgreSQL.PORT}}",
+    "DB_NAME": "${{PostgreSQL.DATABASE}}",
+    "DB_USER": "${{PostgreSQL.USERNAME}}",
+    "DB_PASS": "${{PostgreSQL.PASSWORD}}",
+    "BAKONG_TOKEN": "",
+    "BAKONG_ACCOUNT": "",
+    "BAKONG_API_BASE": "https://api-bakong.nbc.gov.kh",
+    "PAYWAY_MERCHANT_ID": "",
+    "PAYWAY_PUBLIC_KEY": "",
+    "PAYWAY_PRIVATE_KEY": "",
+    "PAYWAY_RETURN_URL": "https://your-railway-app.up.railway.app/User_Page/payment/success",
+    "PAYWAY_CANCEL_URL": "https://your-railway-app.up.railway.app/User_Page/payment/cancel",
+    "PAYWAY_ENV": "production",
+    "GEMINI_API_KEY": "",
+    "TELEGRAM_BOT_TOKEN": "",
+    "SITE_URL": "https://your-railway-app.up.railway.app/User_Page"
+  },
+  "links": [
+    "PostgreSQL"
+  ]
+}
