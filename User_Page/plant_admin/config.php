@@ -15,6 +15,7 @@ $port = getenv('DB_PORT') ?: ($dbDriver === 'pgsql' ? '5432' : '3306');
 $dbname = getenv('DB_NAME') ?: 'plantshop';
 $username = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASS') ?: '';
+$dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
 
 try {
     if ($dbDriver === 'pgsql') {
@@ -28,7 +29,7 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]);
 } catch (PDOException $e) {
-    die('Database connection failed');
+    die('Database connection failed: ' . $e->getMessage());
 }
 
 define('ROOT_PATH', dirname(__DIR__)); // project root
