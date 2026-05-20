@@ -1,31 +1,20 @@
 {
-  "$schema": "https://railway.railway.app/railway.schema.json",
+  "$schema": "https://railway.com/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "RAILPACK"
   },
   "deploy": {
-    "startCommand": "php-fpm -D && nginx -g 'daemon off;'",
-    "healthcheckPath": "/index.php",
-    "healthcheckTimeout": 10
-  },
-  "environment": {
-    "DB_DRIVER": "pgsql",
-    "DB_HOST": "${{PostgreSQL.HOST}}",
-    "DB_PORT": "${{PostgreSQL.PORT}}",
-    "DB_NAME": "${{PostgreSQL.DATABASE}}",
-    "DB_USER": "${{PostgreSQL.USERNAME}}",
-    "DB_PASS": "${{PostgreSQL.PASSWORD}}",
-    "BAKONG_TOKEN": "",
-    "BAKONG_ACCOUNT": "",
-    "BAKONG_API_BASE": "https://api-bakong.nbc.gov.kh",
-    "PAYWAY_MERCHANT_ID": "",
-    "PAYWAY_PUBLIC_KEY": "",
-    "PAYWAY_PRIVATE_KEY": "",
-    "PAYWAY_RETURN_URL": "https://your-railway-app.up.railway.app/User_Page/payment/success",
-    "PAYWAY_CANCEL_URL": "https://your-railway-app.up.railway.app/User_Page/payment/cancel",
-    "PAYWAY_ENV": "production",
-    "GEMINI_API_KEY": "",
-    "TELEGRAM_BOT_TOKEN": "",
-    "SITE_URL": "https://your-railway-app.up.railway.app/User_Page"
+    "runtime": "V2",
+    "numReplicas": 1,
+    "sleepApplication": false,
+    "useLegacyStacker": false,
+    "ipv6EgressEnabled": false,
+    "multiRegionConfig": {
+      "us-west2": {
+        "numReplicas": 1
+      }
+    },
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
   }
 }
