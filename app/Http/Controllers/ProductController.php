@@ -8,29 +8,113 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    /**
+     * Get all products with pagination
+     */
+    public function index(Request $request)
     {
-        $products = Product::with('category')->paginate(12);
-        return view('products.index', compact('products'));
+        $perPage = $request->input('per_page', 12);
+        $products = Product::with('category')
+            ->paginate($perPage);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Products retrieved successfully',
+            'data' => $products->items(),
+            'pagination' => [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'from' => $products->firstItem(),
+                'to' => $products->lastItem(),
+            ]
+        ], 200);
     }
 
+    /**
+     * Get single product by ID
+     */
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        $product->load('category');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Product retrieved successfully',
+            'data' => $product
+        ], 200);
     }
 
+    /**
+     * Search products by name or description
+     */
     public function search(Request $request)
     {
-        $query = $request->input('q');
-        $products = Product::where('name', 'ilike', "%{$query}%")
+        $query = $request->input('q', '');
+        $perPage = $request->input('per_page', 12);
+
+        if (empty($query)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Search query is required',
+                'data' => []
+            ], 400);
+        }
+
+        $products = Product::with('category')
+            ->where('name', 'ilike', "%{$query}%")
             ->orWhere('description', 'ilike', "%{$query}%")
-            ->paginate(12);
-        return view('products.index', compact('products'));
+            ->paginate($perPage);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Products found',
+            'data' => $products->items(),
+            'pagination' => [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+            ]
+        ], 200);
     }
 
-    public function byCategory(Category $category)
+    /**
+     * Get all categories
+     */
+    public function categories()
     {
-        $products = $category->products()->paginate(12);
-        return view('products.index', compact('products', 'category'));
+        $categories = Category::withCount('products')->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Categories retrieved successfully',
+            'data' => $categories
+        ], 200);
+    }
+
+    /**
+     * Get products by category
+     */
+    public function byCategory(Category $category, Request $request)
+    {
+        $perPage = $request->input('per_page', 12);
+        $products = $category->products()
+            ->with('category')
+            ->paginate($perPage);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Products retrieved successfully',
+            'data' => $products->items(),
+            'category' => $category,
+            'pagination' => [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+            ]
+        ], 200);
     }
 }
