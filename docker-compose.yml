@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  backend:
+    image: php:8.1-fpm
+    container_name: kp-planshop-backend
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=planshop
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+      - APP_KEY=base64:abc123...
+    depends_on:
+      - mysql
+    networks:
+      - planshop-network
+
+  nginx:
+    image: nginx:latest
+    container_name: kp-planshop-nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/app
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    networks:
+      - planshop-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: kp-planshop-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=planshop
+      - MYSQL_USER=planshop
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    networks:
+      - planshop-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: kp-planshop-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+    networks:
+      - planshop-network
+
+volumes:
+  mysql_data:
+
+networks:
+  planshop-network:
+    driver: bridge
